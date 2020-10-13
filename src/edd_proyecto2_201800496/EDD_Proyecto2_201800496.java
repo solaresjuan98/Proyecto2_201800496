@@ -1,6 +1,8 @@
 package edd_proyecto2_201800496;
 
-import Estructuras.ArbolB;
+import Clases.Usuario;
+import Estructuras.ArbolB_Usuarios;
+
 
 /**
  *
@@ -28,7 +30,10 @@ public class EDD_Proyecto2_201800496 {
 //        
 //        System.out.println(ruta.algoritmoFloyd(matrizA));
 //    }
-        ArbolB arbol = new ArbolB(3);// no tocar
+//        Registro registro = new Registro();
+//        registro.setVisible(true);
+        
+        /*ArbolB arbol = new ArbolB(3);// no tocar
 
         int[] valores = {20, 10, 50, 30, 40};
 
@@ -50,8 +55,25 @@ public class EDD_Proyecto2_201800496 {
         arbol.insertar(15);
         arbol.insertar(21);
 
-        arbol.mostrarArbolB();
+        arbol.mostrarArbolB();*/
+        
 
+        //IniciarSesion login = new IniciarSesion();
+        //login.setVisible(true);
+        //DashbordAministrador d = new DashbordAministrador();
+        //d.setVisible(true);
+        
+        ArbolB_Usuarios ab = new ArbolB_Usuarios(3);
+        
+        ab.agregarUsuario(new Usuario(1, "Juan", "juan", "djfldkfj", "fjkdjfl", 3232323));
+        ab.agregarUsuario(new Usuario(30, "Juan", "juan", "djfldkfj", "fjkdjfl", 3232323));
+        ab.agregarUsuario(new Usuario(231, "Juan", "juan", "djfldkfj", "fjkdjfl", 3232323));
+        ab.agregarUsuario(new Usuario(221, "Juan", "juan", "djfldkfj", "fjkdjfl", 3232323));
+        ab.agregarUsuario(new Usuario(111, "Juan", "juan", "djfldkfj", "fjkdjfl", 3232323));
+        ab.agregarUsuario(new Usuario(331, "Juan", "juan", "djfldkfj", "fjkdjfl", 3232323));
+        ab.agregarUsuario(new Usuario(11, "Juan", "juan", "djfldkfj", "fjkdjfl", 3232323));
+        
+        ab.mostrarArbolB();
     }
 
 }
