@@ -12,11 +12,12 @@ package Estructuras;
 public class ArbolB {
 
     NodoArbolB raiz;
+    //ArrayList<Usuario> ListaUsuarios;
     int t;
 
     public ArbolB(int t) {
-
         this.t = t;
+        //ArrayList<E> lista = new ArrayList<E>();
         raiz = new NodoArbolB(t);
     }
 
