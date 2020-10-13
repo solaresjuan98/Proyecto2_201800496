@@ -5,6 +5,8 @@
  */
 package Estructuras;
 
+import Clases.Usuario;
+
 /**
  *
  * @author juan333
@@ -12,18 +14,15 @@ package Estructuras;
 public class NodoArbolB {
 
     int n;//grado 
-    //int maximo = n - 1;
-    //int gradoMinimo = n / 2;//maximo
+    Usuario usuario;
     boolean hoja;
     int clave[];// almacenar claves en el nodo
     NodoArbolB hijo[]; // enlace a referencias a los hijos
 
-    //   
     public NodoArbolB(int t) {
         n = 0;
         hoja = true;
         clave = new int[((2 * t) - 1)];
-        //System.out.println(t - 1);
         hijo = new NodoArbolB[(2 * t)];
     }
 
@@ -44,4 +43,17 @@ public class NodoArbolB {
 
         return -1;
     }
+    
+    
+    /*
+        Getter y Setter
+    */
+//    public Usuario getUsuario() {
+//        return usuario;
+//    }
+//
+//    public void setUsuario(Usuario usuario) {
+//        this.usuario = usuario;
+//    }
+
 }
