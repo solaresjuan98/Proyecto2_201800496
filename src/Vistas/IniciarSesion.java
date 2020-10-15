@@ -5,6 +5,7 @@
  */
 package Vistas;
 
+import Estructuras.ArbolB_Usuarios;
 import com.sun.awt.AWTUtilities;
 import java.awt.Shape;
 import java.awt.geom.RoundRectangle2D;
@@ -12,12 +13,10 @@ import java.util.Arrays;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author Chappie
- */
-public class IniciarSesion extends javax.swing.JFrame {
 
+public class IniciarSesion extends javax.swing.JFrame {
+    
+    ArbolB_Usuarios usuarios;
     /**
      * Creates new form IniciarSesion
      */
@@ -27,6 +26,7 @@ public class IniciarSesion extends javax.swing.JFrame {
         //
         Shape forma = new RoundRectangle2D.Double(0, 0, getBounds().width, getBounds().height, 20, 20);
         AWTUtilities.setWindowShape(this, forma);
+        usuarios = new ArbolB_Usuarios(3);
 
     }
 
@@ -163,7 +163,11 @@ public class IniciarSesion extends javax.swing.JFrame {
 
     private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
         // TODO add your handling code here:
-        JOptionPane.showMessageDialog(null, "Mensaje");
+        
+        Registro registro = new Registro(usuarios);
+        registro.setVisible(true);
+        dispose();
+        
     }//GEN-LAST:event_btnIngresarActionPerformed
 
     private void jLabel9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel9MouseClicked

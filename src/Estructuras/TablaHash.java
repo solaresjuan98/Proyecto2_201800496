@@ -17,20 +17,21 @@ public class TablaHash {
     Lugar lugar;
     Lugar[] arreglo_lugares;
     Lugar[] lugares_redimensionado;
-
+    int tam_nuevo;
+    
     public TablaHash(int tamanio) {
         this.tamanio = tamanio;
-        arreglo_lugares = new Lugar[tamanio - 1];
+        tam_nuevo = (int) (tamanio / 0.3);
+        arreglo_lugares = new Lugar[tamanio];
     }
 
     public void insertar(Lugar lugar) {
         //Hallar la posicion donde se va a ubicar el lugar a ingresar
-        float R = 0.201800496f;
-        int x = getAscii(lugar.getCategoria());
-        //System.out.println(R * x);
-        //System.out.println((int) R * x);
+
+        // metodo de la multiplicación
+        float R = 0.201800496f;// constante con numero de carnet
+        int x = getAscii(lugar.getCategoria()); // catergoria convertida a ascii
         float d = (R * x) - (int) (R * x);
-        //System.out.println(d);
         int h = (int) ((tamanio - 1) * d);
 
         System.out.println("posicion --> " + h);
@@ -39,57 +40,117 @@ public class TablaHash {
         // - Caso donde la pos "h" no está ocupada
         // - Caso donde la pos "h" si está ocupada -> metodo cuadratico
         if (buscarPos(h, arreglo_lugares)) {
-            System.out.println("Ingresando ... ");
-            arreglo_lugares[h] = lugar;
+
+            if (!posMinimasLlenas(arreglo_lugares)) {
+                // caso base, cuando la pos "h" está disponible en el arreglo
+                arreglo_lugares[h] = lugar;
+                System.out.println("Ingresado en pos: " + h);
+            } else {
+                System.out.println("Se debe redimensionar el arreglo");
+                //empezar a usar el otro arreglo aqui 
+            }
 
         } else {
             // colision
-            System.out.println("No se ingresara, hay colision en el indice " + h);
-            h++;
-            if (buscarPos(h, arreglo_lugares)) {
-                System.out.println("Ingresando aqui....");
-                arreglo_lugares[h] = lugar;
+            if (!posMinimasLlenas(arreglo_lugares)) {
+                insertar_colision(h, arreglo_lugares, lugar);
+            } else {
+           
+                System.out.println("Se debe redimensionar el arreglo");
+                //empezar a usar el otro arreglo aqui
             }
-        }
 
-        
+        }
 
     }
 
-    private void insertar_colision(int pos, Lugar[] arr) {
-        
-        boolean insertado = false;
-        
-        for(int i = 0; i < arr.length; i++) { 
-            
-            if(i == pos && arr[pos] == null){
-                //Me quedé Aqui
-                System.out.println("Se ingresará aqui");
-                break;
+    // Metodo cuadratico para manejar la colision
+    private void insertar_colision(int pos, Lugar[] arr, Lugar lugar) {
+
+        //boolean insertado = false;
+        try {
+            if (arr[pos] == null) {
+                arr[pos] = lugar;
+                System.out.println(" >> Ingresado en pos: " + pos);
+            } else if (arr[pos] != null) {
+                //System.out.println("La posicion " + pos + " ya esta ocupada, usar el metodo cuadratico");
+                insertar_colision(metodoCuadratico(pos), arr, lugar);// no tocar
+                
+                
             }
-            else if(i == pos && arr[pos] != null){
-               
-            }
+        } catch (Exception e) {
+            System.out.println("Arreglo lleno");
         }
+
     }
 
     private boolean buscarPos(int pos, Lugar[] arr) {
+
         boolean disponible = false;
 
         for (int i = 0; i < arr.length; i++) {
 
             if (i == pos && arr[pos] == null) {
-                System.out.println("Posicion vacia");
+                //System.out.println("Posicion vacia");
                 disponible = true;
                 break;
             } else if (i == pos && arr[pos] != null) {
-                System.out.println("Posicion ocupada");
+                disponible = false;
             } else {
-                //System.out.println("No encontrado");
+                disponible = false;
             }
         }
 
         return disponible;
+    }
+
+    private boolean posMinimasLlenas(Lugar[] arr) {
+
+        boolean estaLleno = false;
+        int pos_llenas = 0;
+
+        for (int i = 0; i < arr.length; i++) {
+
+            if (arr[i] != null) {
+                pos_llenas++;
+            }
+        }
+
+        estaLleno = pos_llenas > 7;
+
+        return estaLleno;
+    }
+
+    public void mostrarTabla() {
+
+        imprimirTablaHash(arreglo_lugares);
+    }
+
+    private void imprimirTablaHash(Lugar[] arr) {
+
+        for (Lugar l : arr) {
+            if (l != null) {
+                System.out.println(" >> id: " + l.getId_lugar() + " ----  Nombre: " + l.getCategoria());
+            }
+
+        }
+
+    }
+
+    private int metodoCuadratico(int h) {
+        int nueva_pos = 0;
+        int p = h;
+        int i = 1;
+        float R = 0.201800496f;
+        int m = tamanio;
+        p = h + i * i;
+        int x = p;
+        float t = R * x;
+        System.out.println("t " + (int) t);
+        float d = t - (int) t;
+        nueva_pos = (int) ((int) m * d);
+        return nueva_pos;
+
     }
 
     public int getAscii(String nombre_lugar) {
@@ -98,7 +159,6 @@ public class TablaHash {
         for (int i = 0; i < nombre_lugar.length(); i++) {
             char c = nombre_lugar.charAt(i);
             val_ascii += (int) c;
-            //System.out.println((int) c);
         }
 
         //System.out.println(val_ascii);
