@@ -1,7 +1,7 @@
 package edd_proyecto2_201800496;
 
-import Clases.Usuario;
-import Estructuras.ArbolB_Usuarios;
+import Clases.Lugar;
+import Estructuras.TablaHash;
 
 
 /**
@@ -34,7 +34,13 @@ public class EDD_Proyecto2_201800496 {
 //        registro.setVisible(true);
         
         /*ArbolB arbol = new ArbolB(3);// no tocar
-
+        
+        for(int i = 0; i < 100; i++) {
+            arbol.insertar(i);
+        }*
+        
+        arbol.mostrarArbolB();*/
+        /*
         int[] valores = {20, 10, 50, 30, 40};
 
         for (int i = 0; i < valores.length; i++) {
@@ -57,23 +63,25 @@ public class EDD_Proyecto2_201800496 {
 
         arbol.mostrarArbolB();*/
         
+        /*ArbolB_Usuarios arbol_usuarios = new ArbolB_Usuarios(3);
+        
+        for(int i = 0; i < 24; i++){
+            arbol_usuarios.agregarUsuario(new Usuario((int) i, "juan", "juan333", "correo", "1212", 4343434, "conductor"));
+        }
+        
+        arbol_usuarios.mostrarArbolB();*/
+        
+        
+        TablaHash hash = new TablaHash(10);
+        
+        hash.insertar(new Lugar(2, "Miraflores", "Zara", 0, 0));
+        hash.insertar(new Lugar(3, "Miraflores", "Zara", 0, 0));
 
         //IniciarSesion login = new IniciarSesion();
         //login.setVisible(true);
         //DashbordAministrador d = new DashbordAministrador();
         //d.setVisible(true);
         
-        ArbolB_Usuarios ab = new ArbolB_Usuarios(3);
-        
-        ab.agregarUsuario(new Usuario(1, "Juan", "juan", "djfldkfj", "fjkdjfl", 3232323));
-        ab.agregarUsuario(new Usuario(30, "Juan", "juan", "djfldkfj", "fjkdjfl", 3232323));
-        ab.agregarUsuario(new Usuario(231, "Juan", "juan", "djfldkfj", "fjkdjfl", 3232323));
-        ab.agregarUsuario(new Usuario(221, "Juan", "juan", "djfldkfj", "fjkdjfl", 3232323));
-        ab.agregarUsuario(new Usuario(111, "Juan", "juan", "djfldkfj", "fjkdjfl", 3232323));
-        ab.agregarUsuario(new Usuario(331, "Juan", "juan", "djfldkfj", "fjkdjfl", 3232323));
-        ab.agregarUsuario(new Usuario(11, "Juan", "juan", "djfldkfj", "fjkdjfl", 3232323));
-        
-        ab.mostrarArbolB();
     }
 
 }

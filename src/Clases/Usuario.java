@@ -10,17 +10,19 @@ package Clases;
  * @author juan333
  */
 public class Usuario {
-    int id;
-    String nombre_completo, username, contrasenia, correo;
-    long telefono;
 
-    public Usuario(int id ,String nombre_completo, String username, String contrasenia, String correo, long telefono) {
+    int id;
+    String nombre_completo, username, contrasenia, correo, rol;
+    int telefono;
+
+    public Usuario(int id, String nombre_completo, String username, String correo, String contrasenia, int telefono, String rol) {
         this.id = id;
         this.nombre_completo = nombre_completo;
         this.username = username;
-        this.contrasenia = contrasenia;
         this.correo = correo;
+        this.contrasenia = contrasenia;
         this.telefono = telefono;
+        this.rol = rol;
     }
 
     public int getId() {
@@ -67,8 +69,16 @@ public class Usuario {
         return telefono;
     }
 
-    public void setTelefono(long telefono) {
+    public void setTelefono(int telefono) {
         this.telefono = telefono;
+    }
+
+    public String getRol() {
+        return rol;
+    }
+
+    public void setRol(String rol) {
+        this.rol = rol;
     }
 
 }

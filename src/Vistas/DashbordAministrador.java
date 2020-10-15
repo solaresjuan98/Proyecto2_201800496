@@ -5,7 +5,21 @@
  */
 package Vistas;
 
+import Clases.Usuario;
+import Estructuras.ArbolB_Usuarios;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.Reader;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 /**
  *
@@ -13,11 +27,15 @@ import javax.swing.JOptionPane;
  */
 public class DashbordAministrador extends javax.swing.JFrame {
 
+    // Arbol b usuarios
+    ArbolB_Usuarios arbolb_usuarios = new ArbolB_Usuarios(3);
+
     /**
      * Creates new form DashbordAministrador
      */
     public DashbordAministrador() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -91,7 +109,7 @@ public class DashbordAministrador extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(58, 58, 58)
                         .addComponent(jLabel5)
-                        .addGap(58, 58, 58)
+                        .addGap(70, 70, 70)
                         .addComponent(jLabel4)))
                 .addContainerGap(299, Short.MAX_VALUE))
         );
@@ -133,9 +151,58 @@ public class DashbordAministrador extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+
+        // Variables de datos del usuario
+        int id_usuario;
+        String nombre, usuario, correo, password, rol;
+        int telefono;
         
-        JOptionPane.showMessageDialog(null, "Evento");
+        JFileChooser subirJSON = new JFileChooser();
+        FileNameExtensionFilter filtro = new FileNameExtensionFilter("Archivos JSON", "json");
+        subirJSON.setFileFilter(filtro);
+        
+        JSONParser parser = new JSONParser();
+        
+        int r = subirJSON.showOpenDialog(null);
+        if (r == JFileChooser.APPROVE_OPTION) {
+            System.out.println(subirJSON.getSelectedFile().getName());
+            try {
+                Reader reader = new FileReader(subirJSON.getSelectedFile());
+                JSONObject jsonobj = (JSONObject) parser.parse(reader);
+                //System.out.println(jsonobj);
+
+                // array
+                JSONArray usuarios = (JSONArray) jsonobj.get("usuarios");
+                
+                for (int i = 0; i < usuarios.size(); i++) {
+                    
+                    JSONObject user = (JSONObject) usuarios.get(i);
+                    
+                    long id = ((Number) user.get("id")).longValue();
+                    nombre = (String) user.get("nombre");
+                    usuario = (String) user.get("usuario");
+                    correo = (String) user.get("correo");
+                    password = (String) user.get("pass");
+                    String tel = (String) user.get("telefono");
+                    rol = (String) user.get("rol");
+                    
+                    System.out.println(id);
+                    //arbolb_usuarios.insertar((int) id);     
+                    arbolb_usuarios.agregarUsuario(new Usuario((int) id, nombre, usuario, correo, password, Integer.parseInt(tel), rol));
+
+                }
+                
+                arbolb_usuarios.mostrarArbolB();
+                arbolb_usuarios.mostrarUsuarios();
+                
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(DashbordAministrador.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(DashbordAministrador.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ParseException ex) {
+                Logger.getLogger(DashbordAministrador.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**

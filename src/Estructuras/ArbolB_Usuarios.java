@@ -26,6 +26,14 @@ public class ArbolB_Usuarios extends ArbolB {
         this.insertar(u.getId());
         lista_usuarios.add(u);
         
+    }
+    
+    public void mostrarUsuarios(){
         
+        System.out.println("\n");
+        lista_usuarios.forEach((usuario) -> {
+          
+            System.out.println(" >> id: "+ usuario.getId() +"  nombre: "+usuario.getNombre_completo());
+        });
     }
 }
