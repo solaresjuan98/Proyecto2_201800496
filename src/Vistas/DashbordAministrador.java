@@ -5,8 +5,10 @@
  */
 package Vistas;
 
+import Clases.Lugar;
 import Clases.Usuario;
 import Estructuras.ArbolB_Usuarios;
+import Estructuras.TablaHash;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -29,6 +31,8 @@ public class DashbordAministrador extends javax.swing.JFrame {
 
     // Arbol b usuarios
     ArbolB_Usuarios arbolb_usuarios = new ArbolB_Usuarios(3);
+    // Tabla hash de lugares
+    TablaHash hash = new TablaHash(10);
 
     /**
      * Creates new form DashbordAministrador
@@ -49,8 +53,8 @@ public class DashbordAministrador extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btn_subirLugares = new javax.swing.JButton();
+        btn_usuariosJSON = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
@@ -65,23 +69,23 @@ public class DashbordAministrador extends javax.swing.JFrame {
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Dashboard");
 
-        jButton1.setBackground(new java.awt.Color(33, 45, 62));
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8_marker_96px.png"))); // NOI18N
-        jButton1.setFocusable(false);
-        jButton1.setBorder(null);
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btn_subirLugares.setBackground(new java.awt.Color(33, 45, 62));
+        btn_subirLugares.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8_marker_96px.png"))); // NOI18N
+        btn_subirLugares.setFocusable(false);
+        btn_subirLugares.setBorder(null);
+        btn_subirLugares.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btn_subirLugaresActionPerformed(evt);
             }
         });
 
-        jButton2.setBackground(new java.awt.Color(33, 45, 62));
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8_upload_96px.png"))); // NOI18N
-        jButton2.setFocusable(false);
-        jButton2.setBorder(null);
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btn_usuariosJSON.setBackground(new java.awt.Color(33, 45, 62));
+        btn_usuariosJSON.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8_upload_96px.png"))); // NOI18N
+        btn_usuariosJSON.setFocusable(false);
+        btn_usuariosJSON.setBorder(null);
+        btn_usuariosJSON.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btn_usuariosJSONActionPerformed(evt);
             }
         });
 
@@ -96,6 +100,7 @@ public class DashbordAministrador extends javax.swing.JFrame {
         jButton3.setBackground(new java.awt.Color(33, 45, 62));
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8_gender_neutral_user_96px.png"))); // NOI18N
         jButton3.setBorder(null);
+        jButton3.setFocusable(false);
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
@@ -115,16 +120,14 @@ public class DashbordAministrador extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(39, 39, 39)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(53, 53, 53)
-                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btn_usuariosJSON, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(78, 78, 78)
                                 .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(btn_subirLugares, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(55, 55, 55)
                         .addComponent(jLabel5)
@@ -143,8 +146,8 @@ public class DashbordAministrador extends javax.swing.JFrame {
                 .addGap(29, 29, 29)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btn_usuariosJSON, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_subirLugares, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -169,55 +172,47 @@ public class DashbordAministrador extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void btn_subirLugaresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_subirLugaresActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // Variables de datos del lugar 
+        int id_lugar;
+        String categoria;
+        String nombre;
+        String latitud;
+        String longitud;
 
-        // Variables de datos del usuario
-        int id_usuario;
-        String nombre, usuario, correo, password, rol;
-        int telefono;
-        
-        JFileChooser subirJSON = new JFileChooser();
+        JFileChooser subirLugar = new JFileChooser();
         FileNameExtensionFilter filtro = new FileNameExtensionFilter("Archivos JSON", "json");
-        subirJSON.setFileFilter(filtro);
-        
+        subirLugar.setFileFilter(filtro);
         JSONParser parser = new JSONParser();
-        
-        int r = subirJSON.showOpenDialog(null);
+
+        int r = subirLugar.showOpenDialog(null);
+
         if (r == JFileChooser.APPROVE_OPTION) {
-            System.out.println(subirJSON.getSelectedFile().getName());
+            System.out.println(subirLugar.getSelectedFile().getName());
             try {
-                Reader reader = new FileReader(subirJSON.getSelectedFile());
+                Reader reader = new FileReader(subirLugar.getSelectedFile());
                 JSONObject jsonobj = (JSONObject) parser.parse(reader);
-                //System.out.println(jsonobj);
 
                 // array
-                JSONArray usuarios = (JSONArray) jsonobj.get("usuarios");
-                
-                for (int i = 0; i < usuarios.size(); i++) {
-                    
-                    JSONObject user = (JSONObject) usuarios.get(i);
-                    
-                    long id = ((Number) user.get("id")).longValue();
-                    nombre = (String) user.get("nombre");
-                    usuario = (String) user.get("usuario");
-                    correo = (String) user.get("correo");
-                    password = (String) user.get("pass");
-                    String tel = (String) user.get("telefono");
-                    rol = (String) user.get("rol");
-                    
-                    System.out.println(id);
-                    //arbolb_usuarios.insertar((int) id);     
-                    arbolb_usuarios.agregarUsuario(new Usuario((int) id, nombre, usuario, correo, password, Integer.parseInt(tel), rol));
+                JSONArray lugares = (JSONArray) jsonobj.get("Lugares");
+
+                for (int i = 0; i < lugares.size(); i++) {
+
+                    JSONObject lugar = (JSONObject) lugares.get(i);
+
+                    long id = ((Number) lugar.get("id")).longValue();
+                    categoria = (String) lugar.get("Categoria");
+                    nombre = lugar.get("Nombre").toString();
+                    latitud = lugar.get("Lat").toString();
+                    longitud = lugar.get("Lon").toString();
+
+                    hash.insertar(new Lugar((int) id, categoria, nombre, Float.parseFloat(latitud), Float.parseFloat(longitud)));
 
                 }
-                
-                arbolb_usuarios.mostrarArbolB();
-                arbolb_usuarios.mostrarUsuarios();
-                
+
+                hash.mostrarTabla();
+
             } catch (FileNotFoundException ex) {
                 Logger.getLogger(DashbordAministrador.class.getName()).log(Level.SEVERE, null, ex);
             } catch (IOException ex) {
@@ -226,7 +221,63 @@ public class DashbordAministrador extends javax.swing.JFrame {
                 Logger.getLogger(DashbordAministrador.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-    }//GEN-LAST:event_jButton2ActionPerformed
+
+
+    }//GEN-LAST:event_btn_subirLugaresActionPerformed
+
+    private void btn_usuariosJSONActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_usuariosJSONActionPerformed
+
+        // Variables de datos del usuario
+        int id_usuario;
+        String nombre, usuario, correo, password, rol;
+        int telefono;
+
+        JFileChooser subirJSON = new JFileChooser();
+        FileNameExtensionFilter filtro = new FileNameExtensionFilter("Archivos JSON", "json");
+        subirJSON.setFileFilter(filtro);
+
+        JSONParser parser = new JSONParser();
+
+        int r = subirJSON.showOpenDialog(null);
+        if (r == JFileChooser.APPROVE_OPTION) {
+            System.out.println(subirJSON.getSelectedFile().getName());
+            try {
+                Reader reader = new FileReader(subirJSON.getSelectedFile());
+                JSONObject jsonobj = (JSONObject) parser.parse(reader);
+
+                // array
+                JSONArray usuarios = (JSONArray) jsonobj.get("usuarios");
+
+                for (int i = 0; i < usuarios.size(); i++) {
+
+                    JSONObject user = (JSONObject) usuarios.get(i);
+
+                    long id = ((Number) user.get("id")).longValue();
+                    nombre = (String) user.get("nombre");
+                    usuario = (String) user.get("usuario");
+                    correo = (String) user.get("correo");
+                    password = (String) user.get("pass");
+                    String tel = (String) user.get("telefono");
+                    rol = (String) user.get("rol");
+
+                    //System.out.println(id);
+                    //arbolb_usuarios.insertar((int) id);     
+                    arbolb_usuarios.agregarUsuario(new Usuario((int) id, nombre, usuario, correo, password, Integer.parseInt(tel), rol));
+
+                }
+
+                arbolb_usuarios.mostrarArbolB();
+                arbolb_usuarios.mostrarUsuarios();
+
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(DashbordAministrador.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(DashbordAministrador.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ParseException ex) {
+                Logger.getLogger(DashbordAministrador.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_btn_usuariosJSONActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
@@ -268,8 +319,8 @@ public class DashbordAministrador extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton btn_subirLugares;
+    private javax.swing.JButton btn_usuariosJSON;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

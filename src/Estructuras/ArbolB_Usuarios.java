@@ -7,6 +7,7 @@ package Estructuras;
 
 import Clases.Usuario;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -22,18 +23,40 @@ public class ArbolB_Usuarios extends ArbolB {
     }
 
     public void agregarUsuario(Usuario u) {
-        
-        this.insertar(u.getId());
-        lista_usuarios.add(u);
-        
+
+        if (!usuarioExiste(u.getId())) {
+            this.insertar(u.getId());
+            lista_usuarios.add(u);
+        }else{
+            //System.out.println(" ZZ n");
+            JOptionPane.showMessageDialog(null, "El usuario con el id "+ u.getId()+ " ya existe");
+        }
+
     }
-    
-    public void mostrarUsuarios(){
-        
+
+    public void mostrarUsuarios() {
+
         System.out.println("\n");
         lista_usuarios.forEach((usuario) -> {
-          
-            System.out.println(" >> id: "+ usuario.getId() +"  nombre: "+usuario.getNombre_completo());
+
+            System.out.println(" >> id: " + usuario.getId() + "  nombre: " + usuario.getNombre_completo());
         });
+    }
+
+    public boolean usuarioExiste(int id) {
+
+        boolean encontrado = false;
+
+        for (Usuario u : lista_usuarios) {
+            
+            if (u.getId() == id) {
+                encontrado = true;
+                System.out.println(" >> Encontrado");
+                return true;
+                
+            }
+        }
+
+        return encontrado;
     }
 }

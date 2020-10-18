@@ -1,7 +1,8 @@
 package edd_proyecto2_201800496;
 
+import Clases.Usuario;
 import Estructuras.ArbolB_Usuarios;
-import Vistas.IniciarSesion;
+import Vistas.DashbordAministrador;
 
 /**
  *
@@ -13,13 +14,9 @@ public class EDD_Proyecto2_201800496 {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        
+
         // CARGANDO ESTRUCTURAS
         ArbolB_Usuarios Arbolb_usuarios = new ArbolB_Usuarios(3);
-        
-        
-        
-        
 
 //        long matrizA[][] = {{0, 3, 4, 999999999, 8, 999999999}, {999999999, 0, 999999999,
 //            999999999, 5, 999999999}, {999999999, 999999999, 0, 999999999, 3, 999999999},
@@ -67,19 +64,23 @@ public class EDD_Proyecto2_201800496 {
         arbol.insertar(21);
 
         arbol.mostrarArbolB();*/
- /*ArbolB_Usuarios arbol_usuarios = new ArbolB_Usuarios(3);
-        
-        for(int i = 0; i < 24; i++){
+        /*ArbolB_Usuarios arbol_usuarios = new ArbolB_Usuarios(3);
+
+        for (int i = 0; i < 24; i++) {
             arbol_usuarios.agregarUsuario(new Usuario((int) i, "juan", "juan333", "correo", "1212", 4343434, "conductor"));
         }
+
+        //arbol_usuarios.mostrarArbolB();
+        arbol_usuarios.agregarUsuario(new Usuario((int) 7, "juan", "juan333", "correo", "1212", 4343434, "conductor"));
+        arbol_usuarios.mostrarUsuarios();*/
+
+        //arbol_usuarios.agregarUsuario();
         
-        arbol_usuarios.mostrarArbolB();*/
- 
         /**
-         
-         *  TABLA HASH
+         *
+         * TABLA HASH
          */
-       /*TablaHash hash = new TablaHash(10);
+        /*TablaHash hash = new TablaHash(10);
 
         hash.insertar(new Lugar(2, "Miraflores", "Zara", 0, 0));
         hash.insertar(new Lugar(3, "Miraflores", "Berskha", 0, 0));
@@ -94,11 +95,10 @@ public class EDD_Proyecto2_201800496 {
         
         hash.insertar(new Lugar(9, "Santa Clara", "Little ceasars", 0, 0));
         hash.mostrarTabla();*/
-       
-        IniciarSesion login = new IniciarSesion();
-        login.setVisible(true);
-        //DashbordAministrador d = new DashbordAministrador();
-        //d.setVisible(true);
+        //IniciarSesion login = new IniciarSesion();
+        //login.setVisible(true);
+        DashbordAministrador d = new DashbordAministrador();
+        d.setVisible(true);
 
     }
 

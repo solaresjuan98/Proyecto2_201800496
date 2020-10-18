@@ -149,5 +149,34 @@ public class ArbolB {
             }
         }
     }
+    
+    public void buscarID(int id){
+        
+        NodoArbolB aux = buscar(raiz, id);
+        
+        if(aux == null){
+            System.out.println(" >> Nodo no encontrado");
+        }else{
+            imprimir(aux);
+        }
+    }
+    
+    private NodoArbolB buscar(NodoArbolB act, int clave) {
 
+        int i = 0;
+
+        while (i < act.n && clave > act.clave[i]) {
+            i++;
+        }
+
+        if (i < act.n && clave == act.clave[i]) {
+            return act;
+        }
+        
+        if(act.hoja){
+            return null;
+        }else{
+            return buscar(act.hijo[i], clave);
+        }
+    }
 }
