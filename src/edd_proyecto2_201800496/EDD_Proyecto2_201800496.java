@@ -3,6 +3,8 @@ package edd_proyecto2_201800496;
 import Clases.Usuario;
 import Estructuras.ArbolB_Usuarios;
 import Vistas.DashbordAministrador;
+import Vistas.IniciarSesion;
+import Vistas.Registro;
 
 /**
  *
@@ -64,18 +66,16 @@ public class EDD_Proyecto2_201800496 {
         arbol.insertar(21);
 
         arbol.mostrarArbolB();*/
-        /*ArbolB_Usuarios arbol_usuarios = new ArbolB_Usuarios(3);
-
+        ArbolB_Usuarios arbol_usuarios = new ArbolB_Usuarios(3);
+        
         for (int i = 0; i < 24; i++) {
             arbol_usuarios.agregarUsuario(new Usuario((int) i, "juan", "juan333", "correo", "1212", 4343434, "conductor"));
         }
 
         //arbol_usuarios.mostrarArbolB();
-        arbol_usuarios.agregarUsuario(new Usuario((int) 7, "juan", "juan333", "correo", "1212", 4343434, "conductor"));
+        /*arbol_usuarios.agregarUsuario(new Usuario((int) 7, "juan", "juan333", "correo", "1212", 4343434, "conductor"));
         arbol_usuarios.mostrarUsuarios();*/
-
         //arbol_usuarios.agregarUsuario();
-        
         /**
          *
          * TABLA HASH
@@ -97,9 +97,11 @@ public class EDD_Proyecto2_201800496 {
         hash.mostrarTabla();*/
         //IniciarSesion login = new IniciarSesion();
         //login.setVisible(true);
-        DashbordAministrador d = new DashbordAministrador();
-        d.setVisible(true);
-
+        //DashbordAministrador d = new DashbordAministrador();
+        //d.setVisible(true);
+        Registro reg = new Registro(arbol_usuarios);
+        reg.setVisible(true);
+        
     }
-
+    
 }

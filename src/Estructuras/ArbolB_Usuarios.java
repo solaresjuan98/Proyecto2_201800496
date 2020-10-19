@@ -27,9 +27,9 @@ public class ArbolB_Usuarios extends ArbolB {
         if (!usuarioExiste(u.getId())) {
             this.insertar(u.getId());
             lista_usuarios.add(u);
-        }else{
+        } else {
             //System.out.println(" ZZ n");
-            JOptionPane.showMessageDialog(null, "El usuario con el id "+ u.getId()+ " ya existe");
+            JOptionPane.showMessageDialog(null, "El usuario con el id " + u.getId() + " ya existe");
         }
 
     }
@@ -48,12 +48,12 @@ public class ArbolB_Usuarios extends ArbolB {
         boolean encontrado = false;
 
         for (Usuario u : lista_usuarios) {
-            
+
             if (u.getId() == id) {
                 encontrado = true;
                 System.out.println(" >> Encontrado");
                 return true;
-                
+
             }
         }
 

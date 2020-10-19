@@ -7,15 +7,16 @@ package Vistas;
 
 import Clases.Usuario;
 import Estructuras.ArbolB_Usuarios;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author juan333
  */
-public class Registro extends javax.swing.JFrame {    
-    
-    ArbolB_Usuarios arbol = new ArbolB_Usuarios(3);
-    ArbolB_Usuarios arbolb_usuarios;
+public class Registro extends javax.swing.JFrame {
+
+    ArbolB_Usuarios arbol;
+    //ArbolB_Usuarios arbolb_usuarios;
 
     /**
      * Creates new form Registro
@@ -23,14 +24,24 @@ public class Registro extends javax.swing.JFrame {
      * @param arbolb_usuarios
      */
     public Registro(ArbolB_Usuarios arbolb_usuarios) {
-        
-        arbolb_usuarios = new ArbolB_Usuarios(3);
+
         initComponents();
         setLocationRelativeTo(null);
         setResizable(false);
-        
+        registrar.setFocusable(false);
+        borrarform.setFocusable(false);
+
+        if (arbolb_usuarios == null) {
+            System.out.println("f");
+           
+        } else {
+            System.out.println("no f");
+            arbolb_usuarios.mostrarUsuarios();
+            arbol = arbolb_usuarios;
+        }
+
     }
-    
+
     private Registro() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
@@ -68,6 +79,8 @@ public class Registro extends javax.swing.JFrame {
         jLabel11 = new javax.swing.JLabel();
         id = new javax.swing.JTextField();
         jSeparator7 = new javax.swing.JSeparator();
+        regresar = new javax.swing.JButton();
+        borrarform = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -183,6 +196,24 @@ public class Registro extends javax.swing.JFrame {
         jSeparator7.setBackground(new java.awt.Color(73, 181, 172));
         jSeparator7.setForeground(new java.awt.Color(73, 181, 172));
 
+        regresar.setBackground(new java.awt.Color(51, 153, 255));
+        regresar.setFont(new java.awt.Font("Segoe UI Symbol", 0, 18)); // NOI18N
+        regresar.setText("Regresar");
+        regresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                regresarActionPerformed(evt);
+            }
+        });
+
+        borrarform.setBackground(new java.awt.Color(255, 51, 51));
+        borrarform.setFont(new java.awt.Font("Segoe UI Symbol", 0, 18)); // NOI18N
+        borrarform.setText("Borrar form");
+        borrarform.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                borrarformActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -205,29 +236,39 @@ public class Registro extends javax.swing.JFrame {
                                 .addGap(40, 40, 40)
                                 .addComponent(password, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(99, 99, 99)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(correo, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel8)
-                            .addComponent(jSeparator6, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(99, 99, 99)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel9)
+                                    .addComponent(correo, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel8)
+                                    .addComponent(jSeparator6, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel9)
+                                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                                .addComponent(jSeparator5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 101, Short.MAX_VALUE)
+                                                .addComponent(telefono, javax.swing.GroupLayout.Alignment.LEADING)))
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addGap(20, 20, 20)
+                                                .addComponent(jLabel10))
+                                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addGap(18, 18, 18)
+                                                .addComponent(rol, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addComponent(jLabel11)
                                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(jSeparator5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 101, Short.MAX_VALUE)
-                                        .addComponent(telefono, javax.swing.GroupLayout.Alignment.LEADING)))
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGap(20, 20, 20)
-                                        .addComponent(jLabel10))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGap(18, 18, 18)
-                                        .addComponent(rol, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                            .addComponent(jLabel11)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(jSeparator7, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(id, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(registrar, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                        .addComponent(jSeparator7, javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(id, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(93, 93, 93)
+                                .addComponent(registrar, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(regresar, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(borrarform, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(95, 95, 95)))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -277,18 +318,24 @@ public class Registro extends javax.swing.JFrame {
                         .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel5)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(27, 27, 27)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel5)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(30, 30, 30)
+                                .addComponent(password, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(20, 20, 20)
+                                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(4, 4, 4)
+                        .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(password, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(registrar)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(2, 2, 2)
-                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(49, 49, 49))
+                            .addComponent(registrar)
+                            .addComponent(regresar))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(borrarform)))
+                .addGap(35, 35, 35))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -309,18 +356,23 @@ public class Registro extends javax.swing.JFrame {
 
     private void registrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registrarActionPerformed
         // TODO add your handling code here:
-        
-        String nombre_ = nombre.getText();
-        int id_ = Integer.parseInt(id.getText());
-        String user = username.getText();
-        String correo_ = correo.getText();
-        String contrasenia = password.getText();
-        int tel = Integer.parseInt(telefono.getText());
-        String rol_ = rol.getSelectedItem().toString();
-        
-        arbol.agregarUsuario(new Usuario(id_, nombre_, user, correo_, contrasenia, tel, rol_));
-        arbol.mostrarUsuarios();
-        
+
+        try {
+            String nombre_ = nombre.getText();
+            int id_ = Integer.parseInt(id.getText());
+            String user = username.getText();
+            String correo_ = correo.getText();
+            String contrasenia = password.getText();
+            int tel = Integer.parseInt(telefono.getText());
+            String rol_ = rol.getSelectedItem().toString();
+
+            arbol.agregarUsuario(new Usuario(id_, nombre_, user, correo_, contrasenia, tel, rol_));
+            arbol.mostrarUsuarios();
+            JOptionPane.showMessageDialog(null, "Usuario ingresado con exito");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error: favor llenar los campos vacios");
+            System.out.println(e);
+        }
     }//GEN-LAST:event_registrarActionPerformed
 
     private void rolActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rolActionPerformed
@@ -330,6 +382,24 @@ public class Registro extends javax.swing.JFrame {
     private void nombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombreActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_nombreActionPerformed
+
+    private void regresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_regresarActionPerformed
+        // TODO add your handling code here:
+        DashbordAministrador d = new DashbordAministrador();
+        d.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_regresarActionPerformed
+
+    private void borrarformActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_borrarformActionPerformed
+        // TODO add your handling code here:
+        nombre.setText("");
+        id.setText("");
+        username.setText("");
+        correo.setText("");
+        password.setText("");
+        telefono.setText("");
+        //rol.getSelectedItem().toString();
+    }//GEN-LAST:event_borrarformActionPerformed
 
     /**
      * @param args the command line arguments
@@ -367,6 +437,7 @@ public class Registro extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton borrarform;
     private javax.swing.JTextField correo;
     private javax.swing.JTextField id;
     private javax.swing.JLabel jLabel10;
@@ -388,6 +459,7 @@ public class Registro extends javax.swing.JFrame {
     private javax.swing.JTextField nombre;
     private javax.swing.JPasswordField password;
     private javax.swing.JButton registrar;
+    private javax.swing.JButton regresar;
     private javax.swing.JComboBox<String> rol;
     private javax.swing.JTextField telefono;
     private javax.swing.JTextField username;

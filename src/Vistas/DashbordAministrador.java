@@ -13,6 +13,8 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
+import java.math.BigInteger;
+import java.security.MessageDigest;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
@@ -59,6 +61,8 @@ public class DashbordAministrador extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        btn_subirLocalidades = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -111,6 +115,19 @@ public class DashbordAministrador extends javax.swing.JFrame {
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("Cargar lugares");
 
+        jLabel7.setFont(new java.awt.Font("Gotham Thin", 0, 12)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel7.setText("Cargar localidades");
+
+        btn_subirLocalidades.setBackground(new java.awt.Color(33, 45, 62));
+        btn_subirLocalidades.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8_car_96px.png"))); // NOI18N
+        btn_subirLocalidades.setBorder(null);
+        btn_subirLocalidades.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_subirLocalidadesActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -137,6 +154,14 @@ public class DashbordAministrador extends javax.swing.JFrame {
                         .addComponent(jLabel6)
                         .addGap(0, 19, Short.MAX_VALUE)))
                 .addGap(111, 111, 111))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(88, 88, 88)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(jLabel7))
+                    .addComponent(btn_subirLocalidades, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -153,7 +178,11 @@ public class DashbordAministrador extends javax.swing.JFrame {
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(205, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(btn_subirLocalidades, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(10, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -260,8 +289,7 @@ public class DashbordAministrador extends javax.swing.JFrame {
                     String tel = (String) user.get("telefono");
                     rol = (String) user.get("rol");
 
-                    //System.out.println(id);
-                    //arbolb_usuarios.insertar((int) id);     
+                    System.out.println(getSHA256(password));
                     arbolb_usuarios.agregarUsuario(new Usuario((int) id, nombre, usuario, correo, password, Integer.parseInt(tel), rol));
 
                 }
@@ -282,6 +310,52 @@ public class DashbordAministrador extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void btn_subirLocalidadesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_subirLocalidadesActionPerformed
+        // TODO add your handling code here:
+        JFileChooser subirJSON = new JFileChooser();
+        FileNameExtensionFilter filtro = new FileNameExtensionFilter("Archivos JSON", "json");
+        subirJSON.setFileFilter(filtro);
+
+        JSONParser parser = new JSONParser();
+
+        int r = subirJSON.showOpenDialog(null);
+        if (r == JFileChooser.APPROVE_OPTION) {
+            System.out.println(subirJSON.getSelectedFile().getName());
+            try {
+                Reader reader = new FileReader(subirJSON.getSelectedFile());
+                JSONObject jsonobj = (JSONObject) parser.parse(reader);
+
+                // array
+                JSONArray localidades = (JSONArray) jsonobj.get("localidades");
+
+                for (int i = 0; i < localidades.size(); i++) {
+
+                    JSONObject localidad = (JSONObject) localidades.get(i);
+
+                    long id_conductor = ((Number) localidad.get("id_conductor")).longValue();
+                    long id_lugar = ((Number) localidad.get("id_lugar")).longValue();
+                    String disponibilidad = (String) localidad.get("disponibilidad");
+                    
+
+                    //System.out.println(getSHA256(password));
+                    //arbolb_usuarios.agregarUsuario(new Usuario((int) id, nombre, usuario, correo, password, Integer.parseInt(tel), rol));
+
+                }
+
+                arbolb_usuarios.mostrarArbolB();
+                arbolb_usuarios.mostrarUsuarios();
+
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(DashbordAministrador.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(DashbordAministrador.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ParseException ex) {
+                Logger.getLogger(DashbordAministrador.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+    }//GEN-LAST:event_btn_subirLocalidadesActionPerformed
 
     /**
      * @param args the command line arguments
@@ -318,7 +392,25 @@ public class DashbordAministrador extends javax.swing.JFrame {
         });
     }
 
+    public String getSHA256(String pass) {
+
+        String salida = null;
+
+        try {
+
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            digest.reset();
+            digest.update(pass.getBytes("utf8"));
+            salida = String.format("%064x", new BigInteger(1, digest.digest()));
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return salida;
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn_subirLocalidades;
     private javax.swing.JButton btn_subirLugares;
     private javax.swing.JButton btn_usuariosJSON;
     private javax.swing.JButton jButton3;
@@ -326,6 +418,7 @@ public class DashbordAministrador extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }
