@@ -12,15 +12,31 @@ package Clases;
  */
 public class Localidad {
     
-    int id_conductor, id_lugar;
+    int id_conductor, id_lugar, id_usuario;
     boolean disponibilidad;
     
+    // para conductores
     public Localidad(int id_conductor, int id_lugar, boolean disponibilidad){
         this.id_conductor = id_conductor;
         this.id_lugar = id_lugar;
         this.disponibilidad = disponibilidad;
     }
+    
+    // para usuarios
+    public Localidad(int id_usuario, int id_lugar){
+        this.id_usuario = id_usuario;
+        this.id_lugar = id_lugar;
+    }
 
+    public int getId_usuario() {
+        return id_usuario;
+    }
+
+    public void setId_usuario(int id_usuario) {
+        this.id_usuario = id_usuario;
+    }
+
+    
     public int getId_conductor() {
         return id_conductor;
     }

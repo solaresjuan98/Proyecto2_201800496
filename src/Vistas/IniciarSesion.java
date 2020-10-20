@@ -188,7 +188,7 @@ public class IniciarSesion extends javax.swing.JFrame {
         // Logeando como administrador
         if (usuario.equals("marvin_martinez") && contrasenia.equals("admin") && rol_seleccionado.equals("Administrador")) {
             JOptionPane.showMessageDialog(null, "Bienvenido");
-            DashbordAministrador dashboard = new DashbordAministrador();
+            DashbordAministrador dashboard = new DashbordAministrador(usuarios);
             dashboard.setVisible(true);
             dispose();
         } else {
