@@ -19,26 +19,7 @@ public class EDD_Proyecto2_201800496 {
      */
     public static void main(String[] args) {
 
-        // CARGANDO ESTRUCTURAS
-        ArbolB_Usuarios Arbolb_usuarios = new ArbolB_Usuarios(3);
 
-//        long matrizA[][] = {{0, 3, 4, 999999999, 8, 999999999}, {999999999, 0, 999999999,
-//            999999999, 5, 999999999}, {999999999, 999999999, 0, 999999999, 3, 999999999},
-//        {999999999, 999999999, 999999999, 0, 999999999, 999999999}, {999999999, 999999999,
-//            999999999, 7, 0, 3}, {999999999, 999999999, 999999999, 2, 999999999, 0}};
-//        CaminoMinimo ruta = new CaminoMinimo();
-//
-//        /*for (int i = 0; i < 3; i++) {
-//            for (int j = 0; j < 3; j++) {
-//                System.out.print(matrizA[i][j]);
-//            }
-//            System.out.println("\n");
-//        }*/
-//        
-//        System.out.println(ruta.algoritmoFloyd(matrizA));
-//    }
-//        Registro registro = new Registro();
-//        registro.setVisible(true);
         /*ArbolB arbol = new ArbolB(3);// no tocar
         
         for(int i = 0; i < 100; i++) {
@@ -73,12 +54,14 @@ public class EDD_Proyecto2_201800496 {
         arbol_usuarios.agregarUsuario(new Usuario((int) 221, "pablo", "pabloxd", "correo", "pass", 4343434, "usuario"));
         arbol_usuarios.agregarUsuario(new Usuario((int) 10, "maria", "maria_22", "correo", "pass", 4343434, "usuario"));
         arbol_usuarios.agregarUsuario(new Usuario((int) 23, "laura", "laurita_1", "correo", "pass", 4343434, "conductor"));
+        arbol_usuarios.agregarUsuario(new Usuario((int) 72, "Mario", "mario22", "correo", "pass", 4343434, "usuario"));
         
         
+        arbol_usuarios.buscarUsuario("juan333", "paess");
+
         /*for (int i = 0; i < 24; i++) {
             arbol_usuarios.agregarUsuario(new Usuario((int) i, "juan", "juan333", "correo", "1212", 4343434, "conductor"));
         }*/
-
         //arbol_usuarios.mostrarArbolB();
         /*arbol_usuarios.agregarUsuario(new Usuario((int) 7, "juan", "juan333", "correo", "1212", 4343434, "conductor"));
         arbol_usuarios.mostrarUsuarios();*/
@@ -102,13 +85,13 @@ public class EDD_Proyecto2_201800496 {
         
         hash.insertar(new Lugar(9, "Santa Clara", "Little ceasars", 0, 0));
         hash.mostrarTabla();*/
-        //IniciarSesion login = new IniciarSesion();
-        //login.setVisible(true);
-        DashbordAministrador d = new DashbordAministrador(arbol_usuarios);
-        d.setVisible(true);
+        IniciarSesion login = new IniciarSesion(arbol_usuarios);
+        login.setVisible(true);
+        //DashbordAministrador d = new DashbordAministrador(arbol_usuarios);
+        //d.setVisible(true);
         //Registro reg = new Registro(arbol_usuarios);
         //reg.setVisible(true);
-        
+
         /*
         TablaHashExpL tablaexp = new TablaHashExpL(7);
         
@@ -122,8 +105,7 @@ public class EDD_Proyecto2_201800496 {
         tablaexp.insertarConductor(new Localidad(100, 21, false));
         
         tablaexp.mostrarLocalidades();
-        */
-
+         */
     }
-    
+
 }

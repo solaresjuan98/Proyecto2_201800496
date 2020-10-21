@@ -14,16 +14,16 @@ import javax.swing.JOptionPane;
  * @author juan333
  */
 public class ArbolB_Usuarios extends ArbolB {
-
+    
     ArrayList<Usuario> lista_usuarios = new ArrayList<>();
-
+    
     public ArbolB_Usuarios(int t) {
         super(t);
-
+        
     }
-
+    
     public void agregarUsuario(Usuario u) {
-
+        
         if (!usuarioExiste(u.getId())) {
             this.insertar(u.getId());
             lista_usuarios.add(u);
@@ -31,32 +31,48 @@ public class ArbolB_Usuarios extends ArbolB {
             //System.out.println(" ZZ n");
             JOptionPane.showMessageDialog(null, "El usuario con el id " + u.getId() + " ya existe");
         }
-
+        
     }
-
+    
     public void mostrarUsuarios() {
-
+        
         System.out.println("\n");
         lista_usuarios.forEach((usuario) -> {
-
+            
             System.out.println(" >> id: " + usuario.getId() + "  nombre: " + usuario.getNombre_completo());
         });
     }
-
+    
     public boolean usuarioExiste(int id) {
-
+        
         boolean encontrado = false;
-
+        
         for (Usuario u : lista_usuarios) {
-
+            
             if (u.getId() == id) {
                 encontrado = true;
                 System.out.println(" >> Encontrado");
                 return true;
-
+                
             }
         }
-
+        
         return encontrado;
     }
+    
+    public Usuario buscarUsuario(String username, String pass) {
+        
+        for (Usuario u : lista_usuarios) {
+            
+            if (u.getUsername().equals(username) && u.getContrasenia().equals(pass)) {
+                System.out.println(" >> Datos correctos. ");
+                return u;
+            } else {
+                System.out.println(" >> Datos incorrectos. ");
+            }            
+        }
+        return null;
+    }
+
+    //public Usuario
 }
