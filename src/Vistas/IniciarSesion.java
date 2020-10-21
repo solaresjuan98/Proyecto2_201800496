@@ -12,12 +12,13 @@ import java.awt.Shape;
 import java.awt.geom.RoundRectangle2D;
 import javax.swing.JOptionPane;
 
-
 public class IniciarSesion extends javax.swing.JFrame {
-       
+
     public static ArbolB_Usuarios arbol;
+
     /**
      * Creates new form IniciarSesion
+     *
      * @param arbol_usuarios
      */
     public IniciarSesion(ArbolB_Usuarios arbol_usuarios) {
@@ -27,7 +28,7 @@ public class IniciarSesion extends javax.swing.JFrame {
         Shape forma = new RoundRectangle2D.Double(0, 0, getBounds().width, getBounds().height, 20, 20);
         AWTUtilities.setWindowShape(this, forma);
         arbol = new ArbolB_Usuarios(3);
-        
+
         if (arbol_usuarios == null) {
             System.out.println("arbol B nulo");
 
@@ -172,11 +173,11 @@ public class IniciarSesion extends javax.swing.JFrame {
 
     private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
         // TODO add your handling code here:
-        
+
         Registro registro = new Registro(arbol);
         registro.setVisible(true);
         dispose();
-        
+
     }//GEN-LAST:event_btnIngresarActionPerformed
 
     private void jLabel9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel9MouseClicked
@@ -193,29 +194,36 @@ public class IniciarSesion extends javax.swing.JFrame {
         String usuario = txt_usuario.getText();
         String contrasenia = txt_contrasenia.getText();
         String rol_seleccionado = rol.getSelectedItem().toString();
-        Usuario user = arbol.buscarUsuario(usuario, contrasenia);
 
-        // Logeando como administrador
-        if (usuario.equals("marvin_martinez") && contrasenia.equals("admin") && rol_seleccionado.equals("administrador")) {
-            JOptionPane.showMessageDialog(null, "Bienvenido");
-            DashbordAministrador dashboard = new DashbordAministrador(arbol);
-            dashboard.setVisible(true);
-            dispose();
-        } else if(usuario.equals(user.getUsername()) && contrasenia.equals(user.getContrasenia()) && rol_seleccionado.equals(user.getRol())) {
-            //System.out.println(" >> login como " +user.getRol());
-            
-            if(user.getRol().equals("usuario")){
-                // abrir el form de usuarios
-            }
-            else if (user.getRol().equals("conductos")){
-                // abrir el form de conductores
-            }
-            
-        }
-        else {
-            JOptionPane.showMessageDialog(null, "Datos incorrectos");
-        }
+        try {
+            Usuario user = arbol.buscarUsuario(usuario, contrasenia);
 
+            // Logeando como administrador
+            if (usuario.equals("marvin_martinez") && contrasenia.equals("admin") && rol_seleccionado.equals("administrador")) {
+                JOptionPane.showMessageDialog(null, "Bienvenido");
+                DashbordAministrador dashboard = new DashbordAministrador(arbol);
+                dashboard.setVisible(true);
+                dispose();
+            } else if (usuario.equals(user.getUsername()) && contrasenia.equals(user.getContrasenia()) && rol_seleccionado.equals(user.getRol())) {
+                //System.out.println(" >> login como " +user.getRol());
+
+                if (user.getRol().equals("usuario")) {
+                    // abrir el form de usuarios
+                    DashboardUsuario dash = new DashboardUsuario(user);
+                    dash.setVisible(true);
+                    dispose();
+
+                } else if (user.getRol().equals("conductor")) {
+                    // abrir el form de conductores
+                }
+
+            } else {
+                JOptionPane.showMessageDialog(null, "Datos incorrectos");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Usuario no encontrado. Intentalo de nuevo");
+            //System.out.println(" >> usuario no encontrado");
+        }
 
     }//GEN-LAST:event_btnIngresar1ActionPerformed
 
