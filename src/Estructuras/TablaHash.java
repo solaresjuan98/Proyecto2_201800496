@@ -13,18 +13,84 @@ import Clases.Lugar;
  */
 public class TablaHash {
 
-    int tamanio;
-    Lugar lugar;
-    Lugar[] arreglo_lugares;
-    Lugar[] lugares_redimensionado;
-    int tam_nuevo;
-    
+    private int tamanio;
+    private int carga;
+    // private Lugar lugar;
+    private Lugar[] arreglo_lugares;
+    Lugar lugares_redimensionado[];
+    //private Lugar[] lugares_redimensionado;
+    //int tam_nuevo;
+
     public TablaHash(int tamanio) {
         this.tamanio = tamanio;
-        tam_nuevo = (int) (tamanio / 0.3);
         arreglo_lugares = new Lugar[tamanio];
+
+        for (int i = 0; i < tamanio; i++) {
+            arreglo_lugares[i] = null;
+        }
     }
 
+    public void insertar(Lugar lugar) {
+        //System.out.println(" "+lugar.getNombre() +" "+ lugar.getCategoria());
+        int pos = posicion(lugar.getNombre());
+        //System.out.println(pos);
+        this.arreglo_lugares[pos] = lugar;
+        this.carga++;
+        //System.out.println("Carga -> " +carga);
+        if (((carga * 100 / this.tamanio) > 70)) {
+            
+            int nuevo_tamanio = tamanio;
+
+            do {
+                //System.out.println("*** "+nuevo_tamanio);
+                nuevo_tamanio++;
+
+            } while ((carga * 100 / nuevo_tamanio) > 30);
+
+            nuevo_tamanio = ((nuevo_tamanio % 2) == 0) ? nuevo_tamanio + 1 : nuevo_tamanio;
+
+            lugares_redimensionado = new Lugar[nuevo_tamanio];
+            System.out.println("Nuevo tamaño -> " + lugares_redimensionado.length);
+            Lugar anterior[] = arreglo_lugares;
+            this.arreglo_lugares = lugares_redimensionado;
+            this.tamanio = nuevo_tamanio;
+            int aux = 0;
+            
+            
+            for (Lugar l : anterior) {
+
+                if (l != null) {
+
+                    aux = posicion(l.getNombre());
+                    lugares_redimensionado[aux] = l;
+                    System.out.println("agregado al nuevo arreglo -> " + aux);
+                }
+            }
+            //imprimirTablaHash(lugares_redimensionado);
+
+        }
+
+    }
+
+    private int posicion(String nombreLugar) {
+        //System.out.println(nombreLugar);
+        int aux = getAscii(nombreLugar);
+        int i = 0, p;
+        
+        p = (int) aux % this.tamanio;
+        System.out.println(p);
+        while (arreglo_lugares[p] != null && getAscii(arreglo_lugares[p].getNombre()) != aux) {
+            i++;
+            p = (int) aux % this.tamanio;
+            p = p + i;
+            p = p == tamanio ? p - tamanio : p;
+        }
+        //System.out.println("** " + p);
+        return p;
+
+    }
+
+    /*
     public void insertar(Lugar lugar) {
         //Hallar la posicion donde se va a ubicar el lugar a ingresar
 
@@ -63,7 +129,7 @@ public class TablaHash {
         }
 
     }
-
+     */
     // Metodo cuadratico para manejar la colision
     private void insertar_colision(int pos, Lugar[] arr, Lugar lugar) {
 
@@ -75,8 +141,7 @@ public class TablaHash {
             } else if (arr[pos] != null) {
                 //System.out.println("La posicion " + pos + " ya esta ocupada, usar el metodo cuadratico");
                 insertar_colision(metodoCuadratico(pos), arr, lugar);// no tocar
-                
-                
+
             }
         } catch (Exception e) {
             System.out.println("Arreglo lleno");
@@ -164,5 +229,5 @@ public class TablaHash {
         //System.out.println(val_ascii);
         return val_ascii;
     }
-   
+
 }

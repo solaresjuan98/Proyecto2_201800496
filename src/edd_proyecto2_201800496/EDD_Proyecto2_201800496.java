@@ -1,12 +1,12 @@
 package edd_proyecto2_201800496;
 
 import Clases.Localidad;
+import Clases.Lugar;
 import Clases.Usuario;
+import Estructuras.ArbolB;
 import Estructuras.ArbolB_Usuarios;
+import Estructuras.TablaHash;
 import Estructuras.TablaHashExpL;
-import Vistas.DashbordAministrador;
-import Vistas.IniciarSesion;
-import Vistas.Registro;
 
 /**
  *
@@ -19,45 +19,26 @@ public class EDD_Proyecto2_201800496 {
      */
     public static void main(String[] args) {
 
-
-        /*ArbolB arbol = new ArbolB(3);// no tocar
+        /*
         
-        for(int i = 0; i < 100; i++) {
+            ME SERVIRÁ PARA HACER GRAFICA DEL ARBOL 
+        ArbolB arbol = new ArbolB(3);// no tocar
+        
+        for(int i = 0; i <= 20; i++) {
             arbol.insertar(i);
-        }*
-        
-        arbol.mostrarArbolB();*/
- /*
-        int[] valores = {20, 10, 50, 30, 40};
-
-        for (int i = 0; i < valores.length; i++) {
-            arbol.insertar(valores[i]);
         }
-
-        arbol.insertar(60);
-        arbol.insertar(80);
-        arbol.insertar(70);
-        arbol.insertar(90);
-        arbol.insertar(100);
-        arbol.insertar(4);
-        arbol.insertar(5);
-        arbol.insertar(6);
-        arbol.insertar(7);
-        arbol.insertar(8);
-        arbol.insertar(3);
-        arbol.insertar(15);
-        arbol.insertar(21);
-
-        arbol.mostrarArbolB();*/
+        
+        arbol.mostrarArbolB();
+         */
         ArbolB_Usuarios arbol_usuarios = new ArbolB_Usuarios(3);
+
         arbol_usuarios.agregarUsuario(new Usuario((int) 232, "juan", "juan333", "correo", "pass", 4343434, "conductor"));
         arbol_usuarios.agregarUsuario(new Usuario((int) 221, "pablo", "pabloxd", "correo", "pass", 4343434, "usuario"));
         arbol_usuarios.agregarUsuario(new Usuario((int) 10, "maria", "maria_22", "correo", "pass", 4343434, "usuario"));
         arbol_usuarios.agregarUsuario(new Usuario((int) 23, "laura", "laurita_1", "correo", "pass", 4343434, "conductor"));
         arbol_usuarios.agregarUsuario(new Usuario((int) 72, "Mario", "mario22", "correo", "pass", 4343434, "usuario"));
-        
-        
-        arbol_usuarios.buscarUsuario("juan333", "paess");
+
+        //arbol_usuarios.buscarUsuario("juan333", "paess");
 
         /*for (int i = 0; i < 24; i++) {
             arbol_usuarios.agregarUsuario(new Usuario((int) i, "juan", "juan333", "correo", "1212", 4343434, "conductor"));
@@ -70,28 +51,26 @@ public class EDD_Proyecto2_201800496 {
          *
          * TABLA HASH
          */
-        /*TablaHash hash = new TablaHash(10);
+        TablaHash hash = new TablaHash(10);
 
-        hash.insertar(new Lugar(2, "Miraflores", "Zara", 0, 0));
         hash.insertar(new Lugar(3, "Miraflores", "Berskha", 0, 0));
-        hash.insertar(new Lugar(33, "umg", "El duende", 0, 0));
+        hash.insertar(new Lugar(33, "Miraflores", "El duende", 0, 0));
         hash.insertar(new Lugar(35, "Miraflores", "El cine", 0, 0));
-        hash.insertar(new Lugar(4, "USAC", "S-12", 0, 0));
-        hash.insertar(new Lugar(5, "pcs", "Domino's", 0, 0));
-        hash.insertar(new Lugar(5, "c", "Domino's", 0, 0));
-        hash.insertar(new Lugar(5, "p", "Domino's", 0, 0));
-        hash.insertar(new Lugar(5, "s", "Domino's", 0, 0));
-        hash.insertar(new Lugar(5, "v", "Domino's", 0, 0));
-        
-        hash.insertar(new Lugar(9, "Santa Clara", "Little ceasars", 0, 0));
-        hash.mostrarTabla();*/
-        IniciarSesion login = new IniciarSesion(arbol_usuarios);
-        login.setVisible(true);
+        hash.insertar(new Lugar(4, "Miraflores", "S-12", 0, 0));
+        hash.insertar(new Lugar(5, "Miraflores", "Domino's", 0, 0));
+
+        hash.insertar(new Lugar(8, "Miraflores", "Lugar random", 0, 0));
+        hash.insertar(new Lugar(9, "Miraflores", "f", 0, 0));
+        hash.insertar(new Lugar(9, "Miraflores", "g", 0, 0));
+        hash.insertar(new Lugar(9, "Miraflores", "p", 0, 0));
+        hash.mostrarTabla();
+
+        //IniciarSesion login = new IniciarSesion(arbol_usuarios, hash);
+        //login.setVisible(true);
         //DashbordAministrador d = new DashbordAministrador(arbol_usuarios);
         //d.setVisible(true);
         //Registro reg = new Registro(arbol_usuarios);
         //reg.setVisible(true);
-
         /*
         TablaHashExpL tablaexp = new TablaHashExpL(7);
         
@@ -103,9 +82,10 @@ public class EDD_Proyecto2_201800496 {
         tablaexp.insertarConductor(new Localidad(14, 46, false));
         tablaexp.insertarConductor(new Localidad(56, 30, false));
         tablaexp.insertarConductor(new Localidad(100, 21, false));
+        tablaexp.insertarConductor(new Localidad(56, 22, false));
+        tablaexp.insertarConductor(new Localidad(100, 2221, false));
         
-        tablaexp.mostrarLocalidades();
-         */
+        tablaexp.mostrarLocalidades();*/
     }
 
 }
