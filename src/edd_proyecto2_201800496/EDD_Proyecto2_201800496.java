@@ -1,12 +1,14 @@
 package edd_proyecto2_201800496;
 
-import Clases.Localidad;
+import Clases.AristaGrafo;
 import Clases.Lugar;
+import Clases.NodoGrafo;
 import Clases.Usuario;
-import Estructuras.ArbolB;
 import Estructuras.ArbolB_Usuarios;
+import Estructuras.Dijkstra;
+import Estructuras.Grafo;
 import Estructuras.TablaHash;
-import Estructuras.TablaHashExpL;
+import Vistas.IniciarSesion;
 
 /**
  *
@@ -52,7 +54,7 @@ public class EDD_Proyecto2_201800496 {
          * TABLA HASH
          */
         TablaHash hash = new TablaHash(10);
-
+        /*
         hash.insertar(new Lugar(3, "Miraflores", "Berskha", 0, 0));
         hash.insertar(new Lugar(33, "Miraflores", "El duende", 0, 0));
         hash.insertar(new Lugar(35, "Miraflores", "El cine", 0, 0));
@@ -63,10 +65,11 @@ public class EDD_Proyecto2_201800496 {
         hash.insertar(new Lugar(9, "Miraflores", "f", 0, 0));
         hash.insertar(new Lugar(9, "Miraflores", "g", 0, 0));
         hash.insertar(new Lugar(9, "Miraflores", "p", 0, 0));
+         */
         hash.mostrarTabla();
 
-        //IniciarSesion login = new IniciarSesion(arbol_usuarios, hash);
-        //login.setVisible(true);
+        IniciarSesion login = new IniciarSesion(arbol_usuarios, hash);
+        login.setVisible(true);
         //DashbordAministrador d = new DashbordAministrador(arbol_usuarios);
         //d.setVisible(true);
         //Registro reg = new Registro(arbol_usuarios);
@@ -86,6 +89,57 @@ public class EDD_Proyecto2_201800496 {
         tablaexp.insertarConductor(new Localidad(100, 2221, false));
         
         tablaexp.mostrarLocalidades();*/
+
+ /*Grafos*/
+        Grafo grafo = obtenerCiudades();
+        //System.out.println(grafo);
+
+    }
+
+    public static Grafo obtenerCiudades() {
+        NodoGrafo df = new NodoGrafo("DF");
+        NodoGrafo toluca = new NodoGrafo("Toluca");
+        NodoGrafo cuernavaca = new NodoGrafo("Cuernavaca");
+        NodoGrafo puebla = new NodoGrafo("puebla");
+        NodoGrafo tlaxcala = new NodoGrafo("Tlaxcala");
+
+        // arista del df a toluca 
+        AristaGrafo tol = new AristaGrafo(df, toluca, 100);
+        df.agregarArista(tol);
+
+        df.agregarArista(new AristaGrafo(df, cuernavaca, 300));
+
+        toluca.agregarArista(new AristaGrafo(toluca, cuernavaca, 10));
+        toluca.agregarArista(new AristaGrafo(toluca, puebla, 30));
+        toluca.agregarArista(new AristaGrafo(toluca, tlaxcala, 340));
+
+        // arista de df a tlaxcala (no existe)
+        AristaGrafo tl = new AristaGrafo(df, tlaxcala, 23);
+
+        cuernavaca.agregarArista(new AristaGrafo(cuernavaca, tlaxcala, 20));
+
+        puebla.agregarArista(new AristaGrafo(puebla, tlaxcala, 20));
+
+        Grafo grafo = new Grafo();
+        grafo.agregarNodo(df);
+        grafo.agregarNodo(toluca);
+        grafo.agregarNodo(cuernavaca);
+        grafo.agregarNodo(puebla);
+
+        //df.existeArista(tol);
+        System.out.println("\n\n\n");
+        /*for(AristaGrafo a: toluca.getAristas()){
+           
+            System.out.println(" >> Destino "+a.getDestino() +" Distancia "+ a.getDistancia());
+        }*/
+        
+        
+        Dijkstra.hallarRutaMenor(grafo, df, tlaxcala);
+        //Dijkstra.hallarDistanciaMenor(df.getAristas());
+        //Dijkstra.hallarDistanciaMenor(toluca.getAristas());
+        //Dijkstra.hallarDistanciaMenor(cuernavaca.getAristas());
+
+        return grafo;
     }
 
 }

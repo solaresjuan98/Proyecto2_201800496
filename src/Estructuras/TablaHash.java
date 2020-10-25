@@ -13,10 +13,10 @@ import Clases.Lugar;
  */
 public class TablaHash {
 
-    private int tamanio;
+    public int tamanio;
     private int carga;
     // private Lugar lugar;
-    private Lugar[] arreglo_lugares;
+    public Lugar[] arreglo_lugares;
     Lugar lugares_redimensionado[];
     //private Lugar[] lugares_redimensionado;
     //int tam_nuevo;
@@ -201,6 +201,25 @@ public class TablaHash {
         }
 
     }
+   
+    /*
+    public void retornarValores(){
+        
+    }
+    */
+    public Lugar retornarLugares(){
+        Lugar lug;
+        for (Lugar l : this.arreglo_lugares){
+            if (l != null) {
+                lug = l;
+                System.out.println("f");
+                return l;
+                //System.out.println(" >> id: " + l.getId_lugar() + " ----  Nombre: " + l.getCategoria());
+            }
+        }
+        System.out.println(".,,,");
+        return null;
+    }
 
     private int metodoCuadratico(int h) {
         int nueva_pos = 0;
@@ -230,4 +249,38 @@ public class TablaHash {
         return val_ascii;
     }
 
+    public int getTamanio() {
+        return tamanio;
+    }
+
+    public void setTamanio(int tamanio) {
+        this.tamanio = tamanio;
+    }
+
+    public int getCarga() {
+        return carga;
+    }
+
+    public void setCarga(int carga) {
+        this.carga = carga;
+    }
+
+    public Lugar[] getArreglo_lugares() {
+        return arreglo_lugares;
+    }
+
+    public void setArreglo_lugares(Lugar[] arreglo_lugares) {
+        this.arreglo_lugares = arreglo_lugares;
+    }
+
+    public Lugar[] getLugares_redimensionado() {
+        return lugares_redimensionado;
+    }
+
+    public void setLugares_redimensionado(Lugar[] lugares_redimensionado) {
+        this.lugares_redimensionado = lugares_redimensionado;
+    }
+
+    
+    
 }

@@ -5,11 +5,18 @@
  */
 package Vistas;
 
+import Clases.Lugar;
+import Estructuras.TablaHash;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author juan333
  */
 public class Lugares extends javax.swing.JFrame {
+
+    TablaHash hash = new TablaHash(17);
+    public DefaultTableModel modeloLugares;
 
     /**
      * Creates new form Lugares
@@ -19,6 +26,43 @@ public class Lugares extends javax.swing.JFrame {
         setTitle("Lugares sugeridos");
         setResizable(false);
         setLocationRelativeTo(null);
+        modeloLugares = (DefaultTableModel) jTable1.getModel();
+        modeloLugares.addColumn("Id. ");
+        modeloLugares.addColumn("Lugar");
+        modeloLugares.addColumn("Categoria");
+        hash.retornarLugares();
+        
+        hash.insertar(new Lugar(3, "Miraflores", "Berskha", 0, 0));
+        hash.insertar(new Lugar(33, "Miraflores", "El duende", 0, 0));
+        hash.insertar(new Lugar(35, "Miraflores", "El cine", 0, 0));
+        
+        for(Lugar l : hash.arreglo_lugares){
+            
+            if(l != null){
+                //System.out.println(" no f");
+                Object[] tupla = { l.getId_lugar(), l.getNombre(), l.getCategoria() };
+                
+                modeloLugares.addRow(tupla);
+            }
+        }
+        
+        
+        //modeloLugares.addRow();
+        
+        //modeloLugares.addRow(hash.arreglo_lugares);
+        /*
+        hash.insertar(new Lugar(3, "Miraflores", "Berskha", 0, 0));
+        hash.insertar(new Lugar(33, "Miraflores", "El duende", 0, 0));
+        hash.insertar(new Lugar(35, "Miraflores", "El cine", 0, 0));
+        hash.insertar(new Lugar(4, "Miraflores", "S-12", 0, 0));
+        hash.insertar(new Lugar(5, "Miraflores", "Domino's", 0, 0));
+        hash.insertar(new Lugar(8, "Miraflores", "Lugar random", 0, 0));
+        hash.insertar(new Lugar(9, "Miraflores", "f", 0, 0));
+        hash.insertar(new Lugar(9, "Miraflores", "g", 0, 0));
+        hash.insertar(new Lugar(9, "Miraflores", "p", 0, 0));
+         */
+
+        //jTable1.addRow()
     }
 
     /**
@@ -44,17 +88,6 @@ public class Lugares extends javax.swing.JFrame {
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Lugares sugeridos");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
-            },
-            new String [] {
-                "Id Lugar", "Nombre", "categoria"
-            }
-        ));
         jScrollPane1.setViewportView(jTable1);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
