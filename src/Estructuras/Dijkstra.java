@@ -16,31 +16,60 @@ import java.util.List;
  */
 public class Dijkstra {
 
-    public static Grafo hallarRutaMenor(Grafo grafo, NodoGrafo inicio, NodoGrafo destino) {
+    public ArrayList<NodoGrafo> nodosVisistados;
 
-        ArrayList<NodoGrafo> nodosVisistados = new ArrayList<>();// se agregarán aqui los nodos ya visitados
-        NodoGrafo actual = hallarDistanciaMenor(inicio.getAristas());
+    public Dijkstra() {
+        this.nodosVisistados = new ArrayList<>();
 
-        // ejecutar el ciclo mientras no se llegue al nodo destino
+    }
+
+    public Grafo hallarRutaMenor(Grafo grafo, NodoGrafo inicio, NodoGrafo destino) {
+
+        System.out.println(" Lugar de inicio: " + inicio.getLugar());
+
+        NodoGrafo actual = hallarNodoMasCercano(inicio.getAristas());
+        NodoGrafo anterior = null;
+        // se agrega el nodo de inicio a la lista de nodos visitados
+        nodosVisistados.add(inicio);
+
         System.out.print("" + actual.getLugar() + " -> ");
+        // ejecutar el ciclo mientras no se llegue al nodo destino
         while (actual != destino) {
-            actual = hallarDistanciaMenor(actual.getAristas());
+            
+
+            nodosVisistados.add(actual);
+            anterior = actual;
+            actual = hallarNodoMasCercano(actual.getAristas());
+            //System.out.println(" Actual -> " + actual.getLugar());
+            //int aux = menorDistancia(anterior.getAristas());
+
+            //System.out.println("Eliminando de " +actual.getLugar() +" a "+anterior.getLugar());
+            
+
+            AristaGrafo nodoaBorrar = actual.existeArista(actual.getLugar(), anterior.getLugar());
+            //actual.agregarArista(a);
+            
+            actual.eliminarArista(nodoaBorrar);
+            
+            //System.out.println("\n");
+
 
             System.out.print("" + actual.getLugar() + " -> ");
         }
 
+            //System.out.println(nodosVisistados);
         return grafo;
     }
 
-    public static NodoGrafo hallarDistanciaMenor(List<AristaGrafo> listaAdy) {
+    // Returna un objeto tipo nodo (nodo mas cercano)
+    private NodoGrafo hallarNodoMasCercano(List<AristaGrafo> listaAdy) {
+
         NodoGrafo nodomenor = null;
 
         int distanciamenor = Integer.MAX_VALUE;
 
-        // System.out.println(" >> lista de nodos adyacentes: ");
-        //System.out.println(listaAdy.size());
         for (AristaGrafo a : listaAdy) {
-            //System.out.println(" >> " + a.getDestino());
+
             int distancia = (int) a.getDistancia();
 
             if (distancia < distanciamenor) {
@@ -50,8 +79,39 @@ public class Dijkstra {
 
         }
 
-        //System.out.println(" >> Distancia menor"+distanciamenor);
-        //System.out.println(" >> Nodo con la menor distancia " +  nodomenor.getLugar());
         return nodomenor;
     }
+
+    private int menorDistancia(List<AristaGrafo> listaAdy) {
+        int distanciamenor = Integer.MAX_VALUE;
+
+        for (AristaGrafo a : listaAdy) {
+
+            int distancia = (int) a.getDistancia();
+
+            if (distancia < distanciamenor) {
+                distanciamenor = distancia;
+                //nodomenor = a.getDestino();
+            }
+
+        }
+
+        return distanciamenor;
+    }
+
+    private boolean yaFueVisitado(NodoGrafo nodo) {
+
+        boolean existe = false;
+
+        for (NodoGrafo visitado : nodosVisistados) {
+
+            if (visitado == nodo) {
+                existe = true;
+                return existe;
+            }
+        }
+
+        return existe;
+    }
+
 }
