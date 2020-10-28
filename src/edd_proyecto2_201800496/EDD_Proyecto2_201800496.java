@@ -102,18 +102,18 @@ public class EDD_Proyecto2_201800496 {
         
             //MAPA 
         
-            MapViewOptions options = new MapViewOptions();
-            options.importPlaces();
-            options.setApiKey("AIzaSyAu_wHDWkQ4oI98SuwtK1pVqKjIJitE_nw");
-            Mapa mapa = new Mapa(options);
-            mapa.Renderizar(mapa);
-
-            LatLng c1 = new LatLng(14.538548, -90.584275);
-            LatLng c2 = new LatLng(14.538473, -90.582663);
-            LatLng c3 = new LatLng(14.541550, -90.584514);
-
-            LatLng[] camino = {c1, c2, c3};
-            mapa.agregarGrafo(camino, true);
+//            MapViewOptions options = new MapViewOptions();
+//            options.importPlaces();
+//            options.setApiKey("AIzaSyAu_wHDWkQ4oI98SuwtK1pVqKjIJitE_nw");
+//            Mapa mapa = new Mapa(options);
+//            mapa.Renderizar(mapa);
+//
+//            LatLng c1 = new LatLng(14.538548, -90.584275);
+//            LatLng c2 = new LatLng(14.538473, -90.582663);
+//            LatLng c3 = new LatLng(14.541550, -90.584514);
+//
+//            LatLng[] camino = {c1, c2, c3};
+//            mapa.agregarGrafo(camino, true);
        
          
         //mapa.agregarLinea(inicio, fin, true);
@@ -129,59 +129,30 @@ public class EDD_Proyecto2_201800496 {
     }
 
     public static Grafo obtenerCiudades() {
-        NodoGrafo df = new NodoGrafo("DF");
-        NodoGrafo toluca = new NodoGrafo("Toluca");
-        NodoGrafo cuernavaca = new NodoGrafo("Cuernavaca");
-        NodoGrafo puebla = new NodoGrafo("puebla");
-        NodoGrafo tlaxcala = new NodoGrafo("Tlaxcala");
-        NodoGrafo h = new NodoGrafo("h");
-        NodoGrafo f = new NodoGrafo("F");
-
-        // arista del df a toluca 
-        AristaGrafo tol = new AristaGrafo(df, toluca, 100);
-        df.agregarArista(tol);
-
-        df.agregarArista(new AristaGrafo(df, cuernavaca, 300));
-
-        // toluca - cuernavaca / cuernavaca - toluca
-        AristaGrafo cuer_tol = new AristaGrafo(cuernavaca, toluca, 10);
-        toluca.agregarArista(new AristaGrafo(toluca, cuernavaca, 10));
-        cuernavaca.agregarArista(cuer_tol);
+        NodoGrafo df = new NodoGrafo("DF", 60);
+        NodoGrafo toluca = new NodoGrafo("Toluca", 100);
+        NodoGrafo cuernavaca = new NodoGrafo("Cuernavaca", 75);
+        NodoGrafo puebla = new NodoGrafo("puebla", 40);
+        NodoGrafo tlaxcala = new NodoGrafo("Tlaxcala", 90);
+        NodoGrafo h = new NodoGrafo("h", 25);
+        NodoGrafo f = new NodoGrafo("F", 175);
         
         
-        toluca.agregarArista(new AristaGrafo(toluca, puebla, 30));
-        toluca.agregarArista(new AristaGrafo(toluca, tlaxcala, 340));
-
-        // arista de df a tlaxcala (no existe) 
-        AristaGrafo tl = new AristaGrafo(df, tlaxcala, 23);
-
-        // cuernavaca - tlaxcala / tlaxcala - cuernavaca
-        cuernavaca.agregarArista(new AristaGrafo(cuernavaca, tlaxcala, 20));
-        tlaxcala.agregarArista(new AristaGrafo(tlaxcala, cuernavaca, 20));
+        // Generando los nodos no dirigidos
+        df.agregarAristaNoDirigida(df, toluca, 100);
+        df.agregarAristaNoDirigida(df, cuernavaca, 300);
         
-
+        toluca.agregarAristaNoDirigida(toluca, puebla, 30);
+        toluca.agregarAristaNoDirigida(toluca, tlaxcala, 340);
+        toluca.agregarAristaNoDirigida(toluca, cuernavaca, 10);
         
+        cuernavaca.agregarAristaNoDirigida(cuernavaca, tlaxcala, 20);
         
-        // ARISTAS PARA PUEBLA
-        // puebla -tl / tl - puebla
-        puebla.agregarArista(new AristaGrafo(puebla, tlaxcala, 50));
-        tlaxcala.agregarArista(new AristaGrafo(tlaxcala, puebla, 50));
+        puebla.agregarAristaNoDirigida(puebla, tlaxcala, 50);
+        puebla.agregarAristaNoDirigida(puebla, f, 80);
+        puebla.agregarAristaNoDirigida(puebla, h, 40);
         
-        // puebla - F / F - puebla
-        puebla.agregarArista(new AristaGrafo(puebla, f, 80));
-        f.agregarArista(new AristaGrafo(f, puebla, 80));
-        
-        // puebla - h / h -puebla
-        puebla.agregarArista(new AristaGrafo(puebla, h, 40));
-        h.agregarArista(new AristaGrafo(h, puebla, 40));
-        
-        
-        // f - h / h - f
-        f.agregarArista(new AristaGrafo(f, h, 20));
-        h.agregarArista(new AristaGrafo(h, f, 20));
-        //AristaGrafo puebla_f = new AristaGrafo(puebla, f, 23);
-        
-       
+        h.agregarAristaNoDirigida(h, f, 20);
 
         Grafo grafo = new Grafo();
         grafo.agregarNodo(df);
@@ -195,14 +166,10 @@ public class EDD_Proyecto2_201800496 {
         //cuernavaca.existeArista("Cuernavaca", "Toluca");
         
         // eliminando aristas
-        //cuernavaca.eliminarArista(cuer_tol);
+        //cuernavaca.eliminarArista(cuer_to l);
 
         //cuernavaca.existeArista(cuer_tol);
-        System.out.println("\n");
-        /*for(AristaGrafo a: toluca.getAristas()){
-           
-            System.out.println(" >> Destino "+a.getDestino() +" Distancia "+ a.getDistancia());
-        }*/
+
 
         Dijkstra dijkstra = new Dijkstra();
         

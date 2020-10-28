@@ -16,9 +16,11 @@ public class NodoGrafo {
 
     private String lugar;
     private List<AristaGrafo> aristas;
-
-    public NodoGrafo(String lugar) {
+    private double precio;
+    
+    public NodoGrafo(String lugar, double precio) {
         this.lugar = lugar;
+        this.precio = precio;
     }
 
     public String getLugar() {
@@ -33,7 +35,25 @@ public class NodoGrafo {
         return aristas;
     }
 
-    public void agregarArista(AristaGrafo arista) {
+    public double getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(double precio) {
+        this.precio = precio;
+    }
+    
+    
+
+    // añadiendo las aristas 
+    public void agregarAristaNoDirigida(NodoGrafo nodoinicio, NodoGrafo nodofinal, double distancia) {
+
+        nodoinicio.agregarArista(new AristaGrafo(nodoinicio, nodofinal, distancia)); // inicio - final
+        nodofinal.agregarArista(new AristaGrafo(nodofinal, nodoinicio, distancia));  // final - inicio
+
+    }
+
+    private void agregarArista(AristaGrafo arista) {
         if (aristas == null) {
             aristas = new ArrayList<>();
         }
@@ -44,7 +64,7 @@ public class NodoGrafo {
     public void eliminarArista(AristaGrafo arista) {
 
         //System.out.println(" Eliminando arista de "+arista.getInicio()+" a "+arista.getDestino());
-        for(AristaGrafo a : aristas) {
+        for (AristaGrafo a : aristas) {
             //System.out.println(aristas);
             if (a != null) {
                 if (a.equals(arista)) {
@@ -57,8 +77,7 @@ public class NodoGrafo {
         }
 
     }
-    
-    
+
     public AristaGrafo existeArista(String lugarInicio, String lugarFinal) {
         //boolean encontrado = false;
         AristaGrafo aristaEncontrado = null;
@@ -67,20 +86,19 @@ public class NodoGrafo {
                 if (a.getInicio().getLugar().equals(lugarInicio) && a.getDestino().getLugar().equals(lugarFinal)) {
                     //System.out.println("El nodo está a una distancia de  " + a.getDistancia());
                     aristaEncontrado = a;
-                    
+
                     return aristaEncontrado;
                     //encontrado = true;
                 }
             }
         }
-        
-        if(aristaEncontrado == null){
+
+        if (aristaEncontrado == null) {
             System.out.println("No hay arista entre esos lugares");
         }
 
         return aristaEncontrado;
     }
-    
 
     // Validar si la arista existe (boolean)
     /*public void existeArista(AristaGrafo arista) {
@@ -99,16 +117,17 @@ public class NodoGrafo {
         }
 
     }*/
-
-    
     //public AristaGrafo aristaExiste(Nodo)
-            
-            
     @Override
     public String toString() {
 
         return lugar;
         //return "\n \tNodo [lugar =" + lugar + ", aristas= " + aristas + "]";
     }
+//
+//    @Override
+//    public int compareTo(Object o) {
+//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+//    }
 
 }
