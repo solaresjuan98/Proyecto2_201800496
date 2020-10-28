@@ -26,6 +26,7 @@ public class DatosUsuario extends javax.swing.JFrame {
         setTitle("Datos de usuario");
         setLocationRelativeTo(null);
         setResizable(false);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
         if (u != null) {
             txt_id.setText(String.valueOf(u.getId()));

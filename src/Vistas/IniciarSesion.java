@@ -18,6 +18,7 @@ public class IniciarSesion extends javax.swing.JFrame {
     public static ArbolB_Usuarios arbol;
     public static TablaHash hash;
     
+    
     /**
      * Creates new form IniciarSesion
      *
@@ -38,6 +39,7 @@ public class IniciarSesion extends javax.swing.JFrame {
         } else {
             System.out.println("no f");
             arbol_usuarios.mostrarUsuarios();
+            hash = t;
             arbol = arbol_usuarios;
         }
 

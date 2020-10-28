@@ -26,29 +26,33 @@ public class Lugares extends javax.swing.JFrame {
         setTitle("Lugares sugeridos");
         setResizable(false);
         setLocationRelativeTo(null);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+
         modeloLugares = (DefaultTableModel) jTable1.getModel();
         modeloLugares.addColumn("Id. ");
         modeloLugares.addColumn("Lugar");
         modeloLugares.addColumn("Categoria");
         hash.retornarLugares();
-        
+
         hash.insertar(new Lugar(3, "Miraflores", "Berskha", 0, 0));
         hash.insertar(new Lugar(33, "Miraflores", "El duende", 0, 0));
         hash.insertar(new Lugar(35, "Miraflores", "El cine", 0, 0));
-        
-        for(Lugar l : hash.arreglo_lugares){
-            
-            if(l != null){
+        hash.insertar(new Lugar(8, "Miraflores", "Lugar random", 0, 0));
+        hash.insertar(new Lugar(9, "Miraflores", "f", 0, 0));
+        hash.insertar(new Lugar(9, "Miraflores", "g", 0, 0));
+        hash.insertar(new Lugar(9, "Miraflores", "p", 0, 0));
+
+        for (Lugar l : hash.arreglo_lugares) {
+
+            if (l != null) {
                 //System.out.println(" no f");
-                Object[] tupla = { l.getId_lugar(), l.getNombre(), l.getCategoria() };
-                
+                Object[] tupla = {l.getId_lugar(), l.getNombre(), l.getCategoria()};
+
                 modeloLugares.addRow(tupla);
             }
         }
-        
-        
+
         //modeloLugares.addRow();
-        
         //modeloLugares.addRow(hash.arreglo_lugares);
         /*
         hash.insertar(new Lugar(3, "Miraflores", "Berskha", 0, 0));
@@ -61,7 +65,6 @@ public class Lugares extends javax.swing.JFrame {
         hash.insertar(new Lugar(9, "Miraflores", "g", 0, 0));
         hash.insertar(new Lugar(9, "Miraflores", "p", 0, 0));
          */
-
         //jTable1.addRow()
     }
 

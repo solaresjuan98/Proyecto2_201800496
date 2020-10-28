@@ -25,6 +25,7 @@ public class DashboardUsuario extends javax.swing.JFrame {
         setResizable(false);
         setLocationRelativeTo(null);
         
+        
         if (u == null) {
             //System.out.println(" :(");
             jLabel3.setText("Bienvenido a la aplicación-");
@@ -230,14 +231,18 @@ public class DashboardUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_revisarViajesActionPerformed
 
     private void btn_viajesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_viajesActionPerformed
-
+        
+        ModuloViajes viajes = new ModuloViajes();
+        viajes.setVisible(true);
+        //SolicitarViaje solicitar = new SolicitarViaje();
+        //solicitar.setVisible(true);
     }//GEN-LAST:event_btn_viajesActionPerformed
 
     private void btn_lugaresSujeridosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_lugaresSujeridosActionPerformed
 
         Lugares lugares = new Lugares();
         lugares.setVisible(true);
-        dispose();
+        //dispose();
 
     }//GEN-LAST:event_btn_lugaresSujeridosActionPerformed
 
@@ -246,7 +251,7 @@ public class DashboardUsuario extends javax.swing.JFrame {
         
         DatosUsuario d = new DatosUsuario(user);
         d.setVisible(true);
-        dispose();
+        //dispose();
     }//GEN-LAST:event_btn_modificauserActionPerformed
 
 //    /**

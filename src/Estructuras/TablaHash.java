@@ -17,12 +17,19 @@ public class TablaHash {
     private int carga;
     // private Lugar lugar;
     public Lugar[] arreglo_lugares;
-    Lugar lugares_redimensionado[];
+    public Lugar lugares_redimensionado[];
+
+    /*
+        bandera = true; -> se está usando el arreglo de lugares redimensionado
+        bandera = false; -> se inicia con el tamanio inicial del arreglo
+     */
+    private boolean bandera;
     //private Lugar[] lugares_redimensionado;
     //int tam_nuevo;
 
     public TablaHash(int tamanio) {
         this.tamanio = tamanio;
+        this.bandera = false;
         arreglo_lugares = new Lugar[tamanio];
 
         for (int i = 0; i < tamanio; i++) {
@@ -38,7 +45,7 @@ public class TablaHash {
         this.carga++;
         //System.out.println("Carga -> " +carga);
         if (((carga * 100 / this.tamanio) > 70)) {
-            
+
             int nuevo_tamanio = tamanio;
 
             do {
@@ -50,13 +57,14 @@ public class TablaHash {
             nuevo_tamanio = ((nuevo_tamanio % 2) == 0) ? nuevo_tamanio + 1 : nuevo_tamanio;
 
             lugares_redimensionado = new Lugar[nuevo_tamanio];
+            // aqui empiezo a usar el nuevo arreglo (setear el valor de la bandera a true)
+            this.setBandera(true);
             System.out.println("Nuevo tamaño -> " + lugares_redimensionado.length);
             Lugar anterior[] = arreglo_lugares;
             this.arreglo_lugares = lugares_redimensionado;
             this.tamanio = nuevo_tamanio;
             int aux = 0;
-            
-            
+
             for (Lugar l : anterior) {
 
                 if (l != null) {
@@ -76,60 +84,21 @@ public class TablaHash {
         //System.out.println(nombreLugar);
         int aux = getAscii(nombreLugar);
         int i = 0, p;
-        
+
         p = (int) aux % this.tamanio;
-        System.out.println(p);
+        //System.out.println(p);
         while (arreglo_lugares[p] != null && getAscii(arreglo_lugares[p].getNombre()) != aux) {
             i++;
             p = (int) aux % this.tamanio;
             p = p + i;
             p = p == tamanio ? p - tamanio : p;
         }
-        //System.out.println("** " + p);
+
+        //System.out.println("** Posicion del lugar " + nombreLugar + " es " + p);
         return p;
 
     }
 
-    /*
-    public void insertar(Lugar lugar) {
-        //Hallar la posicion donde se va a ubicar el lugar a ingresar
-
-        // metodo de la multiplicación
-        float R = 0.201800496f;// constante con numero de carnet
-        int x = getAscii(lugar.getCategoria()); // catergoria convertida a ascii
-        float d = (R * x) - (int) (R * x);
-        int h = (int) ((tamanio - 1) * d);
-
-        System.out.println("posicion --> " + h);
-
-        //Insertar el valor en la pos. del arreglo
-        // - Caso donde la pos "h" no está ocupada
-        // - Caso donde la pos "h" si está ocupada -> metodo cuadratico
-        if (buscarPos(h, arreglo_lugares)) {
-
-            if (!posMinimasLlenas(arreglo_lugares)) {
-                // caso base, cuando la pos "h" está disponible en el arreglo
-                arreglo_lugares[h] = lugar;
-                System.out.println("Ingresado en pos: " + h);
-            } else {
-                System.out.println("Se debe redimensionar el arreglo");
-                //empezar a usar el otro arreglo aqui 
-            }
-
-        } else {
-            // colision
-            if (!posMinimasLlenas(arreglo_lugares)) {
-                insertar_colision(h, arreglo_lugares, lugar);
-            } else {
-           
-                System.out.println("Se debe redimensionar el arreglo");
-                //empezar a usar el otro arreglo aqui
-            }
-
-        }
-
-    }
-     */
     // Metodo cuadratico para manejar la colision
     private void insertar_colision(int pos, Lugar[] arr, Lugar lugar) {
 
@@ -149,67 +118,56 @@ public class TablaHash {
 
     }
 
-    private boolean buscarPos(int pos, Lugar[] arr) {
+    public Lugar buscarLugar(String lugar) {
 
-        boolean disponible = false;
+        int pos = posicion(lugar);
+        Lugar lugarbuscado = null;
+        //boolean disponible = false;
 
-        for (int i = 0; i < arr.length; i++) {
+        for (int i = 0; i < this.arreglo_lugares.length; i++) {
 
-            if (i == pos && arr[pos] == null) {
-                //System.out.println("Posicion vacia");
-                disponible = true;
-                break;
-            } else if (i == pos && arr[pos] != null) {
-                disponible = false;
-            } else {
-                disponible = false;
+            if (i == pos && this.arreglo_lugares[pos] != null) {
+                lugarbuscado = this.arreglo_lugares[pos];
+                return lugarbuscado;
             }
+
         }
 
-        return disponible;
-    }
-
-    private boolean posMinimasLlenas(Lugar[] arr) {
-
-        boolean estaLleno = false;
-        int pos_llenas = 0;
-
-        for (int i = 0; i < arr.length; i++) {
-
-            if (arr[i] != null) {
-                pos_llenas++;
-            }
-        }
-
-        estaLleno = pos_llenas > 7;
-
-        return estaLleno;
+        return lugarbuscado;
     }
 
     public void mostrarTabla() {
 
-        imprimirTablaHash(arreglo_lugares);
+        // Validar que arreglo tengo que imprimir 
+        if (this.isBandera()) {
+            System.out.println(" >> hay que imprimir el arreglo grande");
+            imprimirTablaHash(lugares_redimensionado);
+        } else {
+            System.out.println(" >> hay que imprimir el arreglo pequeño");
+            imprimirTablaHash(arreglo_lugares);
+        }
+
     }
 
     private void imprimirTablaHash(Lugar[] arr) {
 
         for (Lugar l : arr) {
             if (l != null) {
-                System.out.println(" >> id: " + l.getId_lugar() + " ----  Nombre: " + l.getCategoria());
+                System.out.println(" >> id: " + l.getId_lugar() + " ----  Nombre: " + l.getNombre());
             }
 
         }
 
     }
-   
+
     /*
     public void retornarValores(){
         
     }
-    */
-    public Lugar retornarLugares(){
+     */
+    public Lugar retornarLugares() {
         Lugar lug;
-        for (Lugar l : this.arreglo_lugares){
+        for (Lugar l : this.arreglo_lugares) {
             if (l != null) {
                 lug = l;
                 System.out.println("f");
@@ -281,6 +239,12 @@ public class TablaHash {
         this.lugares_redimensionado = lugares_redimensionado;
     }
 
-    
-    
+    public boolean isBandera() {
+        return bandera;
+    }
+
+    public void setBandera(boolean bandera) {
+        this.bandera = bandera;
+    }
+
 }
