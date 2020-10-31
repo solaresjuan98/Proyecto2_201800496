@@ -5,22 +5,57 @@
  */
 package Vistas;
 
+import Clases.Lugar;
+import Estructuras.TablaHash;
+import Mapa.Mapa;
+import com.teamdev.jxmaps.LatLng;
+import com.teamdev.jxmaps.MapViewOptions;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author juan333
  */
 public class ModuloViajes extends javax.swing.JFrame {
 
+    public static TablaHash hash;
+
     /**
      * Creates new form ModuloViajes
      */
-    public ModuloViajes() {
+    public ModuloViajes(TablaHash t) {
         initComponents();
         setTitle("Modulo de viaje");
         setLocationRelativeTo(null);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setResizable(false);
-        
+
+        hash = t;
+
+        // arreglo grande
+        if (hash.isBandera()) {
+            for (Lugar l : hash.lugares_redimensionado) {
+
+                if (l != null) {
+
+                    LugarInicio.addItem(l.getNombre());
+                    LugarFinal.addItem(l.getNombre());
+                }
+            }
+        } else {
+
+            for (Lugar l : hash.arreglo_lugares) {
+
+                if (l != null) {
+
+                    LugarInicio.addItem(l.getNombre());
+                    LugarFinal.addItem(l.getNombre());
+
+                }
+            }
+
+        }
+
     }
 
     /**
@@ -48,6 +83,7 @@ public class ModuloViajes extends javax.swing.JFrame {
         txt_lugarinicio = new javax.swing.JTextField();
         jSeparator4 = new javax.swing.JSeparator();
         txt_lugarfinal = new javax.swing.JTextField();
+        calcularRuta1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -67,13 +103,13 @@ public class ModuloViajes extends javax.swing.JFrame {
 
         calcularRuta.setBackground(new java.awt.Color(51, 153, 255));
         calcularRuta.setFont(new java.awt.Font("Segoe UI Symbol", 0, 18)); // NOI18N
-        calcularRuta.setText("Buscar conductor");
+        calcularRuta.setText("Ver en mapa");
         calcularRuta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 calcularRutaActionPerformed(evt);
             }
         });
-        jPanel1.add(calcularRuta, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 320, -1, -1));
+        jPanel1.add(calcularRuta, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 370, -1, -1));
 
         jLabel5.setFont(new java.awt.Font("Gotham Thin", 0, 18)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
@@ -133,6 +169,16 @@ public class ModuloViajes extends javax.swing.JFrame {
         txt_lugarfinal.setCaretColor(new java.awt.Color(73, 181, 172));
         jPanel1.add(txt_lugarfinal, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 290, 200, 40));
 
+        calcularRuta1.setBackground(new java.awt.Color(51, 153, 255));
+        calcularRuta1.setFont(new java.awt.Font("Segoe UI Symbol", 0, 18)); // NOI18N
+        calcularRuta1.setText("Buscar conductor");
+        calcularRuta1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                calcularRuta1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(calcularRuta1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 320, -1, -1));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -148,8 +194,35 @@ public class ModuloViajes extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void calcularRutaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_calcularRutaActionPerformed
-        
+
+        String inicio = (String) LugarInicio.getSelectedItem();
+        String fin = (String) LugarFinal.getSelectedItem();
+
+        System.out.println("inicio >> " + inicio);
+        System.out.println("fin >> " + fin);
+
+        Lugar inicio_ = hash.buscarLugar(inicio);
+        Lugar final_ = hash.buscarLugar(fin);
+
+        MapViewOptions options = new MapViewOptions();
+        options.importPlaces();
+        options.setApiKey("AIzaSyAu_wHDWkQ4oI98SuwtK1pVqKjIJitE_nw");
+        Mapa mapa = new Mapa(options);
+        mapa.Renderizar(mapa);
+        JOptionPane.showMessageDialog(null, "Renderizando mapa...");
+        mapa.agregarMarcador(new LatLng(14.537999, -90.581349));
+        LatLng c1 = new LatLng(inicio_.getLatitud(), inicio_.getLongitud());
+        LatLng c2 = new LatLng(final_.getLatitud(), final_.getLongitud());
+        //LatLng c3 = new LatLng(14.541550, -90.584514);
+
+        LatLng[] camino = {c1, c2};
+        mapa.agregarGrafo(camino, true);
+
     }//GEN-LAST:event_calcularRutaActionPerformed
+
+    private void calcularRuta1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_calcularRuta1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_calcularRuta1ActionPerformed
 
 //    /**
 //     * @param args the command line arguments
@@ -190,6 +263,7 @@ public class ModuloViajes extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> LugarFinal;
     private javax.swing.JComboBox<String> LugarInicio;
     private javax.swing.JButton calcularRuta;
+    private javax.swing.JButton calcularRuta1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;

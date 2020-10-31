@@ -60,6 +60,18 @@ public class ArbolB_Usuarios extends ArbolB {
         return encontrado;
     }
 
+    public void setCoordenadas(int id, float latitud, float longitud) {
+
+        for (Usuario u : lista_usuarios) {
+            if (u != null) {
+                if (u.getId() == id) {
+                    u.setLatitud(latitud);
+                    u.setLongitud(longitud);
+                }
+            }
+        }
+    }
+
     public Usuario buscarUsuario(String username, String pass) {
 
         try {

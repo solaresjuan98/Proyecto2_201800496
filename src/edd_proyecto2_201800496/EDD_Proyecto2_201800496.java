@@ -5,6 +5,7 @@ import Clases.Lugar;
 import Clases.NodoGrafo;
 import Clases.Usuario;
 import Estructuras.ArbolB_Usuarios;
+import Estructuras.Block;
 import Estructuras.Dijkstra;
 import Estructuras.Grafo;
 import Estructuras.TablaHash;
@@ -14,6 +15,9 @@ import Vistas.InterfazPago;
 import com.teamdev.jxmaps.LatLng;
 import com.teamdev.jxmaps.MapViewOptions;
 import java.awt.BorderLayout;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.WindowConstants;
 
@@ -40,12 +44,24 @@ public class EDD_Proyecto2_201800496 {
         arbol.mostrarArbolB();
          */
         ArbolB_Usuarios arbol_usuarios = new ArbolB_Usuarios(3);
-
-        arbol_usuarios.agregarUsuario(new Usuario((int) 232, "juan", "juan333", "correo", "pass", 4343434, "conductor"));
-        arbol_usuarios.agregarUsuario(new Usuario((int) 221, "pablo", "pabloxd", "correo", "pass", 4343434, "usuario"));
-        arbol_usuarios.agregarUsuario(new Usuario((int) 10, "maria", "maria_22", "correo", "pass", 4343434, "usuario"));
-        arbol_usuarios.agregarUsuario(new Usuario((int) 23, "laura", "laurita_1", "correo", "pass", 4343434, "conductor"));
-        arbol_usuarios.agregarUsuario(new Usuario((int) 72, "Mario", "mario22", "correo", "pass", 4343434, "usuario"));
+        
+        //instantcias de usuario
+        Usuario u1 = new Usuario((int) 232, "juan", "juan333", "correo", "pass", 4343434, "conductor");
+        Usuario u2 = new Usuario((int) 221, "pablo", "pabloxd", "correo", "pass", 4343434, "usuario");
+        Usuario u3 = new Usuario((int) 10, "maria", "maria_22", "correo", "pass", 4343434, "usuario");
+        Usuario u4 = new Usuario((int) 23, "laura", "laurita_1", "correo", "pass", 4343434, "conductor");
+        Usuario u5 = new Usuario((int) 72, "Mario", "mario22", "correo", "pass", 4343434, "usuario");
+        arbol_usuarios.agregarUsuario(u1);
+        arbol_usuarios.agregarUsuario(u2);
+        arbol_usuarios.agregarUsuario(u3);
+        arbol_usuarios.agregarUsuario(u4);
+        arbol_usuarios.agregarUsuario(u5);
+        
+        
+        arbol_usuarios.setCoordenadas(221, (float) 14.537999, (float) -90.581349);
+        //System.out.println(" -> "+u2.getLatitud());
+        //u2.setLatitud((float) 14.537999);
+        System.out.println(" -> "+u2.getLatitud() +" "+u2.getLongitud());
 
         //arbol_usuarios.buscarUsuario("juan333", "paess");
 
@@ -62,19 +78,17 @@ public class EDD_Proyecto2_201800496 {
          */
         TablaHash hash = new TablaHash(17);
 
-        hash.insertar(new Lugar(3, "Miraflores", "Berskha", 0, 0));
-        hash.insertar(new Lugar(33, "Miraflores", "El duende", 0, 0));
-        hash.insertar(new Lugar(35, "Miraflores", "El cine", 0, 0));
-        hash.insertar(new Lugar(4, "Miraflores", "S-12", 0, 0));
-        hash.insertar(new Lugar(5, "Miraflores", "Domino's", 0, 0));
+        hash.insertar(new Lugar(3, "Plaza Villa Nueva", "La torre", (float) 14.538548, (float) -90.584275));
+        hash.insertar(new Lugar(33, "Miraflores", "El duende", (float) 14.621191, (float) -90.553277));
+        hash.insertar(new Lugar(35, "Miraflores", "El cine", (float) 14.622067, (float) -90.552845));
+        hash.insertar(new Lugar(4, "USAC", "S-12", (float) 14.583194, (float) -90.554603));
+        hash.insertar(new Lugar(5, "Santa Clara", "Burger King", (float) 14.530889, (float) -90.596541));
+        hash.insertar(new Lugar(8, "San cristobal", "Futeca", (float) 14.593123, (float) -90.578017));
+        hash.insertar(new Lugar(9, "Villa Nueva", "Pollo pinulito", (float) 14.538473, (float) -90.582663));
+        hash.insertar(new Lugar(10, "Villa Nueva", "Shell", (float) 14.541550, (float) -90.584514));
+        hash.insertar(new Lugar(11, "Agilar batres", "Dunkin Donuts", (float) 14.594010, (float) -90.557692));
 
-        hash.insertar(new Lugar(8, "Miraflores", "Lugar random", 0, 0));
-        hash.insertar(new Lugar(9, "Miraflores", "f", 0, 0));
-        hash.insertar(new Lugar(10, "Miraflores", "f", 0, 0));
-        hash.insertar(new Lugar(11, "Miraflores", "f", 0, 0));
-
-        hash.mostrarTabla();
-
+        //hash.mostrarTabla();
         // Para buscar un lugar en la tabla hash
         /*try {
             Lugar lbuscado = hash.buscarLugar("El duende");
@@ -82,8 +96,8 @@ public class EDD_Proyecto2_201800496 {
         } catch (Exception e) {
             System.out.println(" El lugar no existe. Prueba con otro lugar. ");
         }*/
-        //IniciarSesion login = new IniciarSesion(arbol_usuarios, hash);
-        //login.setVisible(true);
+        IniciarSesion login = new IniciarSesion(arbol_usuarios, hash);
+        login.setVisible(true);
         //InterfazPago i = new InterfazPago();
         //i.setVisible(true);
         //DashbordAministrador d = new DashbordAministrador(arbol_usuarios);
@@ -132,6 +146,10 @@ public class EDD_Proyecto2_201800496 {
         frame.add(mapa, BorderLayout.CENTER);
         frame.setVisible(true);*/
         //System.out.println(grafo);
+        List<Block> blockchain = new ArrayList<>();
+        int prefijo = 4;
+        String cadenaPrefijo = new String(new char[prefijo]).replace('\0', '0');
+
     }
 
     public static Grafo obtenerCiudades() {

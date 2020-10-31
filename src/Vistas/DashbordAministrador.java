@@ -11,6 +11,7 @@ import Clases.Usuario;
 import Estructuras.ArbolB_Usuarios;
 import Estructuras.TablaHash;
 import Estructuras.TablaHashExpL;
+import InterfazGrafica.Login;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -20,6 +21,7 @@ import java.security.MessageDigest;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -38,10 +40,9 @@ public class DashbordAministrador extends javax.swing.JFrame {
     TablaHash hash = new TablaHash(10);
     // Tabla hash de localidad
     TablaHashExpL hashlocalidades = new TablaHashExpL(20);
-    
+
     // Tabla hash de localidad
     TablaHashExpL hashlocalidadesusr = new TablaHashExpL(7);
-    
 
     /**
      * Creates new form DashbordAministrador
@@ -86,15 +87,19 @@ public class DashbordAministrador extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         btn_subirConexiones = new javax.swing.JButton();
+        verReportes = new javax.swing.JButton();
+        cerrarSesion = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(33, 45, 62));
         jPanel1.setRequestFocusEnabled(false);
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel3.setFont(new java.awt.Font("Gotham Thin", 0, 40)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Dashboard");
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(39, 27, 227, 53));
 
         btn_subirLugares.setBackground(new java.awt.Color(33, 45, 62));
         btn_subirLugares.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8_marker_96px.png"))); // NOI18N
@@ -105,6 +110,7 @@ public class DashbordAministrador extends javax.swing.JFrame {
                 btn_subirLugaresActionPerformed(evt);
             }
         });
+        jPanel1.add(btn_subirLugares, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 110, 124, 118));
 
         btn_usuariosJSON.setBackground(new java.awt.Color(33, 45, 62));
         btn_usuariosJSON.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8_upload_96px.png"))); // NOI18N
@@ -115,14 +121,17 @@ public class DashbordAministrador extends javax.swing.JFrame {
                 btn_usuariosJSONActionPerformed(evt);
             }
         });
+        jPanel1.add(btn_usuariosJSON, new org.netbeans.lib.awtextra.AbsoluteConstraints(92, 110, 124, 118));
 
         jLabel4.setFont(new java.awt.Font("Gotham Thin", 0, 12)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Crear usuario");
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(326, 246, -1, 53));
 
         jLabel5.setFont(new java.awt.Font("Gotham Thin", 0, 12)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Cargar archivo de usuarios (JSON)");
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(55, 246, -1, 53));
 
         jButton3.setBackground(new java.awt.Color(33, 45, 62));
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8_gender_neutral_user_96px.png"))); // NOI18N
@@ -133,14 +142,17 @@ public class DashbordAministrador extends javax.swing.JFrame {
                 jButton3ActionPerformed(evt);
             }
         });
+        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(304, 108, 124, 119));
 
         jLabel6.setFont(new java.awt.Font("Gotham Thin", 0, 12)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("Cargar lugares");
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 250, -1, 53));
 
         jLabel7.setFont(new java.awt.Font("Gotham Thin", 0, 12)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("Cargar localidades");
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(94, 441, -1, 53));
 
         btn_subirLocalidades.setBackground(new java.awt.Color(33, 45, 62));
         btn_subirLocalidades.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8_car_96px.png"))); // NOI18N
@@ -150,6 +162,7 @@ public class DashbordAministrador extends javax.swing.JFrame {
                 btn_subirLocalidadesActionPerformed(evt);
             }
         });
+        jPanel1.add(btn_subirLocalidades, new org.netbeans.lib.awtextra.AbsoluteConstraints(88, 317, 124, 118));
 
         btn_subirLocalidadesUsr.setBackground(new java.awt.Color(33, 45, 62));
         btn_subirLocalidadesUsr.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8_staff_96px_3.png"))); // NOI18N
@@ -159,14 +172,17 @@ public class DashbordAministrador extends javax.swing.JFrame {
                 btn_subirLocalidadesUsrActionPerformed(evt);
             }
         });
+        jPanel1.add(btn_subirLocalidadesUsr, new org.netbeans.lib.awtextra.AbsoluteConstraints(304, 317, 124, 118));
 
         jLabel8.setFont(new java.awt.Font("Gotham Thin", 0, 12)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setText("Cargar localidades (usuario)");
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(286, 441, -1, 53));
 
         jLabel9.setFont(new java.awt.Font("Gotham Thin", 0, 12)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setText("Cargar conexiones");
+        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 441, -1, 53));
 
         btn_subirConexiones.setBackground(new java.awt.Color(33, 45, 62));
         btn_subirConexiones.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8_split_96px.png"))); // NOI18N
@@ -176,88 +192,27 @@ public class DashbordAministrador extends javax.swing.JFrame {
                 btn_subirConexionesActionPerformed(evt);
             }
         });
+        jPanel1.add(btn_subirConexiones, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 317, 124, 118));
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(55, 55, 55)
-                        .addComponent(jLabel5)
-                        .addGap(79, 79, 79)
-                        .addComponent(jLabel4)
-                        .addGap(100, 100, 100)
-                        .addComponent(jLabel6))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(88, 88, 88)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGap(6, 6, 6)
-                                        .addComponent(jLabel7))
-                                    .addComponent(btn_subirLocalidades, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGap(74, 74, 74)
-                                        .addComponent(jLabel8))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGap(92, 92, 92)
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(btn_subirLocalidadesUsr, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(39, 39, 39)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGap(53, 53, 53)
-                                        .addComponent(btn_usuariosJSON, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                        .addGap(46, 46, 46)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(btn_subirLugares, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(btn_subirConexiones, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel9))))
-                .addContainerGap(83, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(27, 27, 27)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(30, 30, 30)
-                        .addComponent(btn_usuariosJSON, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(28, 28, 28)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btn_subirLugares, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btn_subirLocalidadesUsr, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(btn_subirConexiones, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(btn_subirLocalidades, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(10, Short.MAX_VALUE))
-        );
+        verReportes.setBackground(new java.awt.Color(51, 153, 255));
+        verReportes.setFont(new java.awt.Font("Segoe UI Symbol", 0, 18)); // NOI18N
+        verReportes.setText("Ver reportes");
+        verReportes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                verReportesActionPerformed(evt);
+            }
+        });
+        jPanel1.add(verReportes, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 20, -1, -1));
+
+        cerrarSesion.setBackground(new java.awt.Color(255, 51, 51));
+        cerrarSesion.setFont(new java.awt.Font("Segoe UI Symbol", 0, 18)); // NOI18N
+        cerrarSesion.setText("Cerrar sesión");
+        cerrarSesion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cerrarSesionActionPerformed(evt);
+            }
+        });
+        jPanel1.add(cerrarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 20, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -450,13 +405,17 @@ public class DashbordAministrador extends javax.swing.JFrame {
                     JSONObject localidad = (JSONObject) localidades.get(i);
 
                     long id_usuario = ((Number) localidad.get("id_usuario")).longValue();
-                    System.out.println(" ----> "+id_usuario);
-                    long id_lugar = ((Number) localidad.get("id_lugar")).longValue();
-                    hashlocalidadesusr.insertarLocUsuario(new Localidad((int) id_usuario, (int) id_lugar));
+                    System.out.println(" ----> " + id_usuario);
+                    String lugar = (String) localidad.get("nombre");
+                    Lugar l = hash.buscarLugar(lugar);
+                    arbol.setCoordenadas((int) id_usuario, l.getLatitud(), l.getLongitud());
+                    //long id_lugar = ((Number) localidad.get("id_lugar")).longValue();
+                    //arbol.setCoordenadas(i, , );
+                    //hashlocalidadesusr.insertarLocUsuario(new Localidad((int) id_usuario, (int) id_lugar));
 
                 }
 
-                hashlocalidadesusr.mostrarLocalidades();
+                //hashlocalidadesusr.mostrarLocalidades();
 
             } catch (FileNotFoundException ex) {
                 Logger.getLogger(DashbordAministrador.class.getName()).log(Level.SEVERE, null, ex);
@@ -472,11 +431,26 @@ public class DashbordAministrador extends javax.swing.JFrame {
 
     private void btn_subirConexionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_subirConexionesActionPerformed
         // TODO add your handling code here:
-        
-        
-        
-        
+
+
     }//GEN-LAST:event_btn_subirConexionesActionPerformed
+
+    private void verReportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_verReportesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_verReportesActionPerformed
+
+    private void cerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cerrarSesionActionPerformed
+      
+        int dRes = JOptionPane.showConfirmDialog(null, "¿Deseas cerrar sesión?");
+        
+        if(dRes==JOptionPane.YES_OPTION){
+            
+            IniciarSesion login = new IniciarSesion(arbol, hash);
+            login.setVisible(true);
+            dispose();
+        }
+        
+    }//GEN-LAST:event_cerrarSesionActionPerformed
 
 //    /**
 //     * @param args the command line arguments
@@ -512,7 +486,6 @@ public class DashbordAministrador extends javax.swing.JFrame {
 //            }
 //        });
 //    }
-
     public String getSHA256(String pass) {
 
         String salida = null;
@@ -536,6 +509,7 @@ public class DashbordAministrador extends javax.swing.JFrame {
     private javax.swing.JButton btn_subirLocalidadesUsr;
     private javax.swing.JButton btn_subirLugares;
     private javax.swing.JButton btn_usuariosJSON;
+    private javax.swing.JButton cerrarSesion;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -545,5 +519,6 @@ public class DashbordAministrador extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JButton verReportes;
     // End of variables declaration//GEN-END:variables
 }

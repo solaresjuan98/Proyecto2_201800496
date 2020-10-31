@@ -30,7 +30,7 @@ public class IniciarSesion extends javax.swing.JFrame {
         setLocationRelativeTo(null); //Centra la vantana en la pantalla
         //
         Shape forma = new RoundRectangle2D.Double(0, 0, getBounds().width, getBounds().height, 20, 20);
-        AWTUtilities.setWindowShape(this, forma);
+        //AWTUtilities.setWindowShape(this, forma);
         arbol = new ArbolB_Usuarios(3);
 
         if (arbol_usuarios == null) {
@@ -41,6 +41,7 @@ public class IniciarSesion extends javax.swing.JFrame {
             arbol_usuarios.mostrarUsuarios();
             hash = t;
             arbol = arbol_usuarios;
+            //hash.mostrarTabla();;
         }
 
     }
@@ -214,7 +215,7 @@ public class IniciarSesion extends javax.swing.JFrame {
 
                 if (user.getRol().equals("usuario")) {
                     // abrir el form de usuarios
-                    DashboardUsuario dash = new DashboardUsuario(user);
+                    DashboardUsuario dash = new DashboardUsuario(user, hash);
                     dash.setVisible(true);
                     dispose();
 

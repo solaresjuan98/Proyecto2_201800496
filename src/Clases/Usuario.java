@@ -14,6 +14,7 @@ public class Usuario {
     int id;
     String nombre_completo, username, contrasenia, correo, rol;
     int telefono;
+    float latitud, longitud;
 
     public Usuario(int id, String nombre_completo, String username, String correo, String contrasenia, int telefono, String rol) {
         this.id = id;
@@ -23,6 +24,8 @@ public class Usuario {
         this.contrasenia = contrasenia;
         this.telefono = telefono;
         this.rol = rol;
+        this.latitud = 0;
+        this.longitud = 0;
     }
 
     public int getId() {
@@ -80,5 +83,23 @@ public class Usuario {
     public void setRol(String rol) {
         this.rol = rol;
     }
+
+    public float getLatitud() {
+        return latitud;
+    }
+
+    public void setLatitud(float latitud) {
+        this.latitud = latitud;
+    }
+
+    public float getLongitud() {
+        return longitud;
+    }
+
+    public void setLongitud(float longitud) {
+        this.longitud = longitud;
+    }
+    
+    
 
 }

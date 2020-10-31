@@ -32,12 +32,10 @@ public class Mapa extends MapView {
     public Mapa(MapViewOptions options) {
         super(options);
         setOnMapReadyHandler((MapStatus ms) -> {
-            //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+           
             if (ms == MapStatus.MAP_STATUS_OK) {
                 map = getMap();
                 MapOptions mapOptions = new MapOptions();
-                //MapViewOptions options = new MapViewOptions();
-                //options.setApiKey("AIzaSyAu_wHDWkQ4oI98SuwtK1pVqKjIJitE_nw");
                 MapTypeControlOptions mt = new MapTypeControlOptions();
                 mt.setPosition(ControlPosition.BOTTOM_LEFT);
                 mapOptions.setMapTypeControlOptions(mt);
@@ -64,7 +62,7 @@ public class Mapa extends MapView {
     public void Renderizar(Mapa mapa) {
 
         JFrame frame = new JFrame();
-        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         frame.setSize(1000, 800);
         frame.setLocationRelativeTo(null);
         frame.add(mapa, BorderLayout.CENTER);

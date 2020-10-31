@@ -6,6 +6,7 @@
 package Vistas;
 
 import Clases.Usuario;
+import Estructuras.TablaHash;
 
 /**
  *
@@ -14,13 +15,15 @@ import Clases.Usuario;
 public class DashboardUsuario extends javax.swing.JFrame {
     
     public static Usuario user;
+    public static TablaHash hash;
 
     /**
      * Creates new form DashboardUsuario
      *
      * @param u
+     * @param t
      */
-    public DashboardUsuario(Usuario u) {
+    public DashboardUsuario(Usuario u, TablaHash t) {
         initComponents();
         setResizable(false);
         setLocationRelativeTo(null);
@@ -33,6 +36,9 @@ public class DashboardUsuario extends javax.swing.JFrame {
             jLabel3.setText("Bienvenido " + u.getUsername());
             System.out.println(u.getUsername() + " -- " + u.getNombre_completo());            
             user = u;
+            hash = t;
+            
+            //hash.mostrarTabla();
         }
         
     }
@@ -232,7 +238,7 @@ public class DashboardUsuario extends javax.swing.JFrame {
 
     private void btn_viajesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_viajesActionPerformed
         
-        ModuloViajes viajes = new ModuloViajes();
+        ModuloViajes viajes = new ModuloViajes(hash);
         viajes.setVisible(true);
         //SolicitarViaje solicitar = new SolicitarViaje();
         //solicitar.setVisible(true);
