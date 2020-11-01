@@ -218,7 +218,7 @@ public class DashbordAministrador extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 689, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -409,14 +409,11 @@ public class DashbordAministrador extends javax.swing.JFrame {
                     String lugar = (String) localidad.get("nombre");
                     Lugar l = hash.buscarLugar(lugar);
                     arbol.setCoordenadas((int) id_usuario, l.getLatitud(), l.getLongitud());
-                    //long id_lugar = ((Number) localidad.get("id_lugar")).longValue();
-                    //arbol.setCoordenadas(i, , );
-                    //hashlocalidadesusr.insertarLocUsuario(new Localidad((int) id_usuario, (int) id_lugar));
+
 
                 }
 
                 //hashlocalidadesusr.mostrarLocalidades();
-
             } catch (FileNotFoundException ex) {
                 Logger.getLogger(DashbordAministrador.class.getName()).log(Level.SEVERE, null, ex);
             } catch (IOException ex) {
@@ -437,19 +434,22 @@ public class DashbordAministrador extends javax.swing.JFrame {
 
     private void verReportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_verReportesActionPerformed
         // TODO add your handling code here:
+        
+        ModuloReportes reportes = new ModuloReportes();
+        reportes.setVisible(true);
     }//GEN-LAST:event_verReportesActionPerformed
 
     private void cerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cerrarSesionActionPerformed
-      
+
         int dRes = JOptionPane.showConfirmDialog(null, "¿Deseas cerrar sesión?");
-        
-        if(dRes==JOptionPane.YES_OPTION){
-            
+
+        if (dRes == JOptionPane.YES_OPTION) {
+
             IniciarSesion login = new IniciarSesion(arbol, hash);
             login.setVisible(true);
             dispose();
         }
-        
+
     }//GEN-LAST:event_cerrarSesionActionPerformed
 
 //    /**

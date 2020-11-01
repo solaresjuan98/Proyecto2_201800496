@@ -6,6 +6,7 @@
 package Vistas;
 
 import Clases.Usuario;
+import Estructuras.ArbolB_Usuarios;
 import Estructuras.TablaHash;
 
 /**
@@ -14,6 +15,7 @@ import Estructuras.TablaHash;
  */
 public class DashboardUsuario extends javax.swing.JFrame {
     
+    public static ArbolB_Usuarios arbol;
     public static Usuario user;
     public static TablaHash hash;
 
@@ -22,8 +24,9 @@ public class DashboardUsuario extends javax.swing.JFrame {
      *
      * @param u
      * @param t
+     * @param a
      */
-    public DashboardUsuario(Usuario u, TablaHash t) {
+    public DashboardUsuario(Usuario u, TablaHash t, ArbolB_Usuarios a) {
         initComponents();
         setResizable(false);
         setLocationRelativeTo(null);
@@ -37,8 +40,8 @@ public class DashboardUsuario extends javax.swing.JFrame {
             System.out.println(u.getUsername() + " -- " + u.getNombre_completo());            
             user = u;
             hash = t;
+            arbol = a;
             
-            //hash.mostrarTabla();
         }
         
     }
@@ -238,7 +241,7 @@ public class DashboardUsuario extends javax.swing.JFrame {
 
     private void btn_viajesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_viajesActionPerformed
         
-        ModuloViajes viajes = new ModuloViajes(hash);
+        ModuloViajes viajes = new ModuloViajes(hash, arbol);
         viajes.setVisible(true);
         //SolicitarViaje solicitar = new SolicitarViaje();
         //solicitar.setVisible(true);

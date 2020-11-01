@@ -6,10 +6,13 @@
 package Vistas;
 
 import Clases.Lugar;
+import Clases.Usuario;
+import Estructuras.ArbolB_Usuarios;
 import Estructuras.TablaHash;
 import Mapa.Mapa;
 import com.teamdev.jxmaps.LatLng;
 import com.teamdev.jxmaps.MapViewOptions;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 /**
@@ -17,13 +20,17 @@ import javax.swing.JOptionPane;
  * @author juan333
  */
 public class ModuloViajes extends javax.swing.JFrame {
-
+    
+    public static ArbolB_Usuarios arbol;
     public static TablaHash hash;
+    private final ArbolB_Usuarios a;
 
     /**
      * Creates new form ModuloViajes
+     * @param t
+     * @param a
      */
-    public ModuloViajes(TablaHash t) {
+    public ModuloViajes(TablaHash t, ArbolB_Usuarios a) {
         initComponents();
         setTitle("Modulo de viaje");
         setLocationRelativeTo(null);
@@ -31,7 +38,9 @@ public class ModuloViajes extends javax.swing.JFrame {
         setResizable(false);
 
         hash = t;
-
+        arbol = a;
+        
+       
         // arreglo grande
         if (hash.isBandera()) {
             for (Lugar l : hash.lugares_redimensionado) {
@@ -42,6 +51,7 @@ public class ModuloViajes extends javax.swing.JFrame {
                     LugarFinal.addItem(l.getNombre());
                 }
             }
+        // arreglo pequeño
         } else {
 
             for (Lugar l : hash.arreglo_lugares) {
@@ -55,6 +65,7 @@ public class ModuloViajes extends javax.swing.JFrame {
             }
 
         }
+        this.a = a;
 
     }
 
@@ -70,7 +81,7 @@ public class ModuloViajes extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        calcularRuta = new javax.swing.JButton();
+        verConductores = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         LugarFinal = new javax.swing.JComboBox<>();
         LugarInicio = new javax.swing.JComboBox<>();
@@ -83,7 +94,8 @@ public class ModuloViajes extends javax.swing.JFrame {
         txt_lugarinicio = new javax.swing.JTextField();
         jSeparator4 = new javax.swing.JSeparator();
         txt_lugarfinal = new javax.swing.JTextField();
-        calcularRuta1 = new javax.swing.JButton();
+        buscarConductor = new javax.swing.JButton();
+        verLugares = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -101,15 +113,15 @@ public class ModuloViajes extends javax.swing.JFrame {
         jLabel4.setText("Lugar de destino");
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 190, 140, 53));
 
-        calcularRuta.setBackground(new java.awt.Color(51, 153, 255));
-        calcularRuta.setFont(new java.awt.Font("Segoe UI Symbol", 0, 18)); // NOI18N
-        calcularRuta.setText("Ver en mapa");
-        calcularRuta.addActionListener(new java.awt.event.ActionListener() {
+        verConductores.setBackground(new java.awt.Color(51, 153, 255));
+        verConductores.setFont(new java.awt.Font("Segoe UI Symbol", 0, 18)); // NOI18N
+        verConductores.setText("Ver conductores en mapa");
+        verConductores.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                calcularRutaActionPerformed(evt);
+                verConductoresActionPerformed(evt);
             }
         });
-        jPanel1.add(calcularRuta, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 370, -1, -1));
+        jPanel1.add(verConductores, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 420, 220, -1));
 
         jLabel5.setFont(new java.awt.Font("Gotham Thin", 0, 18)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
@@ -169,15 +181,25 @@ public class ModuloViajes extends javax.swing.JFrame {
         txt_lugarfinal.setCaretColor(new java.awt.Color(73, 181, 172));
         jPanel1.add(txt_lugarfinal, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 290, 200, 40));
 
-        calcularRuta1.setBackground(new java.awt.Color(51, 153, 255));
-        calcularRuta1.setFont(new java.awt.Font("Segoe UI Symbol", 0, 18)); // NOI18N
-        calcularRuta1.setText("Buscar conductor");
-        calcularRuta1.addActionListener(new java.awt.event.ActionListener() {
+        buscarConductor.setBackground(new java.awt.Color(51, 153, 255));
+        buscarConductor.setFont(new java.awt.Font("Segoe UI Symbol", 0, 18)); // NOI18N
+        buscarConductor.setText("Buscar conductor");
+        buscarConductor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                calcularRuta1ActionPerformed(evt);
+                buscarConductorActionPerformed(evt);
             }
         });
-        jPanel1.add(calcularRuta1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 320, -1, -1));
+        jPanel1.add(buscarConductor, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 320, 220, -1));
+
+        verLugares.setBackground(new java.awt.Color(51, 153, 255));
+        verLugares.setFont(new java.awt.Font("Segoe UI Symbol", 0, 18)); // NOI18N
+        verLugares.setText("Ver lugares en mapa");
+        verLugares.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                verLugaresActionPerformed(evt);
+            }
+        });
+        jPanel1.add(verLugares, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 370, 220, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -187,15 +209,53 @@ public class ModuloViajes extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 449, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 508, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void calcularRutaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_calcularRutaActionPerformed
+    private void verConductoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_verConductoresActionPerformed
 
-        String inicio = (String) LugarInicio.getSelectedItem();
+        ArrayList<Usuario> listaaux= new ArrayList<>();
+        for(Usuario u : arbol.getLista_usuarios()){
+            
+            if( u != null){
+                
+                if(u.getRol().equals("conductor")){
+                    listaaux.add(u);
+                    System.out.println(" Conductor con nombre: " + u.getNombre_completo());
+                }
+            }
+        }
+        
+        MapViewOptions options = new MapViewOptions();
+        options.importPlaces();
+        options.setApiKey("AIzaSyAu_wHDWkQ4oI98SuwtK1pVqKjIJitE_nw");
+        Mapa mapa = new Mapa(options);
+        mapa.Renderizar(mapa);
+        JOptionPane.showMessageDialog(null, "Renderizando mapa...");
+        
+        for(Usuario conductor: listaaux){
+            
+            if(conductor != null){
+              
+                mapa.agregarMarcador(new LatLng(conductor.getLatitud(), conductor.getLongitud()));
+               
+            }
+        }
+
+        
+
+    }//GEN-LAST:event_verConductoresActionPerformed
+
+    private void buscarConductorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarConductorActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_buscarConductorActionPerformed
+
+    private void verLugaresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_verLugaresActionPerformed
+        // TODO add your handling code here:
+         String inicio = (String) LugarInicio.getSelectedItem();
         String fin = (String) LugarFinal.getSelectedItem();
 
         System.out.println("inicio >> " + inicio);
@@ -204,25 +264,24 @@ public class ModuloViajes extends javax.swing.JFrame {
         Lugar inicio_ = hash.buscarLugar(inicio);
         Lugar final_ = hash.buscarLugar(fin);
 
+        
         MapViewOptions options = new MapViewOptions();
         options.importPlaces();
         options.setApiKey("AIzaSyAu_wHDWkQ4oI98SuwtK1pVqKjIJitE_nw");
         Mapa mapa = new Mapa(options);
         mapa.Renderizar(mapa);
         JOptionPane.showMessageDialog(null, "Renderizando mapa...");
+        
         mapa.agregarMarcador(new LatLng(14.537999, -90.581349));
+        
         LatLng c1 = new LatLng(inicio_.getLatitud(), inicio_.getLongitud());
         LatLng c2 = new LatLng(final_.getLatitud(), final_.getLongitud());
         //LatLng c3 = new LatLng(14.541550, -90.584514);
 
         LatLng[] camino = {c1, c2};
         mapa.agregarGrafo(camino, true);
-
-    }//GEN-LAST:event_calcularRutaActionPerformed
-
-    private void calcularRuta1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_calcularRuta1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_calcularRuta1ActionPerformed
+        
+    }//GEN-LAST:event_verLugaresActionPerformed
 
 //    /**
 //     * @param args the command line arguments
@@ -262,8 +321,7 @@ public class ModuloViajes extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> LugarFinal;
     private javax.swing.JComboBox<String> LugarInicio;
-    private javax.swing.JButton calcularRuta;
-    private javax.swing.JButton calcularRuta1;
+    private javax.swing.JButton buscarConductor;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -277,5 +335,7 @@ public class ModuloViajes extends javax.swing.JFrame {
     private javax.swing.JTextField txt_lugarfinal;
     private javax.swing.JTextField txt_lugarinicio;
     private javax.swing.JTextField txt_nombreConductor;
+    private javax.swing.JButton verConductores;
+    private javax.swing.JButton verLugares;
     // End of variables declaration//GEN-END:variables
 }

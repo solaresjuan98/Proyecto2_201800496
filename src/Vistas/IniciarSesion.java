@@ -215,7 +215,7 @@ public class IniciarSesion extends javax.swing.JFrame {
 
                 if (user.getRol().equals("usuario")) {
                     // abrir el form de usuarios
-                    DashboardUsuario dash = new DashboardUsuario(user, hash);
+                    DashboardUsuario dash = new DashboardUsuario(user, hash, arbol);
                     dash.setVisible(true);
                     dispose();
 

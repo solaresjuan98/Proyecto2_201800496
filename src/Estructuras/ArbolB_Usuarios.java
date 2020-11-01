@@ -22,6 +22,16 @@ public class ArbolB_Usuarios extends ArbolB {
 
     }
 
+    public ArrayList<Usuario> getLista_usuarios() {
+        return lista_usuarios;
+    }
+
+    public void setLista_usuarios(ArrayList<Usuario> lista_usuarios) {
+        this.lista_usuarios = lista_usuarios;
+    }
+    
+    
+
     public void agregarUsuario(Usuario u) {
 
         if (!usuarioExiste(u.getId())) {
