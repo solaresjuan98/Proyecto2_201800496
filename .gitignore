@@ -1,3 +1,5 @@
 *.jar
 /build/
 /dist/
+*pdf
+*dot

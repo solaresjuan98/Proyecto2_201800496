@@ -6,6 +6,9 @@
 package Estructuras;
 
 import Clases.Lugar;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 
 /**
  *
@@ -160,11 +163,96 @@ public class TablaHash {
 
     }
 
-    /*
-    public void retornarValores(){
-        
+    public void graficar() {
+
+        // validar que arreglo tengo que graficar en graphviz
+        if (this.isBandera()) {
+            System.out.println(" >> graficar el arreglo grande");
+            graficarTabla(lugares_redimensionado);
+        } else {
+            System.out.println(" >> graficando el arreglo pequeño");
+            graficarTabla(arreglo_lugares);
+        }
+
     }
-     */
+
+    private void graficarTabla(Lugar[] arr) {
+
+        StringBuilder cadena = new StringBuilder();
+
+        cadena.append("digraph G {\n");
+        cadena.append("node[shape=record];\n");
+
+        int a = 1, n = 0, contador = 0;
+        cadena.append("node").append(n).append("[label=\"");
+
+        boolean yaTermino = false;
+
+        for (Lugar lugar : arr) {
+
+            if (a == 10) {
+                cadena.append(lugar != null ? lugar.getId_lugar() : "").append("\"];\n");
+                a = 1;
+                n++;
+
+                if (contador == tamanio - 1) {
+                    yaTermino = true;
+                    break;
+                }
+
+                cadena.append("node").append(n).append("[label=\"");
+                continue;
+            } else {
+                cadena.append(lugar != null ? lugar.getId_lugar() : "").append("|");
+            }
+
+            a++;
+            contador++;
+        }
+
+        if (!yaTermino) {
+            cadena.append("carga: ").append(carga).append(" Tamaño: ").append(tamanio).append("\"] \n");
+        }
+
+        for (int i = 0; i < n; i++) {
+            cadena.append("node").append(i).append("->node").append(i + 1).append("[style=\"invis\"]").append("\n");
+        }
+
+        cadena.append("} \n");
+
+        FileWriter fichero = null;
+        PrintWriter pw = null;
+
+        try {
+
+            fichero = new FileWriter("./grafica.dot");
+            pw = new PrintWriter(fichero);
+            pw.append(cadena.toString());
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+
+            try {
+
+                if (null != fichero) {
+                    fichero.close();
+                }
+
+            } catch (Exception e_) {
+                e_.printStackTrace();
+            }
+
+            try {
+                String cmd = "dot -Tpdf ./grafica.dot -o grafica.pdf";
+                Runtime.getRuntime().exec(cmd);
+            } catch (IOException i) {
+                System.out.println("f");
+            }
+        }
+
+    }
+
     public Lugar retornarLugares() {
         Lugar lug;
         for (Lugar l : this.arreglo_lugares) {

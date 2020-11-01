@@ -5,6 +5,10 @@
  */
 package Estructuras;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+
 /**
  *
  * @author juan333
@@ -179,4 +183,57 @@ public class ArbolB {
             return buscar(act.hijo[i], clave);
         }
     }
+
+    // Generar grafica del arbol
+    // Utilizando graphviz 
+    public void GraficarArbol() {
+
+        StringBuilder cadena = new StringBuilder();
+
+        cadena.append("digraph G {\n");
+        cadena.append("node[shape=record];\n");
+        cadena.append("node[shape=record color=blue style=filled, fillcolor=\"gray\", gradientangle=90];\n");
+        
+        cadena.append(raiz.GraficarNodo());
+        
+        cadena.append("}\n");
+        
+        FileWriter fichero = null;
+        PrintWriter pw = null;
+        
+        
+        
+        try {
+
+            fichero = new FileWriter("./graficaArbolB.dot");
+            pw = new PrintWriter(fichero);
+            pw.append(cadena.toString());
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+
+            try {
+
+                if (null != fichero) {
+                    fichero.close();
+                }
+
+            } catch (Exception e_) {
+                e_.printStackTrace();
+            }
+
+            try {
+                String cmd = "dot -Tpdf ./graficaArbolB.dot -o ArbolB.pdf";
+                Runtime.getRuntime().exec(cmd);
+            } catch (IOException i) {
+                System.out.println("f");
+            }
+        }
+        
+        
+
+    }
+
+
 }
