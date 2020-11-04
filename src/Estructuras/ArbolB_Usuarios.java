@@ -29,8 +29,6 @@ public class ArbolB_Usuarios extends ArbolB {
     public void setLista_usuarios(ArrayList<Usuario> lista_usuarios) {
         this.lista_usuarios = lista_usuarios;
     }
-    
-    
 
     public void agregarUsuario(Usuario u) {
 
@@ -72,14 +70,36 @@ public class ArbolB_Usuarios extends ArbolB {
 
     public void setCoordenadas(int id, float latitud, float longitud) {
 
-        for (Usuario u : lista_usuarios) {
-            if (u != null) {
-                if (u.getId() == id) {
-                    u.setLatitud(latitud);
-                    u.setLongitud(longitud);
+        try {
+            for (Usuario u : lista_usuarios) {
+                if (u != null) {
+                    if (u.getId() == id) {
+                        u.setLatitud(latitud);
+                        u.setLongitud(longitud);
+                    }
                 }
             }
+        } catch (Exception e) {
+            System.out.println("El usuario");
         }
+
+    }
+
+    public void setDisponibilidad(int id, boolean disponibilidad) {
+
+        try {
+            for (Usuario u : lista_usuarios) {
+
+                if (u != null) {
+                    if (u.getId() == id) {
+                        u.setDisponibilidad(disponibilidad);
+                    }
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("No encontrado");
+        }
+
     }
 
     public Usuario buscarUsuario(String username, String pass) {
@@ -102,5 +122,4 @@ public class ArbolB_Usuarios extends ArbolB {
         }
     }
 
-    //public Usuario
 }

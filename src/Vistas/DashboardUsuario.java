@@ -33,7 +33,7 @@ public class DashboardUsuario extends javax.swing.JFrame {
         
         
         if (u == null) {
-            //System.out.println(" :(");
+            
             jLabel3.setText("Bienvenido a la aplicación-");
         } else {
             jLabel3.setText("Bienvenido " + u.getUsername());
@@ -241,7 +241,7 @@ public class DashboardUsuario extends javax.swing.JFrame {
 
     private void btn_viajesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_viajesActionPerformed
         
-        ModuloViajes viajes = new ModuloViajes(hash, arbol);
+        ModuloViajes viajes = new ModuloViajes(hash, arbol, user);
         viajes.setVisible(true);
         //SolicitarViaje solicitar = new SolicitarViaje();
         //solicitar.setVisible(true);

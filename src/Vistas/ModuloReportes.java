@@ -5,17 +5,30 @@
  */
 package Vistas;
 
+import Estructuras.TablaHash;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author juan333
  */
 public class ModuloReportes extends javax.swing.JFrame {
 
+    public static TablaHash hash;
+
     /**
      * Creates new form ModuloReportes
+     *
+     * @param h
      */
-    public ModuloReportes() {
+    public ModuloReportes(TablaHash h) {
         initComponents();
+        setResizable(false);
+        setTitle("Modulo de reportes");
+        setLocationRelativeTo(null);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+
+        hash = h;
     }
 
     /**
@@ -29,12 +42,12 @@ public class ModuloReportes extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
-        calcularRuta = new javax.swing.JButton();
-        calcularRuta1 = new javax.swing.JButton();
-        calcularRuta2 = new javax.swing.JButton();
-        calcularRuta3 = new javax.swing.JButton();
-        calcularRuta4 = new javax.swing.JButton();
-        cerrarSesion = new javax.swing.JButton();
+        btn_reporteConductores = new javax.swing.JButton();
+        btn_ReporteUsuarios = new javax.swing.JButton();
+        btn_reporteViajes = new javax.swing.JButton();
+        btn_reporteHash = new javax.swing.JButton();
+        btn_reporteTransacciones = new javax.swing.JButton();
+        btn_regresar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -47,65 +60,65 @@ public class ModuloReportes extends javax.swing.JFrame {
         jLabel3.setText("Reportes");
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 20, 270, 53));
 
-        calcularRuta.setBackground(new java.awt.Color(51, 153, 255));
-        calcularRuta.setFont(new java.awt.Font("Segoe UI Symbol", 0, 18)); // NOI18N
-        calcularRuta.setText("Reporte conductores");
-        calcularRuta.addActionListener(new java.awt.event.ActionListener() {
+        btn_reporteConductores.setBackground(new java.awt.Color(51, 153, 255));
+        btn_reporteConductores.setFont(new java.awt.Font("Segoe UI Symbol", 0, 18)); // NOI18N
+        btn_reporteConductores.setText("Reporte conductores");
+        btn_reporteConductores.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                calcularRutaActionPerformed(evt);
+                btn_reporteConductoresActionPerformed(evt);
             }
         });
-        jPanel1.add(calcularRuta, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 160, 210, -1));
+        jPanel1.add(btn_reporteConductores, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 160, 210, -1));
 
-        calcularRuta1.setBackground(new java.awt.Color(51, 153, 255));
-        calcularRuta1.setFont(new java.awt.Font("Segoe UI Symbol", 0, 18)); // NOI18N
-        calcularRuta1.setText("Reporte usuarios");
-        calcularRuta1.addActionListener(new java.awt.event.ActionListener() {
+        btn_ReporteUsuarios.setBackground(new java.awt.Color(51, 153, 255));
+        btn_ReporteUsuarios.setFont(new java.awt.Font("Segoe UI Symbol", 0, 18)); // NOI18N
+        btn_ReporteUsuarios.setText("Reporte usuarios");
+        btn_ReporteUsuarios.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                calcularRuta1ActionPerformed(evt);
+                btn_ReporteUsuariosActionPerformed(evt);
             }
         });
-        jPanel1.add(calcularRuta1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 100, 210, -1));
+        jPanel1.add(btn_ReporteUsuarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 100, 210, -1));
 
-        calcularRuta2.setBackground(new java.awt.Color(51, 153, 255));
-        calcularRuta2.setFont(new java.awt.Font("Segoe UI Symbol", 0, 18)); // NOI18N
-        calcularRuta2.setText("Reporte viajes");
-        calcularRuta2.addActionListener(new java.awt.event.ActionListener() {
+        btn_reporteViajes.setBackground(new java.awt.Color(51, 153, 255));
+        btn_reporteViajes.setFont(new java.awt.Font("Segoe UI Symbol", 0, 18)); // NOI18N
+        btn_reporteViajes.setText("Reporte viajes");
+        btn_reporteViajes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                calcularRuta2ActionPerformed(evt);
+                btn_reporteViajesActionPerformed(evt);
             }
         });
-        jPanel1.add(calcularRuta2, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 340, 210, -1));
+        jPanel1.add(btn_reporteViajes, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 340, 210, -1));
 
-        calcularRuta3.setBackground(new java.awt.Color(51, 153, 255));
-        calcularRuta3.setFont(new java.awt.Font("Segoe UI Symbol", 0, 18)); // NOI18N
-        calcularRuta3.setText("Reporte lugares");
-        calcularRuta3.addActionListener(new java.awt.event.ActionListener() {
+        btn_reporteHash.setBackground(new java.awt.Color(51, 153, 255));
+        btn_reporteHash.setFont(new java.awt.Font("Segoe UI Symbol", 0, 18)); // NOI18N
+        btn_reporteHash.setText("Reporte lugares");
+        btn_reporteHash.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                calcularRuta3ActionPerformed(evt);
+                btn_reporteHashActionPerformed(evt);
             }
         });
-        jPanel1.add(calcularRuta3, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 220, 210, -1));
+        jPanel1.add(btn_reporteHash, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 220, 210, -1));
 
-        calcularRuta4.setBackground(new java.awt.Color(51, 153, 255));
-        calcularRuta4.setFont(new java.awt.Font("Segoe UI Symbol", 0, 18)); // NOI18N
-        calcularRuta4.setText("Reporte transacciones");
-        calcularRuta4.addActionListener(new java.awt.event.ActionListener() {
+        btn_reporteTransacciones.setBackground(new java.awt.Color(51, 153, 255));
+        btn_reporteTransacciones.setFont(new java.awt.Font("Segoe UI Symbol", 0, 18)); // NOI18N
+        btn_reporteTransacciones.setText("Reporte transacciones");
+        btn_reporteTransacciones.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                calcularRuta4ActionPerformed(evt);
+                btn_reporteTransaccionesActionPerformed(evt);
             }
         });
-        jPanel1.add(calcularRuta4, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 280, 210, -1));
+        jPanel1.add(btn_reporteTransacciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 280, 210, -1));
 
-        cerrarSesion.setBackground(new java.awt.Color(255, 51, 51));
-        cerrarSesion.setFont(new java.awt.Font("Segoe UI Symbol", 0, 18)); // NOI18N
-        cerrarSesion.setText("Regresar");
-        cerrarSesion.addActionListener(new java.awt.event.ActionListener() {
+        btn_regresar.setBackground(new java.awt.Color(255, 51, 51));
+        btn_regresar.setFont(new java.awt.Font("Segoe UI Symbol", 0, 18)); // NOI18N
+        btn_regresar.setText("Regresar");
+        btn_regresar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cerrarSesionActionPerformed(evt);
+                btn_regresarActionPerformed(evt);
             }
         });
-        jPanel1.add(cerrarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(92, 400, 210, -1));
+        jPanel1.add(btn_regresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(92, 400, 210, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -121,30 +134,34 @@ public class ModuloReportes extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void calcularRutaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_calcularRutaActionPerformed
+    private void btn_reporteConductoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_reporteConductoresActionPerformed
 
-    
-    }//GEN-LAST:event_calcularRutaActionPerformed
 
-    private void calcularRuta1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_calcularRuta1ActionPerformed
+    }//GEN-LAST:event_btn_reporteConductoresActionPerformed
+
+    private void btn_ReporteUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ReporteUsuariosActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_calcularRuta1ActionPerformed
+    }//GEN-LAST:event_btn_ReporteUsuariosActionPerformed
 
-    private void calcularRuta2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_calcularRuta2ActionPerformed
+    private void btn_reporteViajesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_reporteViajesActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_calcularRuta2ActionPerformed
+    }//GEN-LAST:event_btn_reporteViajesActionPerformed
 
-    private void calcularRuta3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_calcularRuta3ActionPerformed
+    private void btn_reporteHashActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_reporteHashActionPerformed
+
+        // graficando la tabla hash
+        hash.graficar();
+        JOptionPane.showMessageDialog(null, "Tabla de lugares graficada con exito");
+
+    }//GEN-LAST:event_btn_reporteHashActionPerformed
+
+    private void btn_reporteTransaccionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_reporteTransaccionesActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_calcularRuta3ActionPerformed
+    }//GEN-LAST:event_btn_reporteTransaccionesActionPerformed
 
-    private void calcularRuta4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_calcularRuta4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_calcularRuta4ActionPerformed
+    private void btn_regresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_regresarActionPerformed
 
-    private void cerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cerrarSesionActionPerformed
-
-    }//GEN-LAST:event_cerrarSesionActionPerformed
+    }//GEN-LAST:event_btn_regresarActionPerformed
 
 //    /**
 //     * @param args the command line arguments
@@ -182,12 +199,12 @@ public class ModuloReportes extends javax.swing.JFrame {
 //    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton calcularRuta;
-    private javax.swing.JButton calcularRuta1;
-    private javax.swing.JButton calcularRuta2;
-    private javax.swing.JButton calcularRuta3;
-    private javax.swing.JButton calcularRuta4;
-    private javax.swing.JButton cerrarSesion;
+    private javax.swing.JButton btn_ReporteUsuarios;
+    private javax.swing.JButton btn_regresar;
+    private javax.swing.JButton btn_reporteConductores;
+    private javax.swing.JButton btn_reporteHash;
+    private javax.swing.JButton btn_reporteTransacciones;
+    private javax.swing.JButton btn_reporteViajes;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables

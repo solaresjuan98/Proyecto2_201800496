@@ -7,8 +7,10 @@ package Vistas;
 
 import Clases.Localidad;
 import Clases.Lugar;
+import Clases.NodoGrafo;
 import Clases.Usuario;
 import Estructuras.ArbolB_Usuarios;
+import Estructuras.Grafo;
 import Estructuras.TablaHash;
 import Estructuras.TablaHashExpL;
 import InterfazGrafica.Login;
@@ -38,9 +40,11 @@ public class DashbordAministrador extends javax.swing.JFrame {
     public static ArbolB_Usuarios arbol;
     // Tabla hash de lugares
     TablaHash hash = new TablaHash(10);
+    Grafo grafo = new Grafo();// luego pasar a public static..
+    
+    //En desuso:
     // Tabla hash de localidad
     TablaHashExpL hashlocalidades = new TablaHashExpL(20);
-
     // Tabla hash de localidad
     TablaHashExpL hashlocalidadesusr = new TablaHashExpL(7);
 
@@ -363,13 +367,19 @@ public class DashbordAministrador extends javax.swing.JFrame {
                     JSONObject localidad = (JSONObject) localidades.get(i);
 
                     long id_conductor = ((Number) localidad.get("id_conductor")).longValue();
-                    long id_lugar = ((Number) localidad.get("id_lugar")).longValue();
+                    String lugar = (String) localidad.get("lugar");
                     boolean disponibilidad = (boolean) localidad.get("disponibilidad");
-                    hashlocalidades.insertarConductor(new Localidad((int) id_conductor, (int) id_lugar, disponibilidad));
+                    // cambiar la disponibilidad 
+                    arbol.setDisponibilidad((int) id_conductor, disponibilidad);
+                    // setear coordenadas del lugar en donde está el conductor
+                    Lugar l = hash.buscarLugar(lugar);
 
+                    try {
+                        arbol.setCoordenadas((int) id_conductor, l.getLatitud(), l.getLongitud());
+                    } catch (Exception e) {
+
+                    }
                 }
-
-                hashlocalidades.mostrarLocalidades();
 
             } catch (FileNotFoundException ex) {
                 Logger.getLogger(DashbordAministrador.class.getName()).log(Level.SEVERE, null, ex);
@@ -408,12 +418,14 @@ public class DashbordAministrador extends javax.swing.JFrame {
                     System.out.println(" ----> " + id_usuario);
                     String lugar = (String) localidad.get("nombre");
                     Lugar l = hash.buscarLugar(lugar);
-                    arbol.setCoordenadas((int) id_usuario, l.getLatitud(), l.getLongitud());
 
+                    try {
+                        arbol.setCoordenadas((int) id_usuario, l.getLatitud(), l.getLongitud());
+                    } catch (Exception e) {
 
+                    }
                 }
 
-                //hashlocalidadesusr.mostrarLocalidades();
             } catch (FileNotFoundException ex) {
                 Logger.getLogger(DashbordAministrador.class.getName()).log(Level.SEVERE, null, ex);
             } catch (IOException ex) {
@@ -429,14 +441,49 @@ public class DashbordAministrador extends javax.swing.JFrame {
     private void btn_subirConexionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_subirConexionesActionPerformed
         // TODO add your handling code here:
 
+        JFileChooser subirJSON = new JFileChooser();
+        FileNameExtensionFilter filtro = new FileNameExtensionFilter("Archivos JSON", "json");
+        subirJSON.setFileFilter(filtro);
 
+        JSONParser parser = new JSONParser();
+
+        int r = subirJSON.showOpenDialog(null);
+        if (r == JFileChooser.APPROVE_OPTION) {
+            System.out.println(subirJSON.getSelectedFile().getName());
+            try {
+                Reader reader = new FileReader(subirJSON.getSelectedFile());
+                JSONObject jsonobj = (JSONObject) parser.parse(reader);
+
+                // array
+                JSONArray conexiones = (JSONArray) jsonobj.get("Grafo");
+
+                for (int i = 0; i < conexiones.size(); i++) {
+
+                    JSONObject conexion = (JSONObject) conexiones.get(i);
+                    String lugar = (String) conexion.get("final");
+                    long peso = ((Number) conexion.get("peso")).longValue();// = distancia
+                    long precio = ((Number) conexion.get("precio")).longValue();
+                    
+                    grafo.agregarNodo(new NodoGrafo(lugar, precio));
+                    System.out.println(lugar);
+                }
+
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(DashbordAministrador.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(DashbordAministrador.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ParseException ex) {
+                Logger.getLogger(DashbordAministrador.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }//GEN-LAST:event_btn_subirConexionesActionPerformed
 
     private void verReportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_verReportesActionPerformed
         // TODO add your handling code here:
-        
-        ModuloReportes reportes = new ModuloReportes();
+
+        ModuloReportes reportes = new ModuloReportes(hash);
         reportes.setVisible(true);
+
     }//GEN-LAST:event_verReportesActionPerformed
 
     private void cerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cerrarSesionActionPerformed

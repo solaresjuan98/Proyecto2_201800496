@@ -15,6 +15,7 @@ public class Usuario {
     String nombre_completo, username, contrasenia, correo, rol;
     int telefono;
     float latitud, longitud;
+    boolean disponibilidad;
 
     public Usuario(int id, String nombre_completo, String username, String correo, String contrasenia, int telefono, String rol) {
         this.id = id;
@@ -26,6 +27,7 @@ public class Usuario {
         this.rol = rol;
         this.latitud = 0;
         this.longitud = 0;
+        this.disponibilidad = true;
     }
 
     public int getId() {
@@ -98,6 +100,14 @@ public class Usuario {
 
     public void setLongitud(float longitud) {
         this.longitud = longitud;
+    }
+
+    public boolean isDisponibilidad() {
+        return disponibilidad;
+    }
+
+    public void setDisponibilidad(boolean disponibilidad) {
+        this.disponibilidad = disponibilidad;
     }
     
     

@@ -20,17 +20,20 @@ import javax.swing.JOptionPane;
  * @author juan333
  */
 public class ModuloViajes extends javax.swing.JFrame {
-    
+
     public static ArbolB_Usuarios arbol;
     public static TablaHash hash;
     private final ArbolB_Usuarios a;
+    public static Usuario user;
 
     /**
      * Creates new form ModuloViajes
+     *
      * @param t
      * @param a
+     * @param u
      */
-    public ModuloViajes(TablaHash t, ArbolB_Usuarios a) {
+    public ModuloViajes(TablaHash t, ArbolB_Usuarios a, Usuario u) {
         initComponents();
         setTitle("Modulo de viaje");
         setLocationRelativeTo(null);
@@ -39,8 +42,8 @@ public class ModuloViajes extends javax.swing.JFrame {
 
         hash = t;
         arbol = a;
-        
-       
+        user = u;
+
         // arreglo grande
         if (hash.isBandera()) {
             for (Lugar l : hash.lugares_redimensionado) {
@@ -51,7 +54,7 @@ public class ModuloViajes extends javax.swing.JFrame {
                     LugarFinal.addItem(l.getNombre());
                 }
             }
-        // arreglo pequeño
+            // arreglo pequeño
         } else {
 
             for (Lugar l : hash.arreglo_lugares) {
@@ -217,35 +220,44 @@ public class ModuloViajes extends javax.swing.JFrame {
 
     private void verConductoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_verConductoresActionPerformed
 
-        ArrayList<Usuario> listaaux= new ArrayList<>();
-        for(Usuario u : arbol.getLista_usuarios()){
-            
-            if( u != null){
-                
-                if(u.getRol().equals("conductor")){
+        ArrayList<Usuario> listaaux = new ArrayList<>();
+        for (Usuario u : arbol.getLista_usuarios()) {
+
+            if (u != null) {
+
+                if (u.getRol().equals("conductor")) {
                     listaaux.add(u);
                     System.out.println(" Conductor con nombre: " + u.getNombre_completo());
                 }
             }
         }
-        
+
         MapViewOptions options = new MapViewOptions();
         options.importPlaces();
         options.setApiKey("AIzaSyAu_wHDWkQ4oI98SuwtK1pVqKjIJitE_nw");
         Mapa mapa = new Mapa(options);
         mapa.Renderizar(mapa);
         JOptionPane.showMessageDialog(null, "Renderizando mapa...");
-        
-        for(Usuario conductor: listaaux){
-            
-            if(conductor != null){
-              
-                mapa.agregarMarcador(new LatLng(conductor.getLatitud(), conductor.getLongitud()));
-               
+
+        StringBuilder info = new StringBuilder();
+
+        for (Usuario conductor : listaaux) {
+
+            if (conductor != null) {
+                info.append("Nombre: ").append(conductor.getNombre_completo()).append("\n");
+                if (conductor.isDisponibilidad()) {
+                    info.append("Disponible: ").append("si\n");
+                } else {
+                    info.append("Disponible: ").append("no\n");
+                }
+                mapa.agregarMarcadorInfo(new LatLng(conductor.getLatitud(), conductor.getLongitud()), info.toString());
+
+                info.setLength(0);
             }
         }
-
         
+        mapa.agregarMarcadorInfo(new LatLng(user.getLatitud(), user.getLongitud()), "MI UBICACION ACTUAL");
+
 
     }//GEN-LAST:event_verConductoresActionPerformed
 
@@ -255,7 +267,7 @@ public class ModuloViajes extends javax.swing.JFrame {
 
     private void verLugaresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_verLugaresActionPerformed
         // TODO add your handling code here:
-         String inicio = (String) LugarInicio.getSelectedItem();
+        String inicio = (String) LugarInicio.getSelectedItem();
         String fin = (String) LugarFinal.getSelectedItem();
 
         System.out.println("inicio >> " + inicio);
@@ -264,23 +276,22 @@ public class ModuloViajes extends javax.swing.JFrame {
         Lugar inicio_ = hash.buscarLugar(inicio);
         Lugar final_ = hash.buscarLugar(fin);
 
-        
         MapViewOptions options = new MapViewOptions();
         options.importPlaces();
         options.setApiKey("AIzaSyAu_wHDWkQ4oI98SuwtK1pVqKjIJitE_nw");
         Mapa mapa = new Mapa(options);
         mapa.Renderizar(mapa);
         JOptionPane.showMessageDialog(null, "Renderizando mapa...");
-        
+
         mapa.agregarMarcador(new LatLng(14.537999, -90.581349));
-        
+
         LatLng c1 = new LatLng(inicio_.getLatitud(), inicio_.getLongitud());
         LatLng c2 = new LatLng(final_.getLatitud(), final_.getLongitud());
         //LatLng c3 = new LatLng(14.541550, -90.584514);
 
         LatLng[] camino = {c1, c2};
         mapa.agregarGrafo(camino, true);
-        
+
     }//GEN-LAST:event_verLugaresActionPerformed
 
 //    /**

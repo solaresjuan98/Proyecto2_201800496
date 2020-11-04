@@ -6,6 +6,7 @@
 package Mapa;
 
 import com.teamdev.jxmaps.ControlPosition;
+import com.teamdev.jxmaps.InfoWindow;
 import com.teamdev.jxmaps.LatLng;
 import com.teamdev.jxmaps.Map;
 import com.teamdev.jxmaps.MapOptions;
@@ -32,7 +33,7 @@ public class Mapa extends MapView {
     public Mapa(MapViewOptions options) {
         super(options);
         setOnMapReadyHandler((MapStatus ms) -> {
-           
+
             if (ms == MapStatus.MAP_STATUS_OK) {
                 map = getMap();
                 MapOptions mapOptions = new MapOptions();
@@ -42,7 +43,7 @@ public class Mapa extends MapView {
                 map.setOptions(mapOptions);
                 map.setCenter(new LatLng(14.533199, -90.585043));
                 map.setZoom(15);
-                
+
             }
         });
 
@@ -69,36 +70,50 @@ public class Mapa extends MapView {
         frame.setVisible(true);
 
     }
-    
-    public Marker agregarMarcador(LatLng coordenada){
-        
+
+    public Marker agregarMarcador(LatLng coordenada) {
+
         Marker marcador = new Marker(map);
         marcador.setPosition(coordenada);
         map.setCenter(coordenada);
-        System.out.println("Marcador agregado :DDD");
+        InfoWindow window = new InfoWindow(map);
+        window.setContent("Estoy aqui!!");
+        window.open(map, marcador);
         return marcador;
-        
+
     }
     
-    public void agregarLinea(LatLng inicio, LatLng fin, boolean marcador){
-        
+    public Marker agregarMarcadorInfo(LatLng coordenada, String info) {
+
+        Marker marcador = new Marker(map);
+        marcador.setPosition(coordenada);
+        map.setCenter(coordenada);
+        InfoWindow window = new InfoWindow(map);
+        window.setContent(info);
+        window.open(map, marcador);
+        return marcador;
+
+    }
+
+    public void agregarLinea(LatLng inicio, LatLng fin, boolean marcador) {
+
         LatLng[] linea = {inicio, fin};
         Polyline pl = new Polyline(map);
         pl.setPath(linea);
-        
-        if(marcador){
+
+        if (marcador) {
             agregarMarcador(inicio);
             agregarMarcador(fin);
         }
     }
-    
-    public void agregarGrafo(LatLng[] camino, boolean marcador){
-        
-        Polyline pl  = new Polyline(map);
+
+    public void agregarGrafo(LatLng[] camino, boolean marcador) {
+
+        Polyline pl = new Polyline(map);
         pl.setPath(camino);
-        
-        if(marcador){
-            for(LatLng c : camino){
+
+        if (marcador) {
+            for (LatLng c : camino) {
                 agregarMarcador(c);
             }
         }
