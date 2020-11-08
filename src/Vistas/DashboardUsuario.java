@@ -5,9 +5,14 @@
  */
 package Vistas;
 
+import Clases.NodoGrafo;
 import Clases.Usuario;
 import Estructuras.ArbolB_Usuarios;
+import Estructuras.Grafo;
 import Estructuras.TablaHash;
+import static Vistas.DashbordAministrador.arbol;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -18,15 +23,16 @@ public class DashboardUsuario extends javax.swing.JFrame {
     public static ArbolB_Usuarios arbol;
     public static Usuario user;
     public static TablaHash hash;
-
+    ArrayList<NodoGrafo> listaNodosG;
     /**
      * Creates new form DashboardUsuario
      *
      * @param u
      * @param t
      * @param a
+     * @param listag
      */
-    public DashboardUsuario(Usuario u, TablaHash t, ArbolB_Usuarios a) {
+    public DashboardUsuario(Usuario u, TablaHash t, ArbolB_Usuarios a, ArrayList<NodoGrafo> listag) {
         initComponents();
         setResizable(false);
         setLocationRelativeTo(null);
@@ -67,6 +73,8 @@ public class DashboardUsuario extends javax.swing.JFrame {
         btn_pagos = new javax.swing.JButton();
         btn_modificauser = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
+        btn_logout = new javax.swing.JButton();
+        jLabel9 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -144,6 +152,19 @@ public class DashboardUsuario extends javax.swing.JFrame {
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setText("Ver mis datos");
 
+        btn_logout.setBackground(new java.awt.Color(33, 45, 62));
+        btn_logout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8_exit_96px.png"))); // NOI18N
+        btn_logout.setBorder(null);
+        btn_logout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_logoutActionPerformed(evt);
+            }
+        });
+
+        jLabel9.setFont(new java.awt.Font("Gotham Thin", 0, 12)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel9.setText("Cerrar sesión");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -175,10 +196,19 @@ public class DashboardUsuario extends javax.swing.JFrame {
                                 .addComponent(btn_viajes, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(70, 70, 70)
                                 .addComponent(btn_revisarViajes, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(67, 67, 67)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btn_lugaresSujeridos, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel6)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(67, 67, 67)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btn_lugaresSujeridos, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel6)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(77, 77, 77)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btn_logout)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(6, 6, 6)
+                                        .addComponent(jLabel9))))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(37, 37, 37)
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 653, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -208,9 +238,13 @@ public class DashboardUsuario extends javax.swing.JFrame {
                         .addGap(0, 7, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btn_modificauser, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btn_modificauser, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btn_logout, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap())))
         );
 
@@ -258,10 +292,25 @@ public class DashboardUsuario extends javax.swing.JFrame {
     private void btn_modificauserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_modificauserActionPerformed
         // TODO add your handling code here:
         
-        DatosUsuario d = new DatosUsuario(user);
+        DatosUsuario d = new DatosUsuario(user, arbol);
         d.setVisible(true);
         //dispose();
     }//GEN-LAST:event_btn_modificauserActionPerformed
+
+    private void btn_logoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_logoutActionPerformed
+        // TODO add your handling code here
+        
+        
+        int dRes = JOptionPane.showConfirmDialog(null, "¿Deseas cerrar sesión?");
+        Grafo g = new Grafo();
+        if (dRes == JOptionPane.YES_OPTION) {
+
+            IniciarSesion login = new IniciarSesion(arbol, hash, g, listaNodosG);
+            login.setVisible(true);
+            dispose();
+        }
+        
+    }//GEN-LAST:event_btn_logoutActionPerformed
 
 //    /**
 //     * @param args the command line arguments
@@ -299,6 +348,7 @@ public class DashboardUsuario extends javax.swing.JFrame {
 //    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn_logout;
     private javax.swing.JButton btn_lugaresSujeridos;
     private javax.swing.JButton btn_modificauser;
     private javax.swing.JButton btn_pagos;
@@ -310,6 +360,7 @@ public class DashboardUsuario extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }

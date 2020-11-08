@@ -38,7 +38,7 @@ public class Dijkstra {
         nodosVisistados.add(inicio);
 
         System.out.print("" + actual.getLugar() + " -> ");
-        
+        System.out.print("" + actual.getAristas()+ " -> ");
         // ejecutar el ciclo mientras no se llegue al nodo destino
         while (actual != destino) {
 
@@ -69,11 +69,11 @@ public class Dijkstra {
             }
             
             
-            System.out.print("" + actual.getLugar() + " -> ");
+            //System.out.print("" + actual.getLugar() + " -> ");
         }
 
         System.out.println("Precio a pagar: " + this.precioViaje);
-        //System.out.println("\n"+nodosVisistados);
+        System.out.println("\n"+nodosVisistados);
         return grafo;
     }
 

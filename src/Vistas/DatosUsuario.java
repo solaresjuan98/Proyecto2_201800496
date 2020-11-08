@@ -6,6 +6,7 @@
 package Vistas;
 
 import Clases.Usuario;
+import Estructuras.ArbolB_Usuarios;
 import javax.swing.JOptionPane;
 
 /**
@@ -14,6 +15,7 @@ import javax.swing.JOptionPane;
  */
 public class DatosUsuario extends javax.swing.JFrame {
 
+    public ArbolB_Usuarios arbol;
     public static Usuario user;
 
     /**
@@ -21,7 +23,7 @@ public class DatosUsuario extends javax.swing.JFrame {
      *
      * @param u
      */
-    public DatosUsuario(Usuario u) {
+    public DatosUsuario(Usuario u, ArbolB_Usuarios a) {
         initComponents();
         setTitle("Datos de usuario");
         setLocationRelativeTo(null);
@@ -29,6 +31,7 @@ public class DatosUsuario extends javax.swing.JFrame {
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
         if (u != null) {
+            arbol = a;
             txt_id.setText(String.valueOf(u.getId()));
             txt_nombre.setText(u.getNombre_completo());
             txt_username.setText(u.getUsername());
@@ -73,7 +76,7 @@ public class DatosUsuario extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         txt_telefono = new javax.swing.JTextField();
         jSeparator6 = new javax.swing.JSeparator();
-        registrar = new javax.swing.JButton();
+        modificarUsuario = new javax.swing.JButton();
         regresar = new javax.swing.JButton();
         borrarform = new javax.swing.JButton();
 
@@ -175,12 +178,12 @@ public class DatosUsuario extends javax.swing.JFrame {
         jSeparator6.setBackground(new java.awt.Color(73, 181, 172));
         jSeparator6.setForeground(new java.awt.Color(73, 181, 172));
 
-        registrar.setBackground(new java.awt.Color(51, 205, 50));
-        registrar.setFont(new java.awt.Font("Segoe UI Symbol", 0, 18)); // NOI18N
-        registrar.setText("Modificar datos");
-        registrar.addActionListener(new java.awt.event.ActionListener() {
+        modificarUsuario.setBackground(new java.awt.Color(51, 205, 50));
+        modificarUsuario.setFont(new java.awt.Font("Segoe UI Symbol", 0, 18)); // NOI18N
+        modificarUsuario.setText("Modificar datos");
+        modificarUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                registrarActionPerformed(evt);
+                modificarUsuarioActionPerformed(evt);
             }
         });
 
@@ -248,7 +251,7 @@ public class DatosUsuario extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(97, 97, 97)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(registrar, javax.swing.GroupLayout.DEFAULT_SIZE, 178, Short.MAX_VALUE)
+                                    .addComponent(modificarUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 178, Short.MAX_VALUE)
                                     .addComponent(borrarform, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(regresar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
@@ -298,7 +301,7 @@ public class DatosUsuario extends javax.swing.JFrame {
                         .addGap(0, 0, 0)
                         .addComponent(jSeparator6, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(registrar)
+                        .addComponent(modificarUsuario)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(borrarform)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -322,15 +325,29 @@ public class DatosUsuario extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void registrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registrarActionPerformed
-
-    }//GEN-LAST:event_registrarActionPerformed
+    private void modificarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modificarUsuarioActionPerformed
+            
+            int id = Integer.parseInt(txt_id.getText());
+            String nombre = txt_nombre.getText();
+            String username = txt_username.getText();
+            String correo = txt_correo.getText();
+            String pass = txt_pass.getText();
+            int tel = Integer.parseInt(txt_telefono.getText());
+            
+            Usuario usr_mod = new Usuario(id,nombre,username,correo, pass,tel, "usuario");
+            
+            arbol.modificarUsr(usr_mod);
+            
+            arbol.mostrarUsuarios();
+            
+            
+    }//GEN-LAST:event_modificarUsuarioActionPerformed
 
     private void regresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_regresarActionPerformed
         
-        DashboardUsuario d = new DashboardUsuario(user);
-        d.setVisible(true);
-        d.dispose();
+        //DashboardUsuario d = new DashboardUsuario(user);
+        //d.setVisible(true);
+        dispose();
         
         
     }//GEN-LAST:event_regresarActionPerformed
@@ -418,7 +435,7 @@ public class DatosUsuario extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator5;
     private javax.swing.JSeparator jSeparator6;
-    private javax.swing.JButton registrar;
+    private javax.swing.JButton modificarUsuario;
     private javax.swing.JButton regresar;
     private javax.swing.JTextField txt_correo;
     private javax.swing.JTextField txt_id;

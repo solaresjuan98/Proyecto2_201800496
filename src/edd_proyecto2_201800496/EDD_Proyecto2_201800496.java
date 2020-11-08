@@ -48,28 +48,33 @@ public class EDD_Proyecto2_201800496 {
         ArbolB_Usuarios arbol_usuarios = new ArbolB_Usuarios(3);
         
         //instantcias de usuario
-//        Usuario u1 = new Usuario((int) 232, "juan", "juan333", "correo", "pass", 4343434, "conductor");
-//        Usuario u2 = new Usuario((int) 221, "pablo", "pabloxd", "correo", "pass", 4343434, "usuario");
-//        Usuario u3 = new Usuario((int) 10, "maria", "maria_22", "correo", "pass", 4343434, "usuario");
-//        Usuario u4 = new Usuario((int) 23, "laura", "laurita_1", "correo", "pass", 4343434, "conductor");
-//        Usuario u5 = new Usuario((int) 72, "Mario", "mario22", "correo", "pass", 4343434, "usuario");
-//        Usuario u6 = new Usuario((int) 100, "Mario", "mario22", "correo", "pass", 4343434, "usuario");
-//        Usuario u7 = new Usuario((int) 12, "Mario", "mario22", "correo", "pass", 4343434, "usuario");
-//        Usuario u8 = new Usuario((int) 25, "Mario", "mario22", "correo", "pass", 4343434, "usuario");
-//        arbol_usuarios.agregarUsuario(u1);
-//        arbol_usuarios.agregarUsuario(u2);
-//        arbol_usuarios.agregarUsuario(u3);
-//        arbol_usuarios.agregarUsuario(u4);
-//        arbol_usuarios.agregarUsuario(u5);
-//        arbol_usuarios.agregarUsuario(u6);
-//        arbol_usuarios.agregarUsuario(u7);
-//        arbol_usuarios.agregarUsuario(u8);
+        Usuario u1 = new Usuario((int) 232, "juan", "juan333", "correo", "pass", 4343434, "conductor");
+        Usuario u2 = new Usuario((int) 221, "pablo", "pabloxd", "correo", "pass", 4343434, "usuario");
+        Usuario u3 = new Usuario((int) 10, "maria", "maria_22", "correo", "pass", 4343434, "usuario");
+        Usuario u4 = new Usuario((int) 23, "laura", "laurita_1", "correo", "pass", 4343434, "conductor");
+        Usuario u5 = new Usuario((int) 72, "Mario", "mario22", "correo", "pass", 4343434, "usuario");
+        Usuario u6 = new Usuario((int) 100, "Mario", "mario22", "correo", "pass", 4343434, "usuario");
+        Usuario u7 = new Usuario((int) 12, "Mario", "mario22", "correo", "pass", 4343434, "usuario");
+        Usuario u8 = new Usuario((int) 25, "Mario", "mario22", "correo", "pass", 4343434, "usuario");
+        arbol_usuarios.agregarUsuario(u1);
+        arbol_usuarios.agregarUsuario(u2);
+        arbol_usuarios.agregarUsuario(u3);
+        arbol_usuarios.agregarUsuario(u4);
+        arbol_usuarios.agregarUsuario(u5);
+        arbol_usuarios.agregarUsuario(u6);
+        arbol_usuarios.agregarUsuario(u7);
+        arbol_usuarios.agregarUsuario(u8);
+        
+//        arbol_usuarios.mostrarUsuarios();
 //        
+//        arbol_usuarios.modificarUsr(new Usuario((int) 221, "pablo69", "pabloxd___", "correo@gmail.com", "pass", 4343434, "conductor"));
+//        
+//        arbol_usuarios.mostrarUsuarios();
 //        
 //        arbol_usuarios.setCoordenadas(221, (float) 14.537999, (float) -90.581349);
         
         //System.out.println(" -> "+u2.getLatitud() +" "+u2.getLongitud());
-        arbol_usuarios.GraficarArbol();
+        //arbol_usuarios.GraficarArbol();
         //arbol_usuarios.buscarUsuario("juan333", "paess");
 
         /*for (int i = 0; i < 24; i++) {
@@ -97,43 +102,17 @@ public class EDD_Proyecto2_201800496 {
         */
         //hash.graficar();
         //hash.mostrarTabla();
-        // Para buscar un lugar en la tabla hash
-        /*try {
-            Lugar lbuscado = hash.buscarLugar("El duende");
-            System.out.println(" >> " + " - " + lbuscado.getId_lugar() + " " + lbuscado.getNombre());
-        } catch (Exception e) {
-            System.out.println(" El lugar no existe. Prueba con otro lugar. ");
-        }*/
-        IniciarSesion login = new IniciarSesion(arbol_usuarios, hash);
+
+        
+        ArrayList<NodoGrafo> listaNodosG = new ArrayList<>();
+        
+        Grafo grafo = new Grafo();
+        
+        IniciarSesion login = new IniciarSesion(arbol_usuarios, hash, grafo, listaNodosG);
         login.setVisible(true);
         /*Grafos*/
         //Grafo grafo = obtenerCiudades();
-        //MAPA 
-//            MapViewOptions options = new MapViewOptions();
-//            options.importPlaces();
-//            options.setApiKey("AIzaSyAu_wHDWkQ4oI98SuwtK1pVqKjIJitE_nw");
-//            Mapa mapa = new Mapa(options);
-//            mapa.Renderizar(mapa);
-//
-//            LatLng c1 = new LatLng(14.538548, -90.584275);
-//            LatLng c2 = new LatLng(14.538473, -90.582663);
-//            LatLng c3 = new LatLng(14.541550, -90.584514);
-//
-//            LatLng[] camino = {c1, c2, c3};
-//            mapa.agregarGrafo(camino, true);
-        // Agregrando linea
-        //mapa.agregarLinea(inicio, fin, true);
-        //mapa.agregarMarcador(new LatLng(14.538548, -90.584275));
-        //mapa.agregarMarcador(new LatLng(14.538473, -90.582663));
-        /*JFrame frame = new JFrame();
-        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        frame.setLocationRelativeTo(null);
-        frame.setSize(1000, 800);
-        frame.add(mapa, BorderLayout.CENTER);
-        frame.setVisible(true);*/
-        //System.out.println(grafo);
-        //List<Block> blockchain = new ArrayList<>();
-        //int prefijo = 4;
+        //grafo.toString();
         //String cadenaPrefijo = new String(new char[prefijo]).replace('\0', '0');
     }
 

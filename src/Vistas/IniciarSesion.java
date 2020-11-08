@@ -5,27 +5,33 @@
  */
 package Vistas;
 
+import Clases.NodoGrafo;
 import Clases.Usuario;
 import Estructuras.ArbolB_Usuarios;
+import Estructuras.Grafo;
 import Estructuras.TablaHash;
 import com.sun.awt.AWTUtilities;
 import java.awt.Shape;
 import java.awt.geom.RoundRectangle2D;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 public class IniciarSesion extends javax.swing.JFrame {
 
+    ArrayList<NodoGrafo> listaNodosG;
     public static ArbolB_Usuarios arbol;
     public static TablaHash hash;
-    
+    Grafo grafo;
     
     /**
      * Creates new form IniciarSesion
      *
      * @param arbol_usuarios
      * @param t
+     * @param g
+     * @param listag
      */
-    public IniciarSesion(ArbolB_Usuarios arbol_usuarios, TablaHash t) {
+    public IniciarSesion(ArbolB_Usuarios arbol_usuarios, TablaHash t, Grafo g, ArrayList<NodoGrafo> listag) {
         initComponents();
         setLocationRelativeTo(null); //Centra la vantana en la pantalla
         //
@@ -41,6 +47,8 @@ public class IniciarSesion extends javax.swing.JFrame {
             arbol_usuarios.mostrarUsuarios();
             hash = t;
             arbol = arbol_usuarios;
+            grafo = g;
+            listaNodosG = listag;
             //hash.mostrarTabla();;
         }
 
@@ -182,7 +190,7 @@ public class IniciarSesion extends javax.swing.JFrame {
 
         Registro registro = new Registro(arbol);
         registro.setVisible(true);
-        dispose();
+        //dispose();
 
     }//GEN-LAST:event_btnIngresarActionPerformed
 
@@ -207,7 +215,7 @@ public class IniciarSesion extends javax.swing.JFrame {
             // Logeando como administrador
             if (usuario.equals("marvin_martinez") && contrasenia.equals("admin") && rol_seleccionado.equals("administrador")) {
                 JOptionPane.showMessageDialog(null, "Bienvenido");
-                DashbordAministrador dashboard = new DashbordAministrador(arbol);
+                DashbordAministrador dashboard = new DashbordAministrador(arbol, listaNodosG);
                 dashboard.setVisible(true);
                 dispose();
             } else if (usuario.equals(user.getUsername()) && contrasenia.equals(user.getContrasenia()) && rol_seleccionado.equals(user.getRol())) {
@@ -215,7 +223,7 @@ public class IniciarSesion extends javax.swing.JFrame {
 
                 if (user.getRol().equals("usuario")) {
                     // abrir el form de usuarios
-                    DashboardUsuario dash = new DashboardUsuario(user, hash, arbol);
+                    DashboardUsuario dash = new DashboardUsuario(user, hash, arbol, listaNodosG);
                     dash.setVisible(true);
                     dispose();
 

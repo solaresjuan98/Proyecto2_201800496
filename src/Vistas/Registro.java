@@ -385,8 +385,8 @@ public class Registro extends javax.swing.JFrame {
 
     private void regresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_regresarActionPerformed
         // TODO add your handling code here:
-        DashbordAministrador d = new DashbordAministrador(arbol);
-        d.setVisible(true);
+        //DashbordAministrador d = new DashbordAministrador(arbol);
+        //d.setVisible(true);
         dispose();
     }//GEN-LAST:event_regresarActionPerformed
 

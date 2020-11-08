@@ -77,7 +77,7 @@ public class Mapa extends MapView {
         marcador.setPosition(coordenada);
         map.setCenter(coordenada);
         InfoWindow window = new InfoWindow(map);
-        window.setContent("Estoy aqui!!");
+        //window.setContent("Estoy aqui!!");agregar marcador
         window.open(map, marcador);
         return marcador;
 
@@ -102,8 +102,8 @@ public class Mapa extends MapView {
         pl.setPath(linea);
 
         if (marcador) {
-            agregarMarcador(inicio);
-            agregarMarcador(fin);
+            agregarMarcadorInfo(inicio,"Inicio");
+            agregarMarcadorInfo(fin, "Destino");
         }
     }
 

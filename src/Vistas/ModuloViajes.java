@@ -23,7 +23,6 @@ public class ModuloViajes extends javax.swing.JFrame {
 
     public static ArbolB_Usuarios arbol;
     public static TablaHash hash;
-    private final ArbolB_Usuarios a;
     public static Usuario user;
 
     /**
@@ -43,7 +42,12 @@ public class ModuloViajes extends javax.swing.JFrame {
         hash = t;
         arbol = a;
         user = u;
-
+        
+        //System.out.println("->"+user.getLatitud()+" "+user.getLongitud());
+        
+        //Lugar inicio = hash.buscarLugarPorCoordenada((long)user.getLatitud(), (long)user.getLongitud());
+        // setear el lugar de inicio (UNICO) en la lista
+        //LugarInicio.addItem(inicio.getNombre());
         // arreglo grande
         if (hash.isBandera()) {
             for (Lugar l : hash.lugares_redimensionado) {
@@ -68,7 +72,7 @@ public class ModuloViajes extends javax.swing.JFrame {
             }
 
         }
-        this.a = a;
+     
 
     }
 
@@ -118,7 +122,7 @@ public class ModuloViajes extends javax.swing.JFrame {
 
         verConductores.setBackground(new java.awt.Color(51, 153, 255));
         verConductores.setFont(new java.awt.Font("Segoe UI Symbol", 0, 18)); // NOI18N
-        verConductores.setText("Ver conductores en mapa");
+        verConductores.setText("Ver conductores");
         verConductores.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 verConductoresActionPerformed(evt);
@@ -283,8 +287,9 @@ public class ModuloViajes extends javax.swing.JFrame {
         mapa.Renderizar(mapa);
         JOptionPane.showMessageDialog(null, "Renderizando mapa...");
 
-        mapa.agregarMarcador(new LatLng(14.537999, -90.581349));
-
+        //mapa.agregarMarcador(new LatLng(14.537999, -90.581349));
+        mapa.agregarMarcadorInfo(new LatLng(user.getLatitud(), user.getLongitud()), "Mi ubicación actual");
+        
         LatLng c1 = new LatLng(inicio_.getLatitud(), inicio_.getLongitud());
         LatLng c2 = new LatLng(final_.getLatitud(), final_.getLongitud());
         //LatLng c3 = new LatLng(14.541550, -90.584514);

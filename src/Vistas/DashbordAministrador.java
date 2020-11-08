@@ -10,6 +10,7 @@ import Clases.Lugar;
 import Clases.NodoGrafo;
 import Clases.Usuario;
 import Estructuras.ArbolB_Usuarios;
+import Estructuras.Dijkstra;
 import Estructuras.Grafo;
 import Estructuras.TablaHash;
 import Estructuras.TablaHashExpL;
@@ -20,6 +21,7 @@ import java.io.IOException;
 import java.io.Reader;
 import java.math.BigInteger;
 import java.security.MessageDigest;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
@@ -41,19 +43,18 @@ public class DashbordAministrador extends javax.swing.JFrame {
     // Tabla hash de lugares
     TablaHash hash = new TablaHash(10);
     Grafo grafo = new Grafo();// luego pasar a public static..
+
+    ArrayList<NodoGrafo> listaNodosG;
     
-    //En desuso:
-    // Tabla hash de localidad
-    TablaHashExpL hashlocalidades = new TablaHashExpL(20);
-    // Tabla hash de localidad
-    TablaHashExpL hashlocalidadesusr = new TablaHashExpL(7);
+
 
     /**
      * Creates new form DashbordAministrador
      *
      * @param arbolb_usuarios
+     * @param listag
      */
-    public DashbordAministrador(ArbolB_Usuarios arbolb_usuarios) {
+    public DashbordAministrador(ArbolB_Usuarios arbolb_usuarios, ArrayList<NodoGrafo> listag) {
         initComponents();
         setLocationRelativeTo(null);
 
@@ -64,6 +65,7 @@ public class DashbordAministrador extends javax.swing.JFrame {
             System.out.println("no f");
             arbolb_usuarios.mostrarUsuarios();
             arbol = arbolb_usuarios;
+            listaNodosG = listag;
         }
 
     }
@@ -449,7 +451,6 @@ public class DashbordAministrador extends javax.swing.JFrame {
 
         int r = subirJSON.showOpenDialog(null);
         if (r == JFileChooser.APPROVE_OPTION) {
-            System.out.println(subirJSON.getSelectedFile().getName());
             try {
                 Reader reader = new FileReader(subirJSON.getSelectedFile());
                 JSONObject jsonobj = (JSONObject) parser.parse(reader);
@@ -460,19 +461,22 @@ public class DashbordAministrador extends javax.swing.JFrame {
                 for (int i = 0; i < conexiones.size(); i++) {
 
                     JSONObject conexion = (JSONObject) conexiones.get(i);
-                    String lugar = (String) conexion.get("final");
+                    String lugar_inicio = (String) conexion.get("inicio");
+                    String lugar_final = (String) conexion.get("final");
                     long peso = ((Number) conexion.get("peso")).longValue();// = distancia
                     long precio = ((Number) conexion.get("precio")).longValue();
+
+                  
+                    NodoGrafo inicio = new NodoGrafo(lugar_inicio, precio);
+                    NodoGrafo fin = new NodoGrafo(lugar_final, precio);
                     
-                    grafo.agregarNodo(new NodoGrafo(lugar, precio));
-                    System.out.println(lugar);
+                
                 }
+
 
             } catch (FileNotFoundException ex) {
                 Logger.getLogger(DashbordAministrador.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (IOException ex) {
-                Logger.getLogger(DashbordAministrador.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ParseException ex) {
+            } catch (IOException | ParseException ex) {
                 Logger.getLogger(DashbordAministrador.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
@@ -492,7 +496,7 @@ public class DashbordAministrador extends javax.swing.JFrame {
 
         if (dRes == JOptionPane.YES_OPTION) {
 
-            IniciarSesion login = new IniciarSesion(arbol, hash);
+            IniciarSesion login = new IniciarSesion(arbol, hash, grafo, listaNodosG);
             login.setVisible(true);
             dispose();
         }

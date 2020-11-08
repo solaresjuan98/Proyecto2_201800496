@@ -108,7 +108,8 @@ public class ArbolB_Usuarios extends ArbolB {
             for (Usuario u : lista_usuarios) {
 
                 if (u.getUsername().equals(username) && u.getContrasenia().equals(pass)) {
-                    System.out.println(" >> Datos correctos. ");
+
+                    //System.out.println(" >> Datos correctos. ");
                     return u;
                 } else {
                     //System.out.println(" >> Datos incorrectos. ");
@@ -120,6 +121,29 @@ public class ArbolB_Usuarios extends ArbolB {
             System.out.println(" >> no encontrado");
             return null;
         }
+    }
+
+    public void modificarUsr(Usuario u) {
+
+        try {
+
+            for (int i = 0; i < lista_usuarios.size(); i++) {
+
+                
+                if (lista_usuarios.get(i).getId() == u.getId()) {
+                                      
+                    lista_usuarios.set(i, u);
+                    JOptionPane.showMessageDialog(null, "Usuario modificado con exito");
+                    break;
+                }
+
+            }
+
+        } catch (Exception e) {
+            System.out.println("Ha ocurrido un error");
+
+        }
+
     }
 
 }
