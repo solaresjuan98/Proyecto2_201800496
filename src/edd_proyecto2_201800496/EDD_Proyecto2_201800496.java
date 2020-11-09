@@ -33,8 +33,6 @@ public class EDD_Proyecto2_201800496 {
      */
     public static void main(String[] args) {
 
-        
-        
         //ME SERVIRÁ PARA HACER GRAFICA DEL ARBOL 
         /*ArbolB arbol = new ArbolB(3);// no tocar
         
@@ -44,27 +42,28 @@ public class EDD_Proyecto2_201800496 {
         
         //arbol.mostrarArbolB();
         arbol.GraficarArbol();
-        */
+         */
         ArbolB_Usuarios arbol_usuarios = new ArbolB_Usuarios(3);
-        
+
         //instantcias de usuario
-        Usuario u1 = new Usuario((int) 232, "juan", "juan333", "correo", "pass", 4343434, "conductor");
-        Usuario u2 = new Usuario((int) 221, "pablo", "pabloxd", "correo", "pass", 4343434, "usuario");
-        Usuario u3 = new Usuario((int) 10, "maria", "maria_22", "correo", "pass", 4343434, "usuario");
-        Usuario u4 = new Usuario((int) 23, "laura", "laurita_1", "correo", "pass", 4343434, "conductor");
-        Usuario u5 = new Usuario((int) 72, "Mario", "mario22", "correo", "pass", 4343434, "usuario");
-        Usuario u6 = new Usuario((int) 100, "Mario", "mario22", "correo", "pass", 4343434, "usuario");
-        Usuario u7 = new Usuario((int) 12, "Mario", "mario22", "correo", "pass", 4343434, "usuario");
-        Usuario u8 = new Usuario((int) 25, "Mario", "mario22", "correo", "pass", 4343434, "usuario");
-        arbol_usuarios.agregarUsuario(u1);
-        arbol_usuarios.agregarUsuario(u2);
-        arbol_usuarios.agregarUsuario(u3);
-        arbol_usuarios.agregarUsuario(u4);
-        arbol_usuarios.agregarUsuario(u5);
-        arbol_usuarios.agregarUsuario(u6);
-        arbol_usuarios.agregarUsuario(u7);
-        arbol_usuarios.agregarUsuario(u8);
-        
+//        Usuario u1 = new Usuario((int) 232, "juan", "juan333", "correo", "pass", 4343434, "conductor");
+//        Usuario u2 = new Usuario((int) 221, "pablo", "pabloxd", "correo", "pass", 4343434, "usuario");
+//        Usuario u3 = new Usuario((int) 10, "maria", "maria_22", "correo", "pass", 4343434, "usuario");
+//        Usuario u4 = new Usuario((int) 23, "laura", "laurita_1", "correo", "pass", 4343434, "conductor");
+//        Usuario u5 = new Usuario((int) 72, "Mario", "mario22", "correo", "pass", 4343434, "usuario");
+//        Usuario u6 = new Usuario((int) 100, "Mario", "mario22", "correo", "pass", 4343434, "usuario");
+//        Usuario u7 = new Usuario((int) 12, "Mario", "mario22", "correo", "pass", 4343434, "usuario");
+//        Usuario u8 = new Usuario((int) 25, "Mario", "mario22", "correo", "pass", 4343434, "usuario");
+//        arbol_usuarios.agregarUsuario(u1);
+//        arbol_usuarios.agregarUsuario(u2);
+//        arbol_usuarios.agregarUsuario(u3);
+//        arbol_usuarios.agregarUsuario(u4);
+//        arbol_usuarios.agregarUsuario(u5);
+//        arbol_usuarios.agregarUsuario(u6);
+//        arbol_usuarios.agregarUsuario(u7);
+//        arbol_usuarios.agregarUsuario(u8);
+        //arbol_usuarios.GraficarArbolUsuarios();
+//        
 //        arbol_usuarios.mostrarUsuarios();
 //        
 //        arbol_usuarios.modificarUsr(new Usuario((int) 221, "pablo69", "pabloxd___", "correo@gmail.com", "pass", 4343434, "conductor"));
@@ -72,7 +71,6 @@ public class EDD_Proyecto2_201800496 {
 //        arbol_usuarios.mostrarUsuarios();
 //        
 //        arbol_usuarios.setCoordenadas(221, (float) 14.537999, (float) -90.581349);
-        
         //System.out.println(" -> "+u2.getLatitud() +" "+u2.getLongitud());
         //arbol_usuarios.GraficarArbol();
         //arbol_usuarios.buscarUsuario("juan333", "paess");
@@ -99,15 +97,12 @@ public class EDD_Proyecto2_201800496 {
         hash.insertar(new Lugar(9, "Villa Nueva", "Pollo pinulito", (float) 14.538473, (float) -90.582663));
         hash.insertar(new Lugar(10, "Villa Nueva", "Shell", (float) 14.541550, (float) -90.584514));
         hash.insertar(new Lugar(11, "Agilar batres", "Dunkin Donuts", (float) 14.594010, (float) -90.557692));
-        */
+         */
         //hash.graficar();
         //hash.mostrarTabla();
-
-        
         ArrayList<NodoGrafo> listaNodosG = new ArrayList<>();
-        
+
         Grafo grafo = new Grafo();
-        
         IniciarSesion login = new IniciarSesion(arbol_usuarios, hash, grafo, listaNodosG);
         login.setVisible(true);
         /*Grafos*/
@@ -118,13 +113,13 @@ public class EDD_Proyecto2_201800496 {
 
     public static Grafo obtenerCiudades() {
 
-        NodoGrafo df = new NodoGrafo("DF", 60);
-        NodoGrafo toluca = new NodoGrafo("Toluca", 100);
-        NodoGrafo cuernavaca = new NodoGrafo("Cuernavaca", 75);
+        NodoGrafo df = new NodoGrafo("df", 60);
+        NodoGrafo toluca = new NodoGrafo("toluca", 100);
+        NodoGrafo cuernavaca = new NodoGrafo("cuernavaca", 75);
         NodoGrafo puebla = new NodoGrafo("puebla", 40);
-        NodoGrafo tlaxcala = new NodoGrafo("Tlaxcala", 90);
+        NodoGrafo tlaxcala = new NodoGrafo("tlaxcala", 90);
         NodoGrafo h = new NodoGrafo("h", 25);
-        NodoGrafo f = new NodoGrafo("F", 175);
+        NodoGrafo f = new NodoGrafo("f", 175);
 
         // Generando los nodos no dirigidos
         df.agregarAristaNoDirigida(df, toluca, 100);
@@ -158,7 +153,7 @@ public class EDD_Proyecto2_201800496 {
         Dijkstra dijkstra = new Dijkstra();
 
         // ruta menor
-        dijkstra.hallarRutaMenor(grafo, df, f);
+        dijkstra.hallarRutaMenor(grafo, toluca, f);
 
         return grafo;
     }

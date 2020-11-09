@@ -22,7 +22,7 @@ public class IniciarSesion extends javax.swing.JFrame {
     public static ArbolB_Usuarios arbol;
     public static TablaHash hash;
     Grafo grafo;
-    
+
     /**
      * Creates new form IniciarSesion
      *
@@ -40,10 +40,10 @@ public class IniciarSesion extends javax.swing.JFrame {
         arbol = new ArbolB_Usuarios(3);
 
         if (arbol_usuarios == null) {
-            System.out.println("arbol B nulo");
+            //System.out.println("arbol B nulo");
 
         } else {
-            System.out.println("no f");
+            //System.out.println("no f");
             arbol_usuarios.mostrarUsuarios();
             hash = t;
             arbol = arbol_usuarios;

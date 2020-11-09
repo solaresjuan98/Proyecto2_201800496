@@ -5,6 +5,7 @@
  */
 package Vistas;
 
+import Clases.AristaGrafo;
 import Clases.Localidad;
 import Clases.Lugar;
 import Clases.NodoGrafo;
@@ -467,11 +468,39 @@ public class DashbordAministrador extends javax.swing.JFrame {
                     long precio = ((Number) conexion.get("precio")).longValue();
 
                   
-                    NodoGrafo inicio = new NodoGrafo(lugar_inicio, precio);
-                    NodoGrafo fin = new NodoGrafo(lugar_final, precio);
+                    //NodoGrafo inicio = new NodoGrafo(lugar_inicio, precio);
+                    //NodoGrafo fin = new NodoGrafo(lugar_final, precio);
                     
-                
+                    NodoGrafo inicio = grafo.buscarNodo(lugar_inicio);
+                    NodoGrafo fin = grafo.buscarNodo(lugar_final);
+                    
+                    if(inicio == null){
+                        inicio = new NodoGrafo(lugar_inicio, precio);
+                    }
+                    
+                    if(fin == null){
+                        fin = new NodoGrafo(lugar_final, precio);
+                    }
+                    
+                    
+                    //inicio.agregarArista(new AristaGrafo(inicio, fin, peso));
+                    inicio.agregarAristaNoDirigida(inicio, fin, peso);
+                    //inicio.agregarAristaNoDirigida(new AristaGrafo(inicio, fin, (double) peso));
+                    //System.out.println(fin.getLugar());
+                    
+                    grafo.agregarNodo(inicio);
+                    grafo.agregarNodo(fin);
+                    
+                    //Dijkstra d = new Dijkstra();
+                    //d.hallarRutaMenor(grafo, inicio, fin);
                 }
+                
+                
+                Dijkstra d = new Dijkstra();
+                d.hallarRutaMenor(grafo, grafo.buscarNodo("T-3"), grafo.buscarNodo("S-12"));
+                
+                
+
 
 
             } catch (FileNotFoundException ex) {
@@ -485,7 +514,7 @@ public class DashbordAministrador extends javax.swing.JFrame {
     private void verReportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_verReportesActionPerformed
         // TODO add your handling code here:
 
-        ModuloReportes reportes = new ModuloReportes(hash);
+        ModuloReportes reportes = new ModuloReportes(arbol,hash);
         reportes.setVisible(true);
 
     }//GEN-LAST:event_verReportesActionPerformed

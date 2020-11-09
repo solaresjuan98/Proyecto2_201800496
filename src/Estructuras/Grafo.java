@@ -15,15 +15,20 @@ import java.util.List;
  */
 public class Grafo {
 
-    private List<NodoGrafo> nodos;
+    public List<NodoGrafo> nodos;
 
+    public Grafo(){
+        nodos = new ArrayList<>();
+        
+    }
+    
     public void agregarNodo(NodoGrafo nodo) {
-
-        if (nodos == null) {
-            nodos = new ArrayList<>();
+//
+        if(this.buscarNodo(nodo.getLugar()) == null){
+            nodos.add(nodo);
         }
-
-        nodos.add(nodo);
+        
+        //nodos.add(nodo);
     }
 
     public List<NodoGrafo> obtenerNodos() {
@@ -75,6 +80,6 @@ public class Grafo {
 
     @Override
     public String toString() {
-        return "Grafo [nodos=" + nodos + "]";
+        return "Grafo [nodos=" + nodos.toString() + "]";
     }
 }

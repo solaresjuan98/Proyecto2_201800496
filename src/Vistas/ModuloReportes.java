@@ -5,6 +5,7 @@
  */
 package Vistas;
 
+import Estructuras.ArbolB_Usuarios;
 import Estructuras.TablaHash;
 import javax.swing.JOptionPane;
 
@@ -15,19 +16,21 @@ import javax.swing.JOptionPane;
 public class ModuloReportes extends javax.swing.JFrame {
 
     public static TablaHash hash;
-
+    public ArbolB_Usuarios arbol;
     /**
      * Creates new form ModuloReportes
      *
+     * @param a
      * @param h
      */
-    public ModuloReportes(TablaHash h) {
+    public ModuloReportes(ArbolB_Usuarios a,TablaHash h) {
         initComponents();
         setResizable(false);
         setTitle("Modulo de reportes");
         setLocationRelativeTo(null);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-
+        
+        arbol = a;
         hash = h;
     }
 
@@ -140,7 +143,10 @@ public class ModuloReportes extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_reporteConductoresActionPerformed
 
     private void btn_ReporteUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ReporteUsuariosActionPerformed
-        // TODO add your handling code here:
+        
+        // graficando el arbolB de usuarios
+        arbol.GraficarArbolUsuarios();
+        JOptionPane.showMessageDialog(null, "Arbol de usuarios graficado con exito");
     }//GEN-LAST:event_btn_ReporteUsuariosActionPerformed
 
     private void btn_reporteViajesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_reporteViajesActionPerformed

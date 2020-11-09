@@ -186,6 +186,7 @@ public class ArbolB {
 
     // Generar grafica del arbol
     // Utilizando graphviz 
+    /*
     public void GraficarArbol() {
 
         StringBuilder cadena = new StringBuilder();
@@ -234,6 +235,7 @@ public class ArbolB {
         
 
     }
+*/
 
 
 }

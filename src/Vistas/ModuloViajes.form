@@ -175,6 +175,7 @@
         </Component>
         <Component class="javax.swing.JTextField" name="txt_nombreConductor">
           <Properties>
+            <Property name="editable" type="boolean" value="false"/>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="3e" green="2d" red="21" type="rgb"/>
             </Property>
@@ -214,6 +215,7 @@
         </Component>
         <Component class="javax.swing.JTextField" name="txt_idConductor">
           <Properties>
+            <Property name="editable" type="boolean" value="false"/>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="3e" green="2d" red="21" type="rgb"/>
             </Property>
@@ -253,6 +255,7 @@
         </Component>
         <Component class="javax.swing.JTextField" name="txt_lugarinicio">
           <Properties>
+            <Property name="editable" type="boolean" value="false"/>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="3e" green="2d" red="21" type="rgb"/>
             </Property>
@@ -292,6 +295,7 @@
         </Component>
         <Component class="javax.swing.JTextField" name="txt_lugarfinal">
           <Properties>
+            <Property name="editable" type="boolean" value="false"/>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="3e" green="2d" red="21" type="rgb"/>
             </Property>

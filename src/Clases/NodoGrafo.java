@@ -21,6 +21,7 @@ public class NodoGrafo {
     public NodoGrafo(String lugar, double precio) {
         this.lugar = lugar;
         this.precio = precio;
+        aristas = new ArrayList<>();
     }
 
     public String getLugar() {
@@ -53,7 +54,7 @@ public class NodoGrafo {
 
     }
 
-    private void agregarArista(AristaGrafo arista) {
+    public void agregarArista(AristaGrafo arista) {
         if (aristas == null) {
             aristas = new ArrayList<>();
         }
@@ -77,6 +78,7 @@ public class NodoGrafo {
         }
 
     }
+    
 
     public AristaGrafo existeArista(String lugarInicio, String lugarFinal) {
         //boolean encontrado = false;
@@ -100,34 +102,11 @@ public class NodoGrafo {
         return aristaEncontrado;
     }
 
-    // Validar si la arista existe (boolean)
-    /*public void existeArista(AristaGrafo arista) {
-        boolean encontrado = false;
-        for (AristaGrafo a : aristas) {
-            if (a != null) {
-                if (a == arista) {
-                    System.out.println("El nodo está a una distancia de  " + a.getDistancia());
-                    encontrado = true;
-                }
-            }
-        }
-
-        if (encontrado == false) {
-            System.out.println("No tiene nodo adyacente");
-        }
-
-    }*/
-    //public AristaGrafo aristaExiste(Nodo)
     @Override
     public String toString() {
 
         return lugar;
         //return "\n \tNodo [lugar =" + lugar + ", aristas= " + aristas + "]";
     }
-//
-//    @Override
-//    public int compareTo(Object o) {
-//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-//    }
 
 }

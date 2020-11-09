@@ -6,6 +6,9 @@
 package Estructuras;
 
 import Clases.Usuario;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
@@ -35,6 +38,7 @@ public class ArbolB_Usuarios extends ArbolB {
         if (!usuarioExiste(u.getId())) {
             this.insertar(u.getId());
             lista_usuarios.add(u);
+
         } else {
             //System.out.println(" ZZ n");
             JOptionPane.showMessageDialog(null, "El usuario con el id " + u.getId() + " ya existe");
@@ -129,9 +133,8 @@ public class ArbolB_Usuarios extends ArbolB {
 
             for (int i = 0; i < lista_usuarios.size(); i++) {
 
-                
                 if (lista_usuarios.get(i).getId() == u.getId()) {
-                                      
+
                     lista_usuarios.set(i, u);
                     JOptionPane.showMessageDialog(null, "Usuario modificado con exito");
                     break;
@@ -146,4 +149,52 @@ public class ArbolB_Usuarios extends ArbolB {
 
     }
 
+    
+    public void GraficarArbolUsuarios() {
+
+        StringBuilder cadena = new StringBuilder();
+
+        cadena.append("digraph G {\n");
+        cadena.append("node[shape=record];\n");
+        cadena.append("node[shape=record color=blue style=filled, fillcolor=\"gray\", gradientangle=90];\n");
+
+        //cadena.append(raiz.GraficarNodo()); no tocar
+        
+        //
+        cadena.append(raiz.GraficarNodoDatosUsuario(lista_usuarios));
+
+        cadena.append("}\n");
+
+        FileWriter fichero = null;
+        PrintWriter pw = null;
+
+        try {
+
+            fichero = new FileWriter("./graficaArbolB.dot");
+            pw = new PrintWriter(fichero);
+            pw.append(cadena.toString());
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+
+            try {
+
+                if (null != fichero) {
+                    fichero.close();
+                }
+
+            } catch (Exception e_) {
+                e_.printStackTrace();
+            }
+
+            try {
+                String cmd = "dot -Tpdf ./graficaArbolB.dot -o ArbolB.pdf";
+                Runtime.getRuntime().exec(cmd);
+            } catch (IOException i) {
+                System.out.println("f");
+            }
+        }
+
+    }
 }

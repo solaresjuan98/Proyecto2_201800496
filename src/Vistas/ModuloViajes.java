@@ -24,7 +24,9 @@ public class ModuloViajes extends javax.swing.JFrame {
     public static ArbolB_Usuarios arbol;
     public static TablaHash hash;
     public static Usuario user;
-
+    // lista de conductores
+    public ArrayList<Usuario> listaaux = new ArrayList<>();
+    //public ArrayList<Usuario> listaaux2 = new ArrayList<>();
     /**
      * Creates new form ModuloViajes
      *
@@ -42,9 +44,8 @@ public class ModuloViajes extends javax.swing.JFrame {
         hash = t;
         arbol = a;
         user = u;
-        
+
         //System.out.println("->"+user.getLatitud()+" "+user.getLongitud());
-        
         //Lugar inicio = hash.buscarLugarPorCoordenada((long)user.getLatitud(), (long)user.getLongitud());
         // setear el lugar de inicio (UNICO) en la lista
         //LugarInicio.addItem(inicio.getNombre());
@@ -72,7 +73,6 @@ public class ModuloViajes extends javax.swing.JFrame {
             }
 
         }
-     
 
     }
 
@@ -148,6 +148,7 @@ public class ModuloViajes extends javax.swing.JFrame {
         jSeparator1.setForeground(new java.awt.Color(73, 181, 172));
         jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 140, 200, 10));
 
+        txt_nombreConductor.setEditable(false);
         txt_nombreConductor.setBackground(new java.awt.Color(33, 45, 62));
         txt_nombreConductor.setFont(new java.awt.Font("Gotham Thin", 0, 18)); // NOI18N
         txt_nombreConductor.setForeground(new java.awt.Color(73, 181, 172));
@@ -159,6 +160,7 @@ public class ModuloViajes extends javax.swing.JFrame {
         jSeparator2.setForeground(new java.awt.Color(73, 181, 172));
         jPanel1.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 210, 200, 10));
 
+        txt_idConductor.setEditable(false);
         txt_idConductor.setBackground(new java.awt.Color(33, 45, 62));
         txt_idConductor.setFont(new java.awt.Font("Gotham Thin", 0, 18)); // NOI18N
         txt_idConductor.setForeground(new java.awt.Color(73, 181, 172));
@@ -170,6 +172,7 @@ public class ModuloViajes extends javax.swing.JFrame {
         jSeparator3.setForeground(new java.awt.Color(73, 181, 172));
         jPanel1.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 270, 200, 10));
 
+        txt_lugarinicio.setEditable(false);
         txt_lugarinicio.setBackground(new java.awt.Color(33, 45, 62));
         txt_lugarinicio.setFont(new java.awt.Font("Gotham Thin", 0, 18)); // NOI18N
         txt_lugarinicio.setForeground(new java.awt.Color(73, 181, 172));
@@ -181,6 +184,7 @@ public class ModuloViajes extends javax.swing.JFrame {
         jSeparator4.setForeground(new java.awt.Color(73, 181, 172));
         jPanel1.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 330, 200, 10));
 
+        txt_lugarfinal.setEditable(false);
         txt_lugarfinal.setBackground(new java.awt.Color(33, 45, 62));
         txt_lugarfinal.setFont(new java.awt.Font("Gotham Thin", 0, 18)); // NOI18N
         txt_lugarfinal.setForeground(new java.awt.Color(73, 181, 172));
@@ -224,18 +228,20 @@ public class ModuloViajes extends javax.swing.JFrame {
 
     private void verConductoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_verConductoresActionPerformed
 
-        ArrayList<Usuario> listaaux = new ArrayList<>();
         for (Usuario u : arbol.getLista_usuarios()) {
 
             if (u != null) {
 
                 if (u.getRol().equals("conductor")) {
                     listaaux.add(u);
-                    System.out.println(" Conductor con nombre: " + u.getNombre_completo());
+
+                    float d = obtenerDistancia(user.getLatitud(), user.getLongitud(), u.getLatitud(), u.getLongitud());
+                    System.out.println(" El conductor esta a " + d);
+                    //System.out.println(" Conductor con nombre: " + u.getNombre_completo());                }
                 }
             }
         }
-
+        
         MapViewOptions options = new MapViewOptions();
         options.importPlaces();
         options.setApiKey("AIzaSyAu_wHDWkQ4oI98SuwtK1pVqKjIJitE_nw");
@@ -259,7 +265,7 @@ public class ModuloViajes extends javax.swing.JFrame {
                 info.setLength(0);
             }
         }
-        
+
         mapa.agregarMarcadorInfo(new LatLng(user.getLatitud(), user.getLongitud()), "MI UBICACION ACTUAL");
 
 
@@ -267,6 +273,20 @@ public class ModuloViajes extends javax.swing.JFrame {
 
     private void buscarConductorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarConductorActionPerformed
         // TODO add your handling code here:
+        
+        // validar si mi "listaaux" esta vacia
+        if(listaaux != null){
+            
+            //obtenerConductorMasCercano(listaaux);
+            Usuario conductor = obtenerConductorMasCercano(listaaux);
+            System.out.println(" >> Conductor más cercano es: " + conductor.getNombre_completo());
+            txt_nombreConductor.setText(conductor.getNombre_completo());
+        }else{
+            System.out.println(" >> Lista vacía");
+        }
+        
+        
+
     }//GEN-LAST:event_buscarConductorActionPerformed
 
     private void verLugaresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_verLugaresActionPerformed
@@ -287,9 +307,8 @@ public class ModuloViajes extends javax.swing.JFrame {
         mapa.Renderizar(mapa);
         JOptionPane.showMessageDialog(null, "Renderizando mapa...");
 
-        //mapa.agregarMarcador(new LatLng(14.537999, -90.581349));
         mapa.agregarMarcadorInfo(new LatLng(user.getLatitud(), user.getLongitud()), "Mi ubicación actual");
-        
+
         LatLng c1 = new LatLng(inicio_.getLatitud(), inicio_.getLongitud());
         LatLng c2 = new LatLng(final_.getLatitud(), final_.getLongitud());
         //LatLng c3 = new LatLng(14.541550, -90.584514);
@@ -299,6 +318,45 @@ public class ModuloViajes extends javax.swing.JFrame {
 
     }//GEN-LAST:event_verLugaresActionPerformed
 
+    public static float obtenerDistancia(float lat1, float lat2, float lng1, float lng2) {
+
+        float radioTierra = 6371;//en kilómetros  
+        double dLat = Math.toRadians(lat2 - lat1);
+        double dLng = Math.toRadians(lng2 - lng1);
+        double sindLat = Math.sin(dLat / 2);
+        double sindLng = Math.sin(dLng / 2);
+        double va1 = Math.pow(sindLat, 2) + Math.pow(sindLng, 2)* Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2));
+        double va2 = 2 * Math.atan2(Math.sqrt(va1), Math.sqrt(1 - va1));
+        double distancia = radioTierra * va2;
+
+        return (float) distancia;
+
+    }
+    
+    public static Usuario obtenerConductorMasCercano(ArrayList<Usuario> lista){
+        
+        Usuario conductorCercano = null;
+
+        float distanciamenor = Float.MAX_VALUE;
+        
+        for (Usuario u : lista) {
+
+            // sacar la distancia a partir del usuario que está solicitando el viaje
+            float distancia = obtenerDistancia(user.getLatitud(), user.getLongitud(), u.getLatitud(), u.getLongitud());
+
+            if (distancia < distanciamenor) {
+                distanciamenor = distancia;
+                conductorCercano = u;
+                System.out.println(" :D");
+                //return conductorCercano;
+                
+            }
+
+        }
+
+        return conductorCercano;
+        
+    }
 //    /**
 //     * @param args the command line arguments
 //     */
