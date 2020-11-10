@@ -5,7 +5,9 @@
  */
 package Estructuras;
 
+import Clases.Factura;
 import Clases.Usuario;
+import Clases.Viaje;
 import java.util.ArrayList;
 
 /**
@@ -115,6 +117,94 @@ public class NodoArbolB {
         return cadena.toString();
     }
 
+    // GRAFICA DATOS DE TRANSACCIÓN
+    public String GraficarNodoTransaccion(ArrayList<Factura> listaFactura){
+        StringBuilder cadena = new StringBuilder();
+
+        cadena.append(obtenerCodigo());
+        cadena.append("[label=\"<P0>");
+
+        for (int i = 0; i < n; i++) {
+
+            for (Factura factura : listaFactura) {
+
+                if (factura.getId_pago()== clave[i]) {
+                 
+         
+                    cadena.append("|");
+                    cadena.append(" Id Factura: ").append(clave[i]).append("\\n");
+                    cadena.append(" Id Usuario: ").append(factura.getId_usuario()).append("\\n");
+                    cadena.append(" Id Conductor: ").append(factura.getId_conductor()).append("\\n");
+                    cadena.append(" Fecha: ").append(factura.getFecha()).append("\\n");
+                    cadena.append(" Monto: ").append(factura.getMonto()).append("\\n");
+                    
+                    
+                }
+
+            }
+            
+            cadena.append("|<P").append(i + 1).append(">");
+            
+
+        }
+
+        cadena.append("\"];\n");
+
+        for (int i = 0; i <= n; i++) {
+
+            if (hijo[i] != null) {
+                cadena.append(hijo[i].GraficarNodoTransaccion(listaFactura));
+                cadena.append(obtenerCodigo()).append(":P").append(i).append("->").append(hijo[i].obtenerCodigo()).append(";\n");
+            }
+        }
+
+        return cadena.toString();
+    }
+    
+    
+    // GRAFICA DATOS DE VIAJE
+    public String GraficarNodoViaje(ArrayList<Viaje> listaViaje){
+        StringBuilder cadena = new StringBuilder();
+
+        cadena.append(obtenerCodigo());
+        cadena.append("[label=\"<P0>");
+
+        for (int i = 0; i < n; i++) {
+
+            for (Viaje viaje : listaViaje) {
+
+                if (viaje.getId_viaje()== clave[i]) {
+                 
+         
+                    cadena.append("|");
+                    cadena.append(" Id viaje: ").append(clave[i]).append("\\n");
+                    cadena.append(" Lugar inicio: ").append(viaje.getLugar_final()).append("\\n");
+                    cadena.append(" Lugar final: ").append(viaje.getLugar_final()).append("\\n");
+                    cadena.append(" Fecha: ").append(viaje.getFecha()).append("\\n");
+                    
+                    
+                }
+
+            }
+            
+            cadena.append("|<P").append(i + 1).append(">");
+            
+
+        }
+
+        cadena.append("\"];\n");
+
+        for (int i = 0; i <= n; i++) {
+
+            if (hijo[i] != null) {
+                cadena.append(hijo[i].GraficarNodoViaje(listaViaje));
+                cadena.append(obtenerCodigo()).append(":P").append(i).append("->").append(hijo[i].obtenerCodigo()).append(";\n");
+            }
+        }
+
+        return cadena.toString();
+    }
+    
     public int find(int n) {
 
         return -1;

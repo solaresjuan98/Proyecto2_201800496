@@ -1,11 +1,15 @@
 package edd_proyecto2_201800496;
 
 import Clases.AristaGrafo;
+import Clases.Factura;
 import Clases.Lugar;
 import Clases.NodoGrafo;
 import Clases.Usuario;
+import Clases.Viaje;
 import Estructuras.ArbolB;
+import Estructuras.ArbolB_Facturas;
 import Estructuras.ArbolB_Usuarios;
+import Estructuras.ArbolB_Viajes;
 import Estructuras.Block;
 import Estructuras.Dijkstra;
 import Estructuras.Grafo;
@@ -43,8 +47,30 @@ public class EDD_Proyecto2_201800496 {
         //arbol.mostrarArbolB();
         arbol.GraficarArbol();
          */
+        
+        /****** INSTANCIAS DE ESTUCTURAS **********/
+        ArbolB_Viajes arbol_viajes = new ArbolB_Viajes(3);
         ArbolB_Usuarios arbol_usuarios = new ArbolB_Usuarios(3);
-
+        ArbolB_Facturas arbol_facturas = new ArbolB_Facturas(3);
+        TablaHash hash = new TablaHash(10);
+        Grafo grafo = new Grafo();
+        
+        /* prueba de graficas
+        for(int i = 0; i < 21; i++){
+            arbol_viajes.AgregarViaje(new Viaje(arbol_viajes.getId_viaje(), "lugar","lugar", "fecha"));
+        }
+        arbol_viajes.mostrarArbolB();
+        
+        arbol_viajes.GraficarArbolViajes();
+        
+        for(int i = 0; i < 21; i++){
+            arbol_facturas.agregarFactura(new Factura(arbol_facturas.getId_viaje(), i+1, i+2, i+3, "Fecha", i+4));
+        }
+        arbol_facturas.mostrarArbolB();
+        
+        arbol_facturas.GraficarArbolFacturas();
+        */
+        
         //instantcias de usuario
 //        Usuario u1 = new Usuario((int) 232, "juan", "juan333", "correo", "pass", 4343434, "conductor");
 //        Usuario u2 = new Usuario((int) 221, "pablo", "pabloxd", "correo", "pass", 4343434, "usuario");
@@ -86,7 +112,7 @@ public class EDD_Proyecto2_201800496 {
          *
          * TABLA HASH
          */
-        TablaHash hash = new TablaHash(10);
+        
 
         /*hash.insertar(new Lugar(3, "Plaza Villa Nueva", "La torre", (float) 14.538548, (float) -90.584275));
         hash.insertar(new Lugar(33, "Miraflores", "El duende", (float) 14.621191, (float) -90.553277));
@@ -100,10 +126,10 @@ public class EDD_Proyecto2_201800496 {
          */
         //hash.graficar();
         //hash.mostrarTabla();
-        ArrayList<NodoGrafo> listaNodosG = new ArrayList<>();
+        
 
-        Grafo grafo = new Grafo();
-        IniciarSesion login = new IniciarSesion(arbol_usuarios, hash, grafo, listaNodosG);
+        
+        IniciarSesion login = new IniciarSesion(arbol_usuarios, hash, grafo, arbol_viajes, arbol_facturas);
         login.setVisible(true);
         /*Grafos*/
         //Grafo grafo = obtenerCiudades();

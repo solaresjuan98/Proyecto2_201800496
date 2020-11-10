@@ -10,7 +10,9 @@ import Clases.Localidad;
 import Clases.Lugar;
 import Clases.NodoGrafo;
 import Clases.Usuario;
+import Estructuras.ArbolB_Facturas;
 import Estructuras.ArbolB_Usuarios;
+import Estructuras.ArbolB_Viajes;
 import Estructuras.Dijkstra;
 import Estructuras.Grafo;
 import Estructuras.TablaHash;
@@ -40,22 +42,28 @@ import org.json.simple.parser.ParseException;
 public class DashbordAministrador extends javax.swing.JFrame {
 
     // Arbol b usuarios
-    public static ArbolB_Usuarios arbol;
+    ArbolB_Usuarios arbol;
+    // Arbol b viajes
+    ArbolB_Viajes arbol_viajes;
+    // Arbol b facturas
+    ArbolB_Facturas arbol_facturas;
     // Tabla hash de lugares
-    TablaHash hash = new TablaHash(10);
-    Grafo grafo = new Grafo();// luego pasar a public static..
+    TablaHash hash;
+    public Grafo grafo;
 
     ArrayList<NodoGrafo> listaNodosG;
-    
-
 
     /**
      * Creates new form DashbordAministrador
      *
      * @param arbolb_usuarios
-     * @param listag
+     * @param g
+     * @param h
+     * @param hash
+     * @param a_viajes
+     * @param a_facturas
      */
-    public DashbordAministrador(ArbolB_Usuarios arbolb_usuarios, ArrayList<NodoGrafo> listag) {
+    public DashbordAministrador(ArbolB_Usuarios arbolb_usuarios, Grafo g, TablaHash h, ArbolB_Viajes a_viajes, ArbolB_Facturas a_facturas) {
         initComponents();
         setLocationRelativeTo(null);
 
@@ -63,10 +71,13 @@ public class DashbordAministrador extends javax.swing.JFrame {
             System.out.println("arbol B nulo");
 
         } else {
-            System.out.println("no f");
+            
             arbolb_usuarios.mostrarUsuarios();
             arbol = arbolb_usuarios;
-            listaNodosG = listag;
+            grafo = g;
+            hash = h;
+            arbol_viajes = a_viajes;
+            arbol_facturas = a_facturas;
         }
 
     }
@@ -467,41 +478,25 @@ public class DashbordAministrador extends javax.swing.JFrame {
                     long peso = ((Number) conexion.get("peso")).longValue();// = distancia
                     long precio = ((Number) conexion.get("precio")).longValue();
 
-                  
-                    //NodoGrafo inicio = new NodoGrafo(lugar_inicio, precio);
-                    //NodoGrafo fin = new NodoGrafo(lugar_final, precio);
-                    
                     NodoGrafo inicio = grafo.buscarNodo(lugar_inicio);
                     NodoGrafo fin = grafo.buscarNodo(lugar_final);
-                    
-                    if(inicio == null){
+
+                    if (inicio == null) {
                         inicio = new NodoGrafo(lugar_inicio, precio);
                     }
-                    
-                    if(fin == null){
+
+                    if (fin == null) {
                         fin = new NodoGrafo(lugar_final, precio);
                     }
-                    
-                    
-                    //inicio.agregarArista(new AristaGrafo(inicio, fin, peso));
+
                     inicio.agregarAristaNoDirigida(inicio, fin, peso);
-                    //inicio.agregarAristaNoDirigida(new AristaGrafo(inicio, fin, (double) peso));
-                    //System.out.println(fin.getLugar());
-                    
                     grafo.agregarNodo(inicio);
                     grafo.agregarNodo(fin);
-                    
-                    //Dijkstra d = new Dijkstra();
-                    //d.hallarRutaMenor(grafo, inicio, fin);
+
                 }
-                
-                
+
                 Dijkstra d = new Dijkstra();
-                d.hallarRutaMenor(grafo, grafo.buscarNodo("T-3"), grafo.buscarNodo("S-12"));
-                
-                
-
-
+                d.hallarRutaMenor(grafo, grafo.buscarNodo("T-3"), grafo.buscarNodo("Pollo pinulito"));
 
             } catch (FileNotFoundException ex) {
                 Logger.getLogger(DashbordAministrador.class.getName()).log(Level.SEVERE, null, ex);
@@ -514,7 +509,7 @@ public class DashbordAministrador extends javax.swing.JFrame {
     private void verReportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_verReportesActionPerformed
         // TODO add your handling code here:
 
-        ModuloReportes reportes = new ModuloReportes(arbol,hash);
+        ModuloReportes reportes = new ModuloReportes(arbol, hash, arbol_facturas, arbol_viajes);
         reportes.setVisible(true);
 
     }//GEN-LAST:event_verReportesActionPerformed
@@ -525,7 +520,7 @@ public class DashbordAministrador extends javax.swing.JFrame {
 
         if (dRes == JOptionPane.YES_OPTION) {
 
-            IniciarSesion login = new IniciarSesion(arbol, hash, grafo, listaNodosG);
+            IniciarSesion login = new IniciarSesion(arbol, hash, grafo, arbol_viajes, arbol_facturas);
             login.setVisible(true);
             dispose();
         }

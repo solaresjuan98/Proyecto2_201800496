@@ -5,13 +5,12 @@
  */
 package Vistas;
 
-import Clases.NodoGrafo;
 import Clases.Usuario;
+import Estructuras.ArbolB_Facturas;
 import Estructuras.ArbolB_Usuarios;
+import Estructuras.ArbolB_Viajes;
 import Estructuras.Grafo;
 import Estructuras.TablaHash;
-import static Vistas.DashbordAministrador.arbol;
-import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 /**
@@ -19,37 +18,44 @@ import javax.swing.JOptionPane;
  * @author juan333
  */
 public class DashboardUsuario extends javax.swing.JFrame {
-    
-    public static ArbolB_Usuarios arbol;
-    public static Usuario user;
-    public static TablaHash hash;
-    ArrayList<NodoGrafo> listaNodosG;
+
+    ArbolB_Usuarios arbol;
+    Usuario user;
+    TablaHash hash;
+    ArbolB_Viajes arbol_viajes;
+    ArbolB_Facturas arbol_facturas;
+    Grafo grafo;
+
     /**
      * Creates new form DashboardUsuario
      *
      * @param u
      * @param t
      * @param a
-     * @param listag
+     * @param g
+     * @param a_viajes
+     * @param a_facturas
      */
-    public DashboardUsuario(Usuario u, TablaHash t, ArbolB_Usuarios a, ArrayList<NodoGrafo> listag) {
+    public DashboardUsuario(Usuario u, TablaHash t, ArbolB_Usuarios a, Grafo g, ArbolB_Viajes a_viajes, ArbolB_Facturas a_facturas) {
         initComponents();
         setResizable(false);
+        setTitle("Dashboard de usuario");
         setLocationRelativeTo(null);
-        
-        
+
         if (u == null) {
-            
+
             jLabel3.setText("Bienvenido a la aplicación-");
         } else {
             jLabel3.setText("Bienvenido " + u.getUsername());
-            System.out.println(u.getUsername() + " -- " + u.getNombre_completo());            
             user = u;
             hash = t;
             arbol = a;
-            
+            grafo = g;
+            arbol_viajes = a_viajes;
+            arbol_facturas = a_facturas;
+
         }
-        
+
     }
 
     /**
@@ -274,16 +280,14 @@ public class DashboardUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_revisarViajesActionPerformed
 
     private void btn_viajesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_viajesActionPerformed
-        
-        ModuloViajes viajes = new ModuloViajes(hash, arbol, user);
+
+        ModuloViajes viajes = new ModuloViajes(hash, arbol, user, grafo, arbol_viajes, arbol_facturas);
         viajes.setVisible(true);
-        //SolicitarViaje solicitar = new SolicitarViaje();
-        //solicitar.setVisible(true);
     }//GEN-LAST:event_btn_viajesActionPerformed
 
     private void btn_lugaresSujeridosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_lugaresSujeridosActionPerformed
 
-        Lugares lugares = new Lugares();
+        Lugares lugares = new Lugares(hash);
         lugares.setVisible(true);
         //dispose();
 
@@ -291,7 +295,7 @@ public class DashboardUsuario extends javax.swing.JFrame {
 
     private void btn_modificauserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_modificauserActionPerformed
         // TODO add your handling code here:
-        
+
         DatosUsuario d = new DatosUsuario(user, arbol);
         d.setVisible(true);
         //dispose();
@@ -299,17 +303,16 @@ public class DashboardUsuario extends javax.swing.JFrame {
 
     private void btn_logoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_logoutActionPerformed
         // TODO add your handling code here
-        
-        
+
         int dRes = JOptionPane.showConfirmDialog(null, "¿Deseas cerrar sesión?");
-        Grafo g = new Grafo();
+
         if (dRes == JOptionPane.YES_OPTION) {
 
-            IniciarSesion login = new IniciarSesion(arbol, hash, g, listaNodosG);
+            IniciarSesion login = new IniciarSesion(arbol, hash, grafo, arbol_viajes, arbol_facturas);
             login.setVisible(true);
             dispose();
         }
-        
+
     }//GEN-LAST:event_btn_logoutActionPerformed
 
 //    /**

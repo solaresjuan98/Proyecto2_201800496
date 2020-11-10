@@ -89,6 +89,7 @@ public class ArbolB_Usuarios extends ArbolB {
 
     }
 
+    // Cambiar la disponibilidad de los usuarios 
     public void setDisponibilidad(int id, boolean disponibilidad) {
 
         try {
@@ -148,8 +149,7 @@ public class ArbolB_Usuarios extends ArbolB {
         }
 
     }
-
-    
+ 
     public void GraficarArbolUsuarios() {
 
         StringBuilder cadena = new StringBuilder();

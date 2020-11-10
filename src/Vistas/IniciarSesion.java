@@ -7,7 +7,9 @@ package Vistas;
 
 import Clases.NodoGrafo;
 import Clases.Usuario;
+import Estructuras.ArbolB_Facturas;
 import Estructuras.ArbolB_Usuarios;
+import Estructuras.ArbolB_Viajes;
 import Estructuras.Grafo;
 import Estructuras.TablaHash;
 import com.sun.awt.AWTUtilities;
@@ -19,8 +21,10 @@ import javax.swing.JOptionPane;
 public class IniciarSesion extends javax.swing.JFrame {
 
     ArrayList<NodoGrafo> listaNodosG;
-    public static ArbolB_Usuarios arbol;
-    public static TablaHash hash;
+    ArbolB_Usuarios arbol;
+    TablaHash hash;
+    ArbolB_Viajes arbol_viajes;
+    ArbolB_Facturas arbol_facturas;
     Grafo grafo;
 
     /**
@@ -29,26 +33,28 @@ public class IniciarSesion extends javax.swing.JFrame {
      * @param arbol_usuarios
      * @param t
      * @param g
-     * @param listag
+     * @param a_viajes
+     * @param a_facturas
      */
-    public IniciarSesion(ArbolB_Usuarios arbol_usuarios, TablaHash t, Grafo g, ArrayList<NodoGrafo> listag) {
+    public IniciarSesion(ArbolB_Usuarios arbol_usuarios, TablaHash t, Grafo g, ArbolB_Viajes a_viajes, ArbolB_Facturas a_facturas) {
         initComponents();
         setLocationRelativeTo(null); //Centra la vantana en la pantalla
         //
-        Shape forma = new RoundRectangle2D.Double(0, 0, getBounds().width, getBounds().height, 20, 20);
+        //Shape forma = new RoundRectangle2D.Double(0, 0, getBounds().width, getBounds().height, 20, 20);
         //AWTUtilities.setWindowShape(this, forma);
-        arbol = new ArbolB_Usuarios(3);
+        //arbol = new ArbolB_Usuarios(3);
 
         if (arbol_usuarios == null) {
             //System.out.println("arbol B nulo");
 
         } else {
             //System.out.println("no f");
-            arbol_usuarios.mostrarUsuarios();
+            //arbol_usuarios.mostrarUsuarios();
             hash = t;
             arbol = arbol_usuarios;
             grafo = g;
-            listaNodosG = listag;
+            arbol_viajes = a_viajes;
+            arbol_facturas = a_facturas;
             //hash.mostrarTabla();;
         }
 
@@ -215,7 +221,7 @@ public class IniciarSesion extends javax.swing.JFrame {
             // Logeando como administrador
             if (usuario.equals("marvin_martinez") && contrasenia.equals("admin") && rol_seleccionado.equals("administrador")) {
                 JOptionPane.showMessageDialog(null, "Bienvenido");
-                DashbordAministrador dashboard = new DashbordAministrador(arbol, listaNodosG);
+                DashbordAministrador dashboard = new DashbordAministrador(arbol, grafo, hash, arbol_viajes, arbol_facturas);
                 dashboard.setVisible(true);
                 dispose();
             } else if (usuario.equals(user.getUsername()) && contrasenia.equals(user.getContrasenia()) && rol_seleccionado.equals(user.getRol())) {
@@ -223,12 +229,15 @@ public class IniciarSesion extends javax.swing.JFrame {
 
                 if (user.getRol().equals("usuario")) {
                     // abrir el form de usuarios
-                    DashboardUsuario dash = new DashboardUsuario(user, hash, arbol, listaNodosG);
+                    DashboardUsuario dash = new DashboardUsuario(user, hash, arbol, grafo, arbol_viajes, arbol_facturas);
                     dash.setVisible(true);
                     dispose();
 
                 } else if (user.getRol().equals("conductor")) {
                     // abrir el form de conductores
+                    DashboardConductor dashc = new DashboardConductor(user, hash, arbol, grafo, arbol_viajes, arbol_facturas);
+                    dashc.setVisible(true);
+                    dispose();
                 }
 
             } else {

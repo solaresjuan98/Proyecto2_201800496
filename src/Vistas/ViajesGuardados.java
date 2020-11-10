@@ -5,96 +5,52 @@
  */
 package Vistas;
 
-import Clases.Lugar;
-import Estructuras.TablaHash;
+import Clases.Factura;
+import Clases.Usuario;
+import Estructuras.ArbolB_Facturas;
 import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author juan333
  */
-public class Lugares extends javax.swing.JFrame {
+public class ViajesGuardados extends javax.swing.JFrame {
 
-    //TablaHash hash;// = new TablaHash(17);
-    public DefaultTableModel modeloLugares;
-
+    DefaultTableModel modeloViajesRealizados;
     /**
-     * Creates new form Lugares
-     * @param hash
-     * @param h
+     * Creates new form ViajesGuardados
+     *
+     * @param u
+     * @param a_facturas
      */
-    public Lugares(TablaHash hash) {
+    public ViajesGuardados(Usuario u, ArbolB_Facturas a_facturas) {
         initComponents();
-        setTitle("Lugares sugeridos");
+        setTitle("Viajes almacenados");
         setResizable(false);
         setLocationRelativeTo(null);
-        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-
         
-        modeloLugares = (DefaultTableModel) jTable1.getModel();
-        modeloLugares.addColumn("Id. ");
-        modeloLugares.addColumn("Lugar");
-        modeloLugares.addColumn("Categoria");
-        hash.retornarLugares();
-/*
-        hash.insertar(new Lugar(3, "Miraflores", "Berskha", 0, 0));
-        hash.insertar(new Lugar(33, "Miraflores", "El duende", 0, 0));
-        hash.insertar(new Lugar(35, "Miraflores", "El cine", 0, 0));
-        hash.insertar(new Lugar(8, "Miraflores", "Lugar random", 0, 0));
-        hash.insertar(new Lugar(9, "Miraflores", "f", 0, 0));
-        hash.insertar(new Lugar(9, "Miraflores", "g", 0, 0));
-        hash.insertar(new Lugar(9, "Miraflores", "p", 0, 0));
-        */
-
-        if (hash.isBandera()) {
-            for (Lugar l : hash.lugares_redimensionado) {
-
-                if (l != null) {
-                    
-                    Object[] tupla = {l.getId_lugar(), l.getNombre(), l.getCategoria()};
-                    modeloLugares.addRow(tupla);
-                }
-            }
-            // arreglo pequeño
-        } else {
-
-            for (Lugar l : hash.arreglo_lugares) {
-
-                if (l != null) {
-                    
-                    Object[] tupla = {l.getId_lugar(), l.getNombre(), l.getCategoria()};
-                    modeloLugares.addRow(tupla);
-
-                }
-            }
-
+        // agregar los datos dependiendo si existen en la lista de transacciones
+        
+        modeloViajesRealizados = (DefaultTableModel) jTable1.getModel();
+        modeloViajesRealizados.addColumn("Id. Viaje");
+        modeloViajesRealizados.addColumn("Id. Usuario");
+        modeloViajesRealizados.addColumn("Fecha");
+        modeloViajesRealizados.addColumn("Monto");
+        
+        
+        // Rellenar la tabla de acuerdo al rol de usuario que se tiene
+        // es usuario:
+        if(u.getRol().equals("usuario")){
+            
+            
+            // aqui me quedé 
+        }else{ // es conductor: 
+            
         }
         
-        /*
-        for (Lugar l : hash.arreglo_lugares) {
-
-            if (l != null) {
-                //System.out.println(" no f");
-                Object[] tupla = {l.getId_lugar(), l.getNombre(), l.getCategoria()};
-
-                modeloLugares.addRow(tupla);
-            }
-        }
-        */
-        //modeloLugares.addRow();
-        //modeloLugares.addRow(hash.arreglo_lugares);
-        /*
-        hash.insertar(new Lugar(3, "Miraflores", "Berskha", 0, 0));
-        hash.insertar(new Lugar(33, "Miraflores", "El duende", 0, 0));
-        hash.insertar(new Lugar(35, "Miraflores", "El cine", 0, 0));
-        hash.insertar(new Lugar(4, "Miraflores", "S-12", 0, 0));
-        hash.insertar(new Lugar(5, "Miraflores", "Domino's", 0, 0));
-        hash.insertar(new Lugar(8, "Miraflores", "Lugar random", 0, 0));
-        hash.insertar(new Lugar(9, "Miraflores", "f", 0, 0));
-        hash.insertar(new Lugar(9, "Miraflores", "g", 0, 0));
-        hash.insertar(new Lugar(9, "Miraflores", "p", 0, 0));
-         */
-        //jTable1.addRow()
+        
+        
+        
     }
 
     /**
@@ -118,7 +74,7 @@ public class Lugares extends javax.swing.JFrame {
 
         jLabel3.setFont(new java.awt.Font("Gotham Thin", 0, 40)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("Lugares sugeridos");
+        jLabel3.setText("Mis viajes");
 
         jScrollPane1.setViewportView(jTable1);
 
@@ -127,7 +83,7 @@ public class Lugares extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(37, Short.MAX_VALUE)
+                .addContainerGap(47, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 351, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 627, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -140,7 +96,7 @@ public class Lugares extends javax.swing.JFrame {
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(34, 34, 34)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(168, Short.MAX_VALUE))
+                .addContainerGap(97, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -174,20 +130,20 @@ public class Lugares extends javax.swing.JFrame {
 //                }
 //            }
 //        } catch (ClassNotFoundException ex) {
-//            java.util.logging.Logger.getLogger(Lugares.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//            java.util.logging.Logger.getLogger(ViajesGuardados.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 //        } catch (InstantiationException ex) {
-//            java.util.logging.Logger.getLogger(Lugares.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//            java.util.logging.Logger.getLogger(ViajesGuardados.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 //        } catch (IllegalAccessException ex) {
-//            java.util.logging.Logger.getLogger(Lugares.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//            java.util.logging.Logger.getLogger(ViajesGuardados.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 //        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-//            java.util.logging.Logger.getLogger(Lugares.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//            java.util.logging.Logger.getLogger(ViajesGuardados.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 //        }
 //        //</editor-fold>
 //
 //        /* Create and display the form */
 //        java.awt.EventQueue.invokeLater(new Runnable() {
 //            public void run() {
-//                new Lugares().setVisible(true);
+//                new ViajesGuardados().setVisible(true);
 //            }
 //        });
 //    }

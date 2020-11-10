@@ -81,6 +81,7 @@
         </Component>
         <Component class="javax.swing.JTextField" name="txt_usuario">
           <Properties>
+            <Property name="editable" type="boolean" value="false"/>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="3e" green="2d" red="21" type="rgb"/>
             </Property>
@@ -136,6 +137,7 @@
         </Component>
         <Component class="javax.swing.JTextField" name="txt_conductor">
           <Properties>
+            <Property name="editable" type="boolean" value="false"/>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="3e" green="2d" red="21" type="rgb"/>
             </Property>
@@ -191,6 +193,7 @@
         </Component>
         <Component class="javax.swing.JTextField" name="txt_fecha">
           <Properties>
+            <Property name="editable" type="boolean" value="false"/>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="3e" green="2d" red="21" type="rgb"/>
             </Property>
@@ -246,6 +249,7 @@
         </Component>
         <Component class="javax.swing.JTextField" name="txt_precio">
           <Properties>
+            <Property name="editable" type="boolean" value="false"/>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="3e" green="2d" red="21" type="rgb"/>
             </Property>
@@ -303,7 +307,7 @@
             </Constraint>
           </Constraints>
         </Component>
-        <Component class="javax.swing.JButton" name="btn_pagar1">
+        <Component class="javax.swing.JButton" name="btn_pagar">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="99" red="33" type="rgb"/>
@@ -314,7 +318,7 @@
             <Property name="text" type="java.lang.String" value="Realizar pago"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_pagar1ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_pagarActionPerformed"/>
           </Events>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">

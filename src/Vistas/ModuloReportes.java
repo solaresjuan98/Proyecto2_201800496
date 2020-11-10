@@ -5,7 +5,9 @@
  */
 package Vistas;
 
+import Estructuras.ArbolB_Facturas;
 import Estructuras.ArbolB_Usuarios;
+import Estructuras.ArbolB_Viajes;
 import Estructuras.TablaHash;
 import javax.swing.JOptionPane;
 
@@ -15,15 +17,17 @@ import javax.swing.JOptionPane;
  */
 public class ModuloReportes extends javax.swing.JFrame {
 
-    public static TablaHash hash;
+    TablaHash hash;
     public ArbolB_Usuarios arbol;
     /**
      * Creates new form ModuloReportes
      *
      * @param a
      * @param h
+     * @param a_facturas
+     * @param a_viajes
      */
-    public ModuloReportes(ArbolB_Usuarios a,TablaHash h) {
+    public ModuloReportes(ArbolB_Usuarios a,TablaHash h, ArbolB_Facturas a_facturas, ArbolB_Viajes a_viajes) {
         initComponents();
         setResizable(false);
         setTitle("Modulo de reportes");
@@ -138,7 +142,7 @@ public class ModuloReportes extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_reporteConductoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_reporteConductoresActionPerformed
-
+        
 
     }//GEN-LAST:event_btn_reporteConductoresActionPerformed
 
@@ -150,7 +154,7 @@ public class ModuloReportes extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_ReporteUsuariosActionPerformed
 
     private void btn_reporteViajesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_reporteViajesActionPerformed
-        // TODO add your handling code here:
+        // Graficar los viajes
     }//GEN-LAST:event_btn_reporteViajesActionPerformed
 
     private void btn_reporteHashActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_reporteHashActionPerformed
@@ -162,11 +166,11 @@ public class ModuloReportes extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_reporteHashActionPerformed
 
     private void btn_reporteTransaccionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_reporteTransaccionesActionPerformed
-        // TODO add your handling code here:
+        // Graficar las facturas
     }//GEN-LAST:event_btn_reporteTransaccionesActionPerformed
 
     private void btn_regresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_regresarActionPerformed
-
+        dispose();
     }//GEN-LAST:event_btn_regresarActionPerformed
 
 //    /**

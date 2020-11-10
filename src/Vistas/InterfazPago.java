@@ -5,27 +5,66 @@
  */
 package Vistas;
 
+import Clases.Factura;
+import Clases.Usuario;
+import Estructuras.ArbolB_Facturas;
+import Estructuras.ArbolB_Viajes;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author juan333
  */
 public class InterfazPago extends javax.swing.JFrame {
 
+    
+    public ArbolB_Viajes arbol_viajes;
+    public ArbolB_Facturas arbol_facturas;
+    int id_pago;
+    int id_viaje;
+    int id_usuario;
+    int id_conductor;
+    String fecha_;
+    double precio_;
+    
+    
     /**
      * Creates new form InterfazPago
+     * @param u
+     * @param c
+     * @param precio
+     * @param a_viajes
+     * @param a_fac
      */
-    public InterfazPago() {
+    public InterfazPago(Usuario u, Usuario c, double precio, ArbolB_Viajes a_viajes, ArbolB_Facturas a_fac) {
         initComponents();
         setResizable(false);
         setTitle("Realizar pago");
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
+        
+        arbol_facturas = a_fac;
+        
+        id_usuario = u.getId();
+        id_conductor = c.getId();
+        precio_ = precio;
         
         txt_conductor.setEditable(false);
         txt_usuario.setEditable(false);
         txt_fecha.setEditable(false);
         txt_precio.setEditable(false);
         
-        
+        txt_usuario.setText(u.getNombre_completo());
+        txt_conductor.setText(c.getNombre_completo());
+        txt_precio.setText(String.valueOf(precio));
+
+        // Fecha de la transacción
+        Date myDate = new Date();
+        txt_fecha.setText(new SimpleDateFormat("dd-MM-yyyy").format(myDate));
+        fecha_ = txt_fecha.getText();
+
     }
 
     /**
@@ -52,7 +91,7 @@ public class InterfazPago extends javax.swing.JFrame {
         txt_precio = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         btn_vermapa = new javax.swing.JButton();
-        btn_pagar1 = new javax.swing.JButton();
+        btn_pagar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -69,6 +108,7 @@ public class InterfazPago extends javax.swing.JFrame {
         jSeparator1.setForeground(new java.awt.Color(73, 181, 172));
         jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 190, 310, 10));
 
+        txt_usuario.setEditable(false);
         txt_usuario.setBackground(new java.awt.Color(33, 45, 62));
         txt_usuario.setFont(new java.awt.Font("Gotham Thin", 0, 18)); // NOI18N
         txt_usuario.setForeground(new java.awt.Color(73, 181, 172));
@@ -85,6 +125,7 @@ public class InterfazPago extends javax.swing.JFrame {
         jSeparator2.setForeground(new java.awt.Color(73, 181, 172));
         jPanel1.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 280, 310, 10));
 
+        txt_conductor.setEditable(false);
         txt_conductor.setBackground(new java.awt.Color(33, 45, 62));
         txt_conductor.setFont(new java.awt.Font("Gotham Thin", 0, 18)); // NOI18N
         txt_conductor.setForeground(new java.awt.Color(73, 181, 172));
@@ -101,6 +142,7 @@ public class InterfazPago extends javax.swing.JFrame {
         jSeparator3.setForeground(new java.awt.Color(73, 181, 172));
         jPanel1.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 380, 310, 10));
 
+        txt_fecha.setEditable(false);
         txt_fecha.setBackground(new java.awt.Color(33, 45, 62));
         txt_fecha.setFont(new java.awt.Font("Gotham Thin", 0, 18)); // NOI18N
         txt_fecha.setForeground(new java.awt.Color(73, 181, 172));
@@ -117,6 +159,7 @@ public class InterfazPago extends javax.swing.JFrame {
         jSeparator4.setForeground(new java.awt.Color(73, 181, 172));
         jPanel1.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 480, 310, 10));
 
+        txt_precio.setEditable(false);
         txt_precio.setBackground(new java.awt.Color(33, 45, 62));
         txt_precio.setFont(new java.awt.Font("Gotham Thin", 0, 18)); // NOI18N
         txt_precio.setForeground(new java.awt.Color(73, 181, 172));
@@ -139,15 +182,15 @@ public class InterfazPago extends javax.swing.JFrame {
         });
         jPanel1.add(btn_vermapa, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 520, 120, -1));
 
-        btn_pagar1.setBackground(new java.awt.Color(51, 153, 255));
-        btn_pagar1.setFont(new java.awt.Font("Segoe UI Symbol", 0, 18)); // NOI18N
-        btn_pagar1.setText("Realizar pago");
-        btn_pagar1.addActionListener(new java.awt.event.ActionListener() {
+        btn_pagar.setBackground(new java.awt.Color(51, 153, 255));
+        btn_pagar.setFont(new java.awt.Font("Segoe UI Symbol", 0, 18)); // NOI18N
+        btn_pagar.setText("Realizar pago");
+        btn_pagar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_pagar1ActionPerformed(evt);
+                btn_pagarActionPerformed(evt);
             }
         });
-        jPanel1.add(btn_pagar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 520, -1, -1));
+        jPanel1.add(btn_pagar, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 520, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -169,9 +212,13 @@ public class InterfazPago extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btn_vermapaActionPerformed
 
-    private void btn_pagar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_pagar1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btn_pagar1ActionPerformed
+    private void btn_pagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_pagarActionPerformed
+        
+        //Insertar la factura
+        arbol_facturas.agregarFactura(new Factura(id_pago, id_usuario, id_conductor, id_viaje, fecha_, (int) precio_));
+        JOptionPane.showMessageDialog(null, "Factura pagada.");
+        
+    }//GEN-LAST:event_btn_pagarActionPerformed
 
 //    /**
 //     * @param args the command line arguments
@@ -203,14 +250,13 @@ public class InterfazPago extends javax.swing.JFrame {
 //        /* Create and display the form */
 //        java.awt.EventQueue.invokeLater(new Runnable() {
 //            public void run() {
-//                new InterfazPago().setVisible(true);
-//                
+//                new InterfazPago().setVisible(truebtn_pagar           
 //            }
 //        });
 //    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btn_pagar1;
+    private javax.swing.JButton btn_pagar;
     private javax.swing.JButton btn_vermapa;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

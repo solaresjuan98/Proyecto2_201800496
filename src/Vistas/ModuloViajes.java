@@ -6,13 +6,21 @@
 package Vistas;
 
 import Clases.Lugar;
+import Clases.NodoGrafo;
 import Clases.Usuario;
+import Clases.Viaje;
+import Estructuras.ArbolB_Facturas;
 import Estructuras.ArbolB_Usuarios;
+import Estructuras.ArbolB_Viajes;
+import Estructuras.Dijkstra;
+import Estructuras.Grafo;
 import Estructuras.TablaHash;
 import Mapa.Mapa;
 import com.teamdev.jxmaps.LatLng;
 import com.teamdev.jxmaps.MapViewOptions;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import javax.swing.JOptionPane;
 
 /**
@@ -21,11 +29,16 @@ import javax.swing.JOptionPane;
  */
 public class ModuloViajes extends javax.swing.JFrame {
 
-    public static ArbolB_Usuarios arbol;
-    public static TablaHash hash;
+    ArbolB_Usuarios arbol;
+    TablaHash hash;
     public static Usuario user;
+    public Usuario conductor;
+    Grafo grafo;
+    ArbolB_Viajes arbol_viajes;
+    ArbolB_Facturas arbol_facturas;
     // lista de conductores
     public ArrayList<Usuario> listaaux = new ArrayList<>();
+
     //public ArrayList<Usuario> listaaux2 = new ArrayList<>();
     /**
      * Creates new form ModuloViajes
@@ -33,8 +46,11 @@ public class ModuloViajes extends javax.swing.JFrame {
      * @param t
      * @param a
      * @param u
+     * @param g
+     * @param a_viajes
+     * @param a_facturas
      */
-    public ModuloViajes(TablaHash t, ArbolB_Usuarios a, Usuario u) {
+    public ModuloViajes(TablaHash t, ArbolB_Usuarios a, Usuario u, Grafo g, ArbolB_Viajes a_viajes, ArbolB_Facturas a_facturas) {
         initComponents();
         setTitle("Modulo de viaje");
         setLocationRelativeTo(null);
@@ -44,6 +60,23 @@ public class ModuloViajes extends javax.swing.JFrame {
         hash = t;
         arbol = a;
         user = u;
+        grafo = g;
+        arbol_viajes = a_viajes;
+        arbol_facturas = a_facturas;
+
+        for (Usuario cond : arbol.getLista_usuarios()) {
+
+            if (cond != null) {
+
+                if (cond.getRol().equals("conductor")) {
+                    listaaux.add(cond);
+
+                    float d = obtenerDistancia(user.getLatitud(), user.getLongitud(), cond.getLatitud(), cond.getLongitud());
+                    //System.out.println(" El conductor esta a " + d);
+                    //System.out.println(" Conductor con nombre: " + u.getNombre_completo());                }
+                }
+            }
+        }
 
         //System.out.println("->"+user.getLatitud()+" "+user.getLongitud());
         //Lugar inicio = hash.buscarLugarPorCoordenada((long)user.getLatitud(), (long)user.getLongitud());
@@ -98,11 +131,12 @@ public class ModuloViajes extends javax.swing.JFrame {
         jSeparator2 = new javax.swing.JSeparator();
         txt_idConductor = new javax.swing.JTextField();
         jSeparator3 = new javax.swing.JSeparator();
-        txt_lugarinicio = new javax.swing.JTextField();
-        jSeparator4 = new javax.swing.JSeparator();
-        txt_lugarfinal = new javax.swing.JTextField();
+        txt_precio = new javax.swing.JTextField();
         buscarConductor = new javax.swing.JButton();
         verLugares = new javax.swing.JButton();
+        btn_infoPago = new javax.swing.JButton();
+        validar_Viaje = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -132,8 +166,8 @@ public class ModuloViajes extends javax.swing.JFrame {
 
         jLabel5.setFont(new java.awt.Font("Gotham Thin", 0, 18)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel5.setText("Datos de conductor");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 30, 200, 53));
+        jLabel5.setText("Total calculado: (en Q.)");
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 220, 200, 53));
 
         jPanel1.add(LugarFinal, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 260, 220, -1));
 
@@ -170,31 +204,19 @@ public class ModuloViajes extends javax.swing.JFrame {
 
         jSeparator3.setBackground(new java.awt.Color(73, 181, 172));
         jSeparator3.setForeground(new java.awt.Color(73, 181, 172));
-        jPanel1.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 270, 200, 10));
+        jPanel1.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 320, 200, 10));
 
-        txt_lugarinicio.setEditable(false);
-        txt_lugarinicio.setBackground(new java.awt.Color(33, 45, 62));
-        txt_lugarinicio.setFont(new java.awt.Font("Gotham Thin", 0, 18)); // NOI18N
-        txt_lugarinicio.setForeground(new java.awt.Color(73, 181, 172));
-        txt_lugarinicio.setBorder(null);
-        txt_lugarinicio.setCaretColor(new java.awt.Color(73, 181, 172));
-        jPanel1.add(txt_lugarinicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 230, 200, 40));
-
-        jSeparator4.setBackground(new java.awt.Color(73, 181, 172));
-        jSeparator4.setForeground(new java.awt.Color(73, 181, 172));
-        jPanel1.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 330, 200, 10));
-
-        txt_lugarfinal.setEditable(false);
-        txt_lugarfinal.setBackground(new java.awt.Color(33, 45, 62));
-        txt_lugarfinal.setFont(new java.awt.Font("Gotham Thin", 0, 18)); // NOI18N
-        txt_lugarfinal.setForeground(new java.awt.Color(73, 181, 172));
-        txt_lugarfinal.setBorder(null);
-        txt_lugarfinal.setCaretColor(new java.awt.Color(73, 181, 172));
-        jPanel1.add(txt_lugarfinal, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 290, 200, 40));
+        txt_precio.setEditable(false);
+        txt_precio.setBackground(new java.awt.Color(33, 45, 62));
+        txt_precio.setFont(new java.awt.Font("Gotham Thin", 0, 18)); // NOI18N
+        txt_precio.setForeground(new java.awt.Color(73, 181, 172));
+        txt_precio.setBorder(null);
+        txt_precio.setCaretColor(new java.awt.Color(73, 181, 172));
+        jPanel1.add(txt_precio, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 280, 200, 40));
 
         buscarConductor.setBackground(new java.awt.Color(51, 153, 255));
         buscarConductor.setFont(new java.awt.Font("Segoe UI Symbol", 0, 18)); // NOI18N
-        buscarConductor.setText("Buscar conductor");
+        buscarConductor.setText("Calcular ruta");
         buscarConductor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buscarConductorActionPerformed(evt);
@@ -212,6 +234,31 @@ public class ModuloViajes extends javax.swing.JFrame {
         });
         jPanel1.add(verLugares, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 370, 220, -1));
 
+        btn_infoPago.setBackground(new java.awt.Color(51, 153, 255));
+        btn_infoPago.setFont(new java.awt.Font("Segoe UI Symbol", 0, 18)); // NOI18N
+        btn_infoPago.setText("Ver info. de pago");
+        btn_infoPago.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_infoPagoActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btn_infoPago, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 360, 200, -1));
+
+        validar_Viaje.setBackground(new java.awt.Color(51, 153, 255));
+        validar_Viaje.setFont(new java.awt.Font("Segoe UI Symbol", 0, 18)); // NOI18N
+        validar_Viaje.setText("Validar mi viaje");
+        validar_Viaje.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                validar_ViajeActionPerformed(evt);
+            }
+        });
+        jPanel1.add(validar_Viaje, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 420, 200, -1));
+
+        jLabel7.setFont(new java.awt.Font("Gotham Thin", 0, 18)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel7.setText("Datos de conductor");
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 30, 200, 53));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -228,20 +275,19 @@ public class ModuloViajes extends javax.swing.JFrame {
 
     private void verConductoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_verConductoresActionPerformed
 
-        for (Usuario u : arbol.getLista_usuarios()) {
-
-            if (u != null) {
-
-                if (u.getRol().equals("conductor")) {
-                    listaaux.add(u);
-
-                    float d = obtenerDistancia(user.getLatitud(), user.getLongitud(), u.getLatitud(), u.getLongitud());
-                    System.out.println(" El conductor esta a " + d);
-                    //System.out.println(" Conductor con nombre: " + u.getNombre_completo());                }
-                }
-            }
-        }
-        
+//        for (Usuario u : arbol.getLista_usuarios()) {
+//
+//            if (u != null) {
+//
+//                if (u.getRol().equals("conductor")) {
+//                    listaaux.add(u);
+//
+//                    float d = obtenerDistancia(user.getLatitud(), user.getLongitud(), u.getLatitud(), u.getLongitud());
+//                    //System.out.println(" El conductor esta a " + d);
+//                    //System.out.println(" Conductor con nombre: " + u.getNombre_completo());                }
+//                }
+//            }
+//        }
         MapViewOptions options = new MapViewOptions();
         options.importPlaces();
         options.setApiKey("AIzaSyAu_wHDWkQ4oI98SuwtK1pVqKjIJitE_nw");
@@ -273,19 +319,26 @@ public class ModuloViajes extends javax.swing.JFrame {
 
     private void buscarConductorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarConductorActionPerformed
         // TODO add your handling code here:
-        
+        Dijkstra d = new Dijkstra();
         // validar si mi "listaaux" esta vacia
-        if(listaaux != null){
-            
+        if (listaaux != null) {
+
             //obtenerConductorMasCercano(listaaux);
-            Usuario conductor = obtenerConductorMasCercano(listaaux);
-            System.out.println(" >> Conductor más cercano es: " + conductor.getNombre_completo());
+            conductor = obtenerConductorMasCercano(listaaux);
+            //System.out.println(" >> Conductor más cercano es: " + conductor.getNombre_completo());
             txt_nombreConductor.setText(conductor.getNombre_completo());
-        }else{
+
+            NodoGrafo inicio = grafo.buscarNodo(LugarInicio.getSelectedItem().toString());
+            NodoGrafo destino = grafo.buscarNodo(LugarFinal.getSelectedItem().toString());
+
+            d.hallarRutaMenor(grafo, inicio, destino);
+
+            txt_precio.setText(String.valueOf(d.precioViaje));
+
+        } else {
             System.out.println(" >> Lista vacía");
         }
-        
-        
+
 
     }//GEN-LAST:event_buscarConductorActionPerformed
 
@@ -318,6 +371,34 @@ public class ModuloViajes extends javax.swing.JFrame {
 
     }//GEN-LAST:event_verLugaresActionPerformed
 
+    private void btn_infoPagoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_infoPagoActionPerformed
+        // TODO add your handling code here:
+
+        //InterfazPago pago = new InterfazPago();
+        //pago.setVisible(true);
+
+    }//GEN-LAST:event_btn_infoPagoActionPerformed
+
+    private void validar_ViajeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_validar_ViajeActionPerformed
+        // TODO add your handling code here:
+        Date myDate = new Date();
+
+        String fecha;
+
+        fecha = new SimpleDateFormat("dd-MM-yyyy").format(myDate);
+        String lugar_inicio = LugarInicio.getSelectedItem().toString();
+        String lugar_final = LugarFinal.getSelectedItem().toString();
+        // Guardar el viaje en el ArbolB 
+        //Viaje viaje;
+        // agregar a arbolB
+        arbol_viajes.AgregarViaje(new Viaje(0, lugar_inicio, lugar_final , fecha));
+        
+        // Abrir la interfaz de pago para luego cerrar el modulo de viajes 
+        InterfazPago pago = new InterfazPago(user, conductor, Double.parseDouble(txt_precio.getText()), arbol_viajes, arbol_facturas);
+        pago.setVisible(true);
+
+    }//GEN-LAST:event_validar_ViajeActionPerformed
+
     public static float obtenerDistancia(float lat1, float lat2, float lng1, float lng2) {
 
         float radioTierra = 6371;//en kilómetros  
@@ -325,37 +406,37 @@ public class ModuloViajes extends javax.swing.JFrame {
         double dLng = Math.toRadians(lng2 - lng1);
         double sindLat = Math.sin(dLat / 2);
         double sindLng = Math.sin(dLng / 2);
-        double va1 = Math.pow(sindLat, 2) + Math.pow(sindLng, 2)* Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2));
+        double va1 = Math.pow(sindLat, 2) + Math.pow(sindLng, 2) * Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2));
         double va2 = 2 * Math.atan2(Math.sqrt(va1), Math.sqrt(1 - va1));
         double distancia = radioTierra * va2;
 
         return (float) distancia;
 
     }
-    
-    public static Usuario obtenerConductorMasCercano(ArrayList<Usuario> lista){
-        
+
+    public static Usuario obtenerConductorMasCercano(ArrayList<Usuario> lista) {
+
         Usuario conductorCercano = null;
 
         float distanciamenor = Float.MAX_VALUE;
-        
+
         for (Usuario u : lista) {
 
             // sacar la distancia a partir del usuario que está solicitando el viaje
             float distancia = obtenerDistancia(user.getLatitud(), user.getLongitud(), u.getLatitud(), u.getLongitud());
 
-            if (distancia < distanciamenor) {
+            if (distancia < distanciamenor && u.isDisponibilidad()) {
                 distanciamenor = distancia;
                 conductorCercano = u;
                 System.out.println(" :D");
                 //return conductorCercano;
-                
+
             }
 
         }
 
         return conductorCercano;
-        
+
     }
 //    /**
 //     * @param args the command line arguments
@@ -395,20 +476,21 @@ public class ModuloViajes extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> LugarFinal;
     private javax.swing.JComboBox<String> LugarInicio;
+    private javax.swing.JButton btn_infoPago;
     private javax.swing.JButton buscarConductor;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
-    private javax.swing.JSeparator jSeparator4;
     private javax.swing.JTextField txt_idConductor;
-    private javax.swing.JTextField txt_lugarfinal;
-    private javax.swing.JTextField txt_lugarinicio;
     private javax.swing.JTextField txt_nombreConductor;
+    private javax.swing.JTextField txt_precio;
+    private javax.swing.JButton validar_Viaje;
     private javax.swing.JButton verConductores;
     private javax.swing.JButton verLugares;
     // End of variables declaration//GEN-END:variables

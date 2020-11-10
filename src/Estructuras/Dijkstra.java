@@ -36,55 +36,42 @@ public class Dijkstra {
         NodoGrafo anterior;
         // se agrega el nodo de inicio a la lista de nodos visitados
         nodosVisistados.add(inicio);
-        
-        //System.out.print("" + actual.getLugar() + " -> ");
-        
+        // sumo el precio del nodo
+        precioViaje += actual.getPrecio();
 
-        //System.out.print("" + actual.getAristas()+ " -> ");
-        // ejecutar el ciclo mientras no se llegue al nodo destino
         while (actual != destino) {
-            System.out.println(" Estoy en -> "+actual.getLugar());
+            System.out.println(" Estoy en -> " + actual.getLugar());
             nodosVisistados.add(actual);
             anterior = actual;
             actual = hallarNodoMasCercano(actual.getAristas());
-            precioViaje += actual.getPrecio();
             if (yaFueVisitado(actual)) {
                 // borrar este nodo y buscar de nuevo 
-       
-                NodoGrafo aux = anterior; // auxiliar = puebla (anterior)
-                //System.out.println("-> actual " +actual.getLugar());
-                //System.out.println("-> anterior " +actual.getLugar());
+
                 AristaGrafo nodoaBorrar = anterior.existeArista(anterior.getLugar(), actual.getLugar());
                 anterior.eliminarArista(nodoaBorrar);
-                
-                System.out.println(" Estaba en " +anterior.getLugar());
-                System.out.println(" Tengo que visitar " + actual.getLugar());
+
                 actual = hallarNodoMasCercano(anterior.getAristas());
-                
-                if(yaFueVisitado(actual)){
-                    System.out.println("Ya lo visité :v");
+
+                if (yaFueVisitado(actual)) {
                     AristaGrafo borrar2 = anterior.existeArista(anterior.getLugar(), actual.getLugar());
                     anterior.eliminarArista(borrar2);
-                    System.out.println(" Anterior -> " + anterior.getLugar());
-                    // volver a setear el nodo
                     actual = hallarNodoMasCercano(anterior.getAristas());
-                    
+                    precioViaje += actual.getPrecio();
+
                 }
 
-                
             } else {
                 // seguir el camino normal
                 AristaGrafo nodoaBorrar = actual.existeArista(actual.getLugar(), anterior.getLugar());
                 actual.eliminarArista(nodoaBorrar);
+                precioViaje += actual.getPrecio();
             }
 
             //System.out.print("" + actual.getLugar() + " -> ");
-            
         }
-        
+
+        precioViaje += actual.getPrecio();
         nodosVisistados.add(actual);
-        
-        
 
         System.out.println("Precio a pagar: " + this.precioViaje);
         System.out.println("\n" + nodosVisistados);

@@ -5,17 +5,55 @@
  */
 package Vistas;
 
+import Clases.Usuario;
+import Estructuras.ArbolB_Facturas;
+import Estructuras.ArbolB_Usuarios;
+import Estructuras.ArbolB_Viajes;
+import Estructuras.Grafo;
+import Estructuras.TablaHash;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author juan333
  */
 public class DashboardConductor extends javax.swing.JFrame {
 
+    ArbolB_Usuarios arbol;
+    Usuario user;
+    TablaHash hash;
+    ArbolB_Viajes arbol_viajes;
+    ArbolB_Facturas arbol_facturas;
+    Grafo grafo;
+    
     /**
      * Creates new form DashboardConductor
+     * @param u
+     * @param t
+     * @param a
+     * @param g
+     * @param a_viajes
+     * @param a_facturas
      */
-    public DashboardConductor() {
+    public DashboardConductor(Usuario u, TablaHash t, ArbolB_Usuarios a, Grafo g, ArbolB_Viajes a_viajes, ArbolB_Facturas a_facturas) {
         initComponents();
+        setTitle("Dashboard conductor");
+        setLocationRelativeTo(null);
+        setResizable(false);
+        
+        if (u == null) {
+
+            jLabel3.setText("Bienvenido a la aplicación-");
+        } else {
+            jLabel3.setText("Bienvenido " + u.getUsername());
+            user = u;
+            hash = t;
+            arbol = a;
+            grafo = g;
+            arbol_viajes = a_viajes;
+            arbol_facturas = a_facturas;
+
+        }
     }
 
     /**
@@ -27,21 +65,187 @@ public class DashboardConductor extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        btn_viajes = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        btn_revisarViajes = new javax.swing.JButton();
+        btn_modificauser = new javax.swing.JButton();
+        jLabel8 = new javax.swing.JLabel();
+        btn_logout = new javax.swing.JButton();
+        jLabel9 = new javax.swing.JLabel();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jPanel1.setBackground(new java.awt.Color(33, 45, 62));
+        jPanel1.setRequestFocusEnabled(false);
+
+        jLabel3.setFont(new java.awt.Font("Gotham Thin", 0, 40)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setText("Bienvenido usuario");
+
+        btn_viajes.setBackground(new java.awt.Color(33, 45, 62));
+        btn_viajes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8_itinerary_96px.png"))); // NOI18N
+        btn_viajes.setBorder(null);
+        btn_viajes.setFocusable(false);
+        btn_viajes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_viajesActionPerformed(evt);
+            }
+        });
+
+        jLabel4.setFont(new java.awt.Font("Gotham Thin", 0, 12)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setText("Revisar mis viajes");
+
+        jLabel5.setFont(new java.awt.Font("Gotham Thin", 0, 12)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel5.setText("Solicitar viajes");
+
+        btn_revisarViajes.setBackground(new java.awt.Color(33, 45, 62));
+        btn_revisarViajes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8_previous_location_96px.png"))); // NOI18N
+        btn_revisarViajes.setBorder(null);
+        btn_revisarViajes.setFocusable(false);
+        btn_revisarViajes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_revisarViajesActionPerformed(evt);
+            }
+        });
+
+        btn_modificauser.setBackground(new java.awt.Color(33, 45, 62));
+        btn_modificauser.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8_gender_neutral_user_96px.png"))); // NOI18N
+        btn_modificauser.setBorder(null);
+        btn_modificauser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_modificauserActionPerformed(evt);
+            }
+        });
+
+        jLabel8.setFont(new java.awt.Font("Gotham Thin", 0, 12)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel8.setText("Ver mis datos");
+
+        btn_logout.setBackground(new java.awt.Color(33, 45, 62));
+        btn_logout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8_exit_96px.png"))); // NOI18N
+        btn_logout.setBorder(null);
+        btn_logout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_logoutActionPerformed(evt);
+            }
+        });
+
+        jLabel9.setFont(new java.awt.Font("Gotham Thin", 0, 12)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel9.setText("Cerrar sesión");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                .addGap(109, 109, 109)
+                                .addComponent(jLabel5)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel4))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                .addGap(90, 90, 90)
+                                .addComponent(btn_viajes, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(70, 70, 70)
+                                .addComponent(btn_revisarViajes, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(77, 77, 77)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btn_modificauser, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel8)
+                                .addGap(26, 26, 26))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(37, 37, 37)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 653, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(100, 100, 100)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btn_logout)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addComponent(jLabel9)))))
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(27, 27, 27)
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(29, 29, 29)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(btn_revisarViajes, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btn_viajes, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(1, 1, 1)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(btn_modificauser, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(22, 22, 22)
+                .addComponent(btn_logout)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(30, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btn_viajesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_viajesActionPerformed
+
+       
+    }//GEN-LAST:event_btn_viajesActionPerformed
+
+    private void btn_logoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_logoutActionPerformed
+        // TODO add your handling code here
+
+        int dRes = JOptionPane.showConfirmDialog(null, "¿Deseas cerrar sesión?");
+
+        if (dRes == JOptionPane.YES_OPTION) {
+
+            IniciarSesion login = new IniciarSesion(arbol, hash, grafo, arbol_viajes, arbol_facturas);
+            login.setVisible(true);
+            dispose();
+        }
+    }//GEN-LAST:event_btn_logoutActionPerformed
+
+    private void btn_modificauserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_modificauserActionPerformed
+        // TODO add your handling code here:
+
+        DatosUsuario d = new DatosUsuario(user, arbol);
+        d.setVisible(true);
+        //dispose();
+    }//GEN-LAST:event_btn_modificauserActionPerformed
+
+    private void btn_revisarViajesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_revisarViajesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_revisarViajesActionPerformed
 //
 //    /**
 //     * @param args the command line arguments
@@ -79,5 +283,15 @@ public class DashboardConductor extends javax.swing.JFrame {
 //    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn_logout;
+    private javax.swing.JButton btn_modificauser;
+    private javax.swing.JButton btn_revisarViajes;
+    private javax.swing.JButton btn_viajes;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }
