@@ -90,12 +90,13 @@ public class ArbolB {
 
         // mover las claves de nodo
         for (int j = nodo.n; j > i; j--) {
-            nodo.clave[(j + 1)] = nodo.clave[j];
+            nodo.clave[(j + 1)] = nodo.clave[j];//
         }
 
         // Agregar la clave situada en medio
         nodo.clave[i] = nodo_aux.clave[(t - 1)];
         nodo.n++;
+
     }
 
     public void insertarNoLleno(NodoArbolB nodo, int clave) {
@@ -153,18 +154,18 @@ public class ArbolB {
             }
         }
     }
-    
-    public void buscarID(int id){
-        
+
+    public void buscarID(int id) {
+
         NodoArbolB aux = buscar(raiz, id);
-        
-        if(aux == null){
+
+        if (aux == null) {
             System.out.println(" >> Nodo no encontrado");
-        }else{
+        } else {
             imprimir(aux);
         }
     }
-    
+
     private NodoArbolB buscar(NodoArbolB act, int clave) {
 
         int i = 0;
@@ -176,17 +177,16 @@ public class ArbolB {
         if (i < act.n && clave == act.clave[i]) {
             return act;
         }
-        
-        if(act.hoja){
+
+        if (act.hoja) {
             return null;
-        }else{
+        } else {
             return buscar(act.hijo[i], clave);
         }
     }
 
     // Generar grafica del arbol
     // Utilizando graphviz 
-    /*
     public void GraficarArbol() {
 
         StringBuilder cadena = new StringBuilder();
@@ -194,16 +194,14 @@ public class ArbolB {
         cadena.append("digraph G {\n");
         cadena.append("node[shape=record];\n");
         cadena.append("node[shape=record color=blue style=filled, fillcolor=\"gray\", gradientangle=90];\n");
-        
+
         cadena.append(raiz.GraficarNodo());
-        
+
         cadena.append("}\n");
-        
+
         FileWriter fichero = null;
         PrintWriter pw = null;
-        
-        
-        
+
         try {
 
             fichero = new FileWriter("./graficaArbolB.dot");
@@ -231,11 +229,7 @@ public class ArbolB {
                 System.out.println("f");
             }
         }
-        
-        
 
     }
-*/
-
 
 }

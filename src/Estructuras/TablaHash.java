@@ -47,9 +47,9 @@ public class TablaHash {
         //System.out.println(pos);
         this.arreglo_lugares[pos] = lugar;
         this.carga++;
-        //System.out.println("Carga -> " +carga);
+        System.out.println("Carga -> " +carga);
         if (((carga * 100 / this.tamanio) > 70)) {
-
+            System.out.println("F");
             int nuevo_tamanio = tamanio;
 
             do {
@@ -90,7 +90,7 @@ public class TablaHash {
         int i = 0, p;
 
         p = (int) aux % this.tamanio;
-        //System.out.println(p);
+        System.out.println(p);
         while (arreglo_lugares[p] != null && getAscii(arreglo_lugares[p].getNombre()) != aux) {
             i++;
             p = (int) aux % this.tamanio;

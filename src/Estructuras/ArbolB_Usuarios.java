@@ -158,9 +158,7 @@ public class ArbolB_Usuarios extends ArbolB {
         cadena.append("node[shape=record];\n");
         cadena.append("node[shape=record color=blue style=filled, fillcolor=\"gray\", gradientangle=90];\n");
 
-        //cadena.append(raiz.GraficarNodo()); no tocar
-        
-        //
+ 
         cadena.append(raiz.GraficarNodoDatosUsuario(lista_usuarios));
 
         cadena.append("}\n");
@@ -191,6 +189,7 @@ public class ArbolB_Usuarios extends ArbolB {
             try {
                 String cmd = "dot -Tpdf ./graficaArbolB.dot -o ArbolB.pdf";
                 Runtime.getRuntime().exec(cmd);
+                System.out.println(":D");
             } catch (IOException i) {
                 System.out.println("f");
             }

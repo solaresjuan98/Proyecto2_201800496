@@ -128,13 +128,10 @@ public class ModuloViajes extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         txt_nombreConductor = new javax.swing.JTextField();
-        jSeparator2 = new javax.swing.JSeparator();
-        txt_idConductor = new javax.swing.JTextField();
         jSeparator3 = new javax.swing.JSeparator();
         txt_precio = new javax.swing.JTextField();
         buscarConductor = new javax.swing.JButton();
         verLugares = new javax.swing.JButton();
-        btn_infoPago = new javax.swing.JButton();
         validar_Viaje = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
 
@@ -167,7 +164,7 @@ public class ModuloViajes extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Gotham Thin", 0, 18)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Total calculado: (en Q.)");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 220, 200, 53));
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 180, 200, 53));
 
         jPanel1.add(LugarFinal, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 260, 220, -1));
 
@@ -190,21 +187,9 @@ public class ModuloViajes extends javax.swing.JFrame {
         txt_nombreConductor.setCaretColor(new java.awt.Color(73, 181, 172));
         jPanel1.add(txt_nombreConductor, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 100, 200, 40));
 
-        jSeparator2.setBackground(new java.awt.Color(73, 181, 172));
-        jSeparator2.setForeground(new java.awt.Color(73, 181, 172));
-        jPanel1.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 210, 200, 10));
-
-        txt_idConductor.setEditable(false);
-        txt_idConductor.setBackground(new java.awt.Color(33, 45, 62));
-        txt_idConductor.setFont(new java.awt.Font("Gotham Thin", 0, 18)); // NOI18N
-        txt_idConductor.setForeground(new java.awt.Color(73, 181, 172));
-        txt_idConductor.setBorder(null);
-        txt_idConductor.setCaretColor(new java.awt.Color(73, 181, 172));
-        jPanel1.add(txt_idConductor, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 170, 200, 40));
-
         jSeparator3.setBackground(new java.awt.Color(73, 181, 172));
         jSeparator3.setForeground(new java.awt.Color(73, 181, 172));
-        jPanel1.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 320, 200, 10));
+        jPanel1.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 280, 200, 10));
 
         txt_precio.setEditable(false);
         txt_precio.setBackground(new java.awt.Color(33, 45, 62));
@@ -212,7 +197,7 @@ public class ModuloViajes extends javax.swing.JFrame {
         txt_precio.setForeground(new java.awt.Color(73, 181, 172));
         txt_precio.setBorder(null);
         txt_precio.setCaretColor(new java.awt.Color(73, 181, 172));
-        jPanel1.add(txt_precio, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 280, 200, 40));
+        jPanel1.add(txt_precio, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 240, 200, 40));
 
         buscarConductor.setBackground(new java.awt.Color(51, 153, 255));
         buscarConductor.setFont(new java.awt.Font("Segoe UI Symbol", 0, 18)); // NOI18N
@@ -234,16 +219,6 @@ public class ModuloViajes extends javax.swing.JFrame {
         });
         jPanel1.add(verLugares, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 370, 220, -1));
 
-        btn_infoPago.setBackground(new java.awt.Color(51, 153, 255));
-        btn_infoPago.setFont(new java.awt.Font("Segoe UI Symbol", 0, 18)); // NOI18N
-        btn_infoPago.setText("Ver info. de pago");
-        btn_infoPago.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_infoPagoActionPerformed(evt);
-            }
-        });
-        jPanel1.add(btn_infoPago, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 360, 200, -1));
-
         validar_Viaje.setBackground(new java.awt.Color(51, 153, 255));
         validar_Viaje.setFont(new java.awt.Font("Segoe UI Symbol", 0, 18)); // NOI18N
         validar_Viaje.setText("Validar mi viaje");
@@ -252,7 +227,7 @@ public class ModuloViajes extends javax.swing.JFrame {
                 validar_ViajeActionPerformed(evt);
             }
         });
-        jPanel1.add(validar_Viaje, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 420, 200, -1));
+        jPanel1.add(validar_Viaje, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 330, 200, -1));
 
         jLabel7.setFont(new java.awt.Font("Gotham Thin", 0, 18)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
@@ -330,9 +305,11 @@ public class ModuloViajes extends javax.swing.JFrame {
 
             NodoGrafo inicio = grafo.buscarNodo(LugarInicio.getSelectedItem().toString());
             NodoGrafo destino = grafo.buscarNodo(LugarFinal.getSelectedItem().toString());
-
-            d.hallarRutaMenor(grafo, inicio, destino);
-
+            try {
+                d.RutaMenor(grafo, inicio, destino);
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Generando ruta...");
+            }
             txt_precio.setText(String.valueOf(d.precioViaje));
 
         } else {
@@ -371,14 +348,6 @@ public class ModuloViajes extends javax.swing.JFrame {
 
     }//GEN-LAST:event_verLugaresActionPerformed
 
-    private void btn_infoPagoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_infoPagoActionPerformed
-        // TODO add your handling code here:
-
-        //InterfazPago pago = new InterfazPago();
-        //pago.setVisible(true);
-
-    }//GEN-LAST:event_btn_infoPagoActionPerformed
-
     private void validar_ViajeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_validar_ViajeActionPerformed
         // TODO add your handling code here:
         Date myDate = new Date();
@@ -389,10 +358,8 @@ public class ModuloViajes extends javax.swing.JFrame {
         String lugar_inicio = LugarInicio.getSelectedItem().toString();
         String lugar_final = LugarFinal.getSelectedItem().toString();
         // Guardar el viaje en el ArbolB 
-        //Viaje viaje;
-        // agregar a arbolB
-        arbol_viajes.AgregarViaje(new Viaje(0, lugar_inicio, lugar_final , fecha));
-        
+        arbol_viajes.AgregarViaje(new Viaje(arbol_viajes.getId_viaje(), lugar_inicio, lugar_final, fecha));
+
         // Abrir la interfaz de pago para luego cerrar el modulo de viajes 
         InterfazPago pago = new InterfazPago(user, conductor, Double.parseDouble(txt_precio.getText()), arbol_viajes, arbol_facturas);
         pago.setVisible(true);
@@ -476,7 +443,6 @@ public class ModuloViajes extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> LugarFinal;
     private javax.swing.JComboBox<String> LugarInicio;
-    private javax.swing.JButton btn_infoPago;
     private javax.swing.JButton buscarConductor;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -485,9 +451,7 @@ public class ModuloViajes extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
-    private javax.swing.JTextField txt_idConductor;
     private javax.swing.JTextField txt_nombreConductor;
     private javax.swing.JTextField txt_precio;
     private javax.swing.JButton validar_Viaje;

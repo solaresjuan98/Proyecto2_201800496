@@ -18,7 +18,10 @@ import javax.swing.JOptionPane;
 public class ModuloReportes extends javax.swing.JFrame {
 
     TablaHash hash;
-    public ArbolB_Usuarios arbol;
+    ArbolB_Usuarios arbol;
+    ArbolB_Facturas arbol_facturas;
+    ArbolB_Viajes arbol_viajes;
+
     /**
      * Creates new form ModuloReportes
      *
@@ -27,15 +30,17 @@ public class ModuloReportes extends javax.swing.JFrame {
      * @param a_facturas
      * @param a_viajes
      */
-    public ModuloReportes(ArbolB_Usuarios a,TablaHash h, ArbolB_Facturas a_facturas, ArbolB_Viajes a_viajes) {
+    public ModuloReportes(ArbolB_Usuarios a, TablaHash h, ArbolB_Facturas a_facturas, ArbolB_Viajes a_viajes) {
         initComponents();
         setResizable(false);
         setTitle("Modulo de reportes");
         setLocationRelativeTo(null);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        
+
         arbol = a;
         hash = h;
+        arbol_facturas = a_facturas;
+        arbol_viajes = a_viajes;
     }
 
     /**
@@ -142,19 +147,22 @@ public class ModuloReportes extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_reporteConductoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_reporteConductoresActionPerformed
-        
+
 
     }//GEN-LAST:event_btn_reporteConductoresActionPerformed
 
     private void btn_ReporteUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ReporteUsuariosActionPerformed
-        
+
         // graficando el arbolB de usuarios
         arbol.GraficarArbolUsuarios();
-        JOptionPane.showMessageDialog(null, "Arbol de usuarios graficado con exito");
+        arbol.mostrarArbolB();
+        JOptionPane.showMessageDialog(null, "Reporte de usuarios graficado con exito");
     }//GEN-LAST:event_btn_ReporteUsuariosActionPerformed
 
     private void btn_reporteViajesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_reporteViajesActionPerformed
         // Graficar los viajes
+        arbol_viajes.GraficarArbolViajes();
+        JOptionPane.showMessageDialog(null, "Reporte de usuarios graficado con exito");
     }//GEN-LAST:event_btn_reporteViajesActionPerformed
 
     private void btn_reporteHashActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_reporteHashActionPerformed
@@ -167,6 +175,8 @@ public class ModuloReportes extends javax.swing.JFrame {
 
     private void btn_reporteTransaccionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_reporteTransaccionesActionPerformed
         // Graficar las facturas
+        arbol_facturas.GraficarArbolFacturas();
+        JOptionPane.showMessageDialog(null, "Reporte de transacciones graficada con exito");
     }//GEN-LAST:event_btn_reporteTransaccionesActionPerformed
 
     private void btn_regresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_regresarActionPerformed

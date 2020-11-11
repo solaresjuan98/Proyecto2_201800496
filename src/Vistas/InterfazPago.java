@@ -56,6 +56,7 @@ public class InterfazPago extends javax.swing.JFrame {
         txt_fecha.setEditable(false);
         txt_precio.setEditable(false);
         
+        
         txt_usuario.setText(u.getNombre_completo());
         txt_conductor.setText(c.getNombre_completo());
         txt_precio.setText(String.valueOf(precio));
@@ -64,7 +65,7 @@ public class InterfazPago extends javax.swing.JFrame {
         Date myDate = new Date();
         txt_fecha.setText(new SimpleDateFormat("dd-MM-yyyy").format(myDate));
         fecha_ = txt_fecha.getText();
-
+        precio_ = Double.parseDouble(txt_precio.getText());
     }
 
     /**
@@ -215,7 +216,8 @@ public class InterfazPago extends javax.swing.JFrame {
     private void btn_pagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_pagarActionPerformed
         
         //Insertar la factura
-        arbol_facturas.agregarFactura(new Factura(id_pago, id_usuario, id_conductor, id_viaje, fecha_, (int) precio_));
+        
+        arbol_facturas.agregarFactura(new Factura(arbol_facturas.getId_viaje(), id_usuario, id_conductor, id_viaje, fecha_, (int) precio_));
         JOptionPane.showMessageDialog(null, "Factura pagada.");
         
     }//GEN-LAST:event_btn_pagarActionPerformed

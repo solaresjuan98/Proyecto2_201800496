@@ -27,79 +27,86 @@ public class Dijkstra {
 
     }
 
-    // esto me va a retornar la lista 
-    public Grafo hallarRutaMenor(Grafo grafo, NodoGrafo inicio, NodoGrafo destino) {
+//    // esto me va a retornar la lista 
+//    public Grafo hallarRutaMenor(Grafo grafo, NodoGrafo inicio, NodoGrafo destino) {
+//
+//        //System.out.println(" Lugar de inicio: " + inicio.getLugar());
+//        NodoGrafo actual = hallarNodoMasCercano(inicio.getAristas());
+//        NodoGrafo anterior;
+//        // se agrega el nodo de inicio a la lista de nodos visitados
+//        nodosVisistados.add(inicio);
+//        // sumo el precio del nodo
+//        precioViaje += actual.getPrecio();
+//
+//        while (actual != destino) {
+//            //System.out.println(" Estoy en -> " + actual.getLugar());
+//            nodosVisistados.add(actual);
+//            anterior = actual;
+//            actual = hallarNodoMasCercano(actual.getAristas());
+//            if (yaFueVisitado(actual)) {
+//                // borrar este nodo y buscar de nuevo 
+//
+//                AristaGrafo nodoaBorrar = anterior.existeArista(anterior.getLugar(), actual.getLugar());
+//                anterior.eliminarArista(nodoaBorrar);
+//
+//                actual = hallarNodoMasCercano(anterior.getAristas());
+//
+//                if (yaFueVisitado(actual)) {
+//                    AristaGrafo borrar2 = anterior.existeArista(anterior.getLugar(), actual.getLugar());
+//                    anterior.eliminarArista(borrar2);
+//                    actual = hallarNodoMasCercano(anterior.getAristas());
+//                    precioViaje += actual.getPrecio();
+//
+//                }
+//
+//            } else {
+//                // seguir el camino normal
+//                try {
+//                    AristaGrafo nodoaBorrar = actual.existeArista(actual.getLugar(), anterior.getLugar());
+//                    actual.eliminarArista(nodoaBorrar);
+//                    precioViaje += actual.getPrecio();
+//
+//                } catch (Exception e) {
+//                    System.out.println("");
+//                }
+//            }
+//
+//            //System.out.print("" + actual.getLugar() + " -> ");
+//        }
+//
+//        precioViaje += actual.getPrecio();
+//        nodosVisistados.add(actual);
+//
+//        System.out.println("Precio a pagar: " + this.precioViaje);
+//        System.out.println("\n" + nodosVisistados);
+//        return grafo;
+//    }
 
-        System.out.println(" Lugar de inicio: " + inicio.getLugar());
+    public Grafo RutaMenor(Grafo grafo, NodoGrafo inicio, NodoGrafo destino) {
 
-        NodoGrafo actual = hallarNodoMasCercano(inicio.getAristas());
-        NodoGrafo anterior;
-        // se agrega el nodo de inicio a la lista de nodos visitados
+        NodoGrafo actual = NodoMasCercano(inicio.getAristas());
+        System.out.println("Actual -> " + actual.getLugar());
         nodosVisistados.add(inicio);
-        // sumo el precio del nodo
         precioViaje += actual.getPrecio();
-
         while (actual != destino) {
-            System.out.println(" Estoy en -> " + actual.getLugar());
+            
             nodosVisistados.add(actual);
-            anterior = actual;
-            actual = hallarNodoMasCercano(actual.getAristas());
-            if (yaFueVisitado(actual)) {
-                // borrar este nodo y buscar de nuevo 
-
-                AristaGrafo nodoaBorrar = anterior.existeArista(anterior.getLugar(), actual.getLugar());
-                anterior.eliminarArista(nodoaBorrar);
-
-                actual = hallarNodoMasCercano(anterior.getAristas());
-
-                if (yaFueVisitado(actual)) {
-                    AristaGrafo borrar2 = anterior.existeArista(anterior.getLugar(), actual.getLugar());
-                    anterior.eliminarArista(borrar2);
-                    actual = hallarNodoMasCercano(anterior.getAristas());
-                    precioViaje += actual.getPrecio();
-
-                }
-
-            } else {
-                // seguir el camino normal
-                AristaGrafo nodoaBorrar = actual.existeArista(actual.getLugar(), anterior.getLugar());
-                actual.eliminarArista(nodoaBorrar);
-                precioViaje += actual.getPrecio();
-            }
-
-            //System.out.print("" + actual.getLugar() + " -> ");
+            actual = NodoMasCercano(actual.getAristas());
+            precioViaje += actual.getPrecio();
         }
 
-        precioViaje += actual.getPrecio();
         nodosVisistados.add(actual);
-
-        System.out.println("Precio a pagar: " + this.precioViaje);
-        System.out.println("\n" + nodosVisistados);
+        System.out.println("Total "+precioViaje);
+        System.out.println(nodosVisistados);
         return grafo;
     }
 
-    // Returna un objeto tipo nodo (nodo mas cercano)
-    private NodoGrafo hallarNodoMasCercano(List<AristaGrafo> listaAdy) {
 
-        NodoGrafo nodomenor = null;
-
-        int distanciamenor = Integer.MAX_VALUE;
-
-        for (AristaGrafo a : listaAdy) {
-
-            int distancia = (int) a.getDistancia();
-
-            if (distancia < distanciamenor) {
-                distanciamenor = distancia;
-                nodomenor = a.getDestino();
-            }
-
-        }
-
-        return nodomenor;
-    }
+//    // Returna un objeto tipo nodo (nodo mas cercano)
+//    private NodoGrafo hallarNodoMasCercano(List<AristaGrafo> listaAdy) {
 //
-//    private int menorDistancia(List<AristaGrafo> listaAdy) {
+//        NodoGrafo nodomenor = null;
+//
 //        int distanciamenor = Integer.MAX_VALUE;
 //
 //        for (AristaGrafo a : listaAdy) {
@@ -108,13 +115,37 @@ public class Dijkstra {
 //
 //            if (distancia < distanciamenor) {
 //                distanciamenor = distancia;
-//                //nodomenor = a.getDestino();
+//                nodomenor = a.getDestino();
 //            }
 //
 //        }
 //
-//        return distanciamenor;
+//        return nodomenor;
 //    }
+
+    private NodoGrafo NodoMasCercano(List<AristaGrafo> listaAdy) {
+
+        NodoGrafo nodoMenor = null;
+
+        int distanciamenor = Integer.MAX_VALUE;
+
+        for (AristaGrafo a : listaAdy) {
+            if (!yaFueVisitado(a.getDestino())) {
+                
+                int distancia = (int) a.getDistancia();
+
+                if (distancia < distanciamenor) {
+                    distanciamenor = distancia;
+                    nodoMenor = a.getDestino();
+                }
+
+            }
+
+        }
+
+        return nodoMenor;
+
+    }
 
     private boolean yaFueVisitado(NodoGrafo nodo) {
 
@@ -124,6 +155,7 @@ public class Dijkstra {
 
             if (visitado == nodo) {
                 existe = true;
+                System.out.println("existe");
                 return existe;
             }
         }

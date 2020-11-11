@@ -8,6 +8,7 @@ package Vistas;
 import Clases.Factura;
 import Clases.Usuario;
 import Estructuras.ArbolB_Facturas;
+import Estructuras.ArbolB_Usuarios;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -17,40 +18,45 @@ import javax.swing.table.DefaultTableModel;
 public class ViajesGuardados extends javax.swing.JFrame {
 
     DefaultTableModel modeloViajesRealizados;
+
     /**
      * Creates new form ViajesGuardados
      *
      * @param u
+     * @param a_usuarios
      * @param a_facturas
      */
-    public ViajesGuardados(Usuario u, ArbolB_Facturas a_facturas) {
+    public ViajesGuardados(Usuario u, ArbolB_Usuarios a_usuarios, ArbolB_Facturas a_facturas) {
         initComponents();
         setTitle("Viajes almacenados");
         setResizable(false);
         setLocationRelativeTo(null);
-        
+
         // agregar los datos dependiendo si existen en la lista de transacciones
-        
         modeloViajesRealizados = (DefaultTableModel) jTable1.getModel();
         modeloViajesRealizados.addColumn("Id. Viaje");
         modeloViajesRealizados.addColumn("Id. Usuario");
         modeloViajesRealizados.addColumn("Fecha");
         modeloViajesRealizados.addColumn("Monto");
-        
-        
+
+        for(Factura factura : a_facturas.getLista_facturas()) {
+            
+            if(factura.getId_usuario() == u.getId()){
+                Object[] tupla = {factura.getId_viaje(), factura.getId_usuario(), factura.getFecha(), factura.getMonto()};
+                modeloViajesRealizados.addRow(tupla);
+                
+            }
+        }
+
         // Rellenar la tabla de acuerdo al rol de usuario que se tiene
         // es usuario:
-        if(u.getRol().equals("usuario")){
-            
-            
+        if (u.getRol().equals("usuario")) {
+
             // aqui me quedé 
-        }else{ // es conductor: 
-            
+        } else { // es conductor: 
+
         }
-        
-        
-        
-        
+
     }
 
     /**

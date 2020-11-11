@@ -96,7 +96,7 @@ public class NodoGrafo {
         }
 
         if (aristaEncontrado == null) {
-            System.out.println("No hay arista entre esos lugares");
+            System.out.println("No hay arista entre esos lugares entre " +lugarInicio +" y "+lugarFinal);
         }
 
         return aristaEncontrado;

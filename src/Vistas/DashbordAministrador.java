@@ -71,8 +71,7 @@ public class DashbordAministrador extends javax.swing.JFrame {
             System.out.println("arbol B nulo");
 
         } else {
-            
-            arbolb_usuarios.mostrarUsuarios();
+
             arbol = arbolb_usuarios;
             grafo = g;
             hash = h;
@@ -495,8 +494,8 @@ public class DashbordAministrador extends javax.swing.JFrame {
 
                 }
 
-                Dijkstra d = new Dijkstra();
-                d.hallarRutaMenor(grafo, grafo.buscarNodo("T-3"), grafo.buscarNodo("Pollo pinulito"));
+                //Dijkstra d = new Dijkstra();
+                //d.hallarRutaMenor(grafo, grafo.buscarNodo("T-3"), grafo.buscarNodo("Pollo pinulito"));
 
             } catch (FileNotFoundException ex) {
                 Logger.getLogger(DashbordAministrador.class.getName()).log(Level.SEVERE, null, ex);

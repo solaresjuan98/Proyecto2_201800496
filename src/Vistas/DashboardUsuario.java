@@ -277,6 +277,8 @@ public class DashboardUsuario extends javax.swing.JFrame {
 
     private void btn_revisarViajesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_revisarViajesActionPerformed
         // TODO add your handling code here:
+        ViajesGuardados guardados = new ViajesGuardados(user, arbol, arbol_facturas);
+        guardados.setVisible(true);
     }//GEN-LAST:event_btn_revisarViajesActionPerformed
 
     private void btn_viajesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_viajesActionPerformed
