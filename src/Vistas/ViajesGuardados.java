@@ -30,6 +30,7 @@ public class ViajesGuardados extends javax.swing.JFrame {
         initComponents();
         setTitle("Viajes almacenados");
         setResizable(false);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
 
         // agregar los datos dependiendo si existen en la lista de transacciones
@@ -39,12 +40,12 @@ public class ViajesGuardados extends javax.swing.JFrame {
         modeloViajesRealizados.addColumn("Fecha");
         modeloViajesRealizados.addColumn("Monto");
 
-        for(Factura factura : a_facturas.getLista_facturas()) {
-            
-            if(factura.getId_usuario() == u.getId()){
+        for (Factura factura : a_facturas.getLista_facturas()) {
+
+            if (factura.getId_usuario() == u.getId()) {
                 Object[] tupla = {factura.getId_viaje(), factura.getId_usuario(), factura.getFecha(), factura.getMonto()};
                 modeloViajesRealizados.addRow(tupla);
-                
+
             }
         }
 

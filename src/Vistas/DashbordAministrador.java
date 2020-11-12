@@ -286,7 +286,7 @@ public class DashbordAministrador extends javax.swing.JFrame {
 
                 }
 
-                hash.mostrarTabla();
+                //hash.mostrarTabla();
 
             } catch (FileNotFoundException ex) {
                 Logger.getLogger(DashbordAministrador.class.getName()).log(Level.SEVERE, null, ex);
@@ -335,13 +335,13 @@ public class DashbordAministrador extends javax.swing.JFrame {
                     String tel = (String) user.get("telefono");
                     rol = (String) user.get("rol");
 
-                    System.out.println(getSHA256(password));
-                    arbol.agregarUsuario(new Usuario((int) id, nombre, usuario, correo, password, Integer.parseInt(tel), rol));
+                    //System.out.println(getSHA256(password));
+                    arbol.agregarUsuario(new Usuario((int) id, nombre, usuario, correo, password,tel, rol));
 
                 }
 
-                arbol.mostrarArbolB();
-                arbol.mostrarUsuarios();
+                //arbol.mostrarArbolB();
+                //arbol.mostrarUsuarios();
 
             } catch (FileNotFoundException ex) {
                 Logger.getLogger(DashbordAministrador.class.getName()).log(Level.SEVERE, null, ex);

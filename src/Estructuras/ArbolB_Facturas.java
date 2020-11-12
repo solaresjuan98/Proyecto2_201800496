@@ -24,7 +24,7 @@ public class ArbolB_Facturas extends ArbolB {
     public ArbolB_Facturas(int t) {
         super(t);
         lista_facturas = new ArrayList<>();
-        id_viaje = lista_facturas.size();
+        id_viaje = lista_facturas.size() + 1;
     }
 
     public void agregarFactura(Factura f) {
@@ -72,7 +72,7 @@ public class ArbolB_Facturas extends ArbolB {
 
         cadena.append("digraph G {\n");
         cadena.append("node[shape=record];\n");
-        cadena.append("node[shape=record color=blue style=filled, fillcolor=\"green\", gradientangle=90];\n");
+        cadena.append("node[shape=record color=blue style=filled, fillcolor=\"azure2\", gradientangle=90];\n");
 
         cadena.append(raiz.GraficarNodoTransaccion(lista_facturas));
 
@@ -127,7 +127,4 @@ public class ArbolB_Facturas extends ArbolB {
         this.lista_facturas = lista_facturas;
     }
 
-    
-    
-    
 }

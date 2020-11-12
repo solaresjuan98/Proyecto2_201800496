@@ -21,7 +21,7 @@ public class ArbolB_Viajes extends ArbolB {
     ArrayList<Viaje> listaViajes = new ArrayList<>();
     ;
 
-    int id_viaje;// = listaViajes.size();
+    int id_viaje;
 
     public ArbolB_Viajes(int t) {
         super(t);
@@ -75,7 +75,7 @@ public class ArbolB_Viajes extends ArbolB {
 
         cadena.append("digraph G {\n");
         cadena.append("node[shape=record];\n");
-        cadena.append("node[shape=record color=blue style=filled, fillcolor=\"green\", gradientangle=90];\n");
+        cadena.append("node[shape=record color=blue style=filled, fillcolor=\"cadetblue3\", gradientangle=90];\n");
 
         cadena.append(raiz.GraficarNodoViaje(listaViajes));
 

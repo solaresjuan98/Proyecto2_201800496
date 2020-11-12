@@ -11,15 +11,17 @@ package Clases;
  */
 public class Factura {
 
-    int id_pago, id_usuario, id_conductor, id_viaje, monto;
+    int id_pago, id_usuario, id_conductor, id_viaje;
+    double monto;
     String fecha;
 
-    public Factura(int id_pago, int id_usuario, int id_conductor, int id_viaje, String fecha, int monto) {
+    public Factura(int id_pago, int id_usuario, int id_conductor, int id_viaje, String fecha, double monto) {
         this.id_pago = id_pago;
         this.id_usuario = id_usuario;
         this.id_conductor = id_conductor;
         this.id_viaje = id_viaje;
         this.fecha = fecha;
+        this.monto = monto;
     }
 
     public int getId_pago() {
@@ -54,11 +56,11 @@ public class Factura {
         this.id_viaje = id_viaje;
     }
 
-    public int getMonto() {
+    public double getMonto() {
         return monto;
     }
 
-    public void setMonto(int monto) {
+    public void setMonto(double monto) {
         this.monto = monto;
     }
 

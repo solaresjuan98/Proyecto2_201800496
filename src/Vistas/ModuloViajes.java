@@ -298,9 +298,7 @@ public class ModuloViajes extends javax.swing.JFrame {
         // validar si mi "listaaux" esta vacia
         if (listaaux != null) {
 
-            //obtenerConductorMasCercano(listaaux);
             conductor = obtenerConductorMasCercano(listaaux);
-            //System.out.println(" >> Conductor más cercano es: " + conductor.getNombre_completo());
             txt_nombreConductor.setText(conductor.getNombre_completo());
 
             NodoGrafo inicio = grafo.buscarNodo(LugarInicio.getSelectedItem().toString());
@@ -308,7 +306,7 @@ public class ModuloViajes extends javax.swing.JFrame {
             try {
                 d.RutaMenor(grafo, inicio, destino);
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "Generando ruta...");
+                JOptionPane.showMessageDialog(null, "No se puede acceder a la ruta");
             }
             txt_precio.setText(String.valueOf(d.precioViaje));
 
@@ -321,11 +319,10 @@ public class ModuloViajes extends javax.swing.JFrame {
 
     private void verLugaresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_verLugaresActionPerformed
         // TODO add your handling code here:
+        Dijkstra d = new Dijkstra();
+
         String inicio = (String) LugarInicio.getSelectedItem();
         String fin = (String) LugarFinal.getSelectedItem();
-
-        System.out.println("inicio >> " + inicio);
-        System.out.println("fin >> " + fin);
 
         Lugar inicio_ = hash.buscarLugar(inicio);
         Lugar final_ = hash.buscarLugar(fin);
@@ -339,17 +336,41 @@ public class ModuloViajes extends javax.swing.JFrame {
 
         mapa.agregarMarcadorInfo(new LatLng(user.getLatitud(), user.getLongitud()), "Mi ubicación actual");
 
-        LatLng c1 = new LatLng(inicio_.getLatitud(), inicio_.getLongitud());
-        LatLng c2 = new LatLng(final_.getLatitud(), final_.getLongitud());
+        NodoGrafo lugar_inicio = grafo.buscarNodo(LugarInicio.getSelectedItem().toString());
+        NodoGrafo lugar_destino = grafo.buscarNodo(LugarFinal.getSelectedItem().toString());
+
+        try {
+            // Mostrando la ruta completa
+            d.RutaMenor(grafo, lugar_inicio, lugar_destino);
+            LatLng[] camino = new LatLng[d.nodosVisistados.size()];
+
+            for (int i = 0; i < d.nodosVisistados.size(); i++) {
+
+                Lugar aux = hash.buscarLugar(d.nodosVisistados.get(i).getLugar());
+                camino[i] = new LatLng(aux.getLatitud(), aux.getLongitud());
+
+            }
+
+            mapa.agregarGrafo(camino, true);
+
+        } catch (Exception e) {
+            // Por si ocurre algun error, solo mostrar 
+            LatLng c1 = new LatLng(inicio_.getLatitud(), inicio_.getLongitud());
+            LatLng c2 = new LatLng(final_.getLatitud(), final_.getLongitud());
+            LatLng[] camino = {c1, c2};
+            mapa.agregarGrafo(camino, true);
+        }
+
+        /*
         //LatLng c3 = new LatLng(14.541550, -90.584514);
 
-        LatLng[] camino = {c1, c2};
-        mapa.agregarGrafo(camino, true);
+        LatLng[] camino = {c1, c2};*/
+        //mapa.agregarGrafo(camino, true);
 
     }//GEN-LAST:event_verLugaresActionPerformed
 
     private void validar_ViajeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_validar_ViajeActionPerformed
-        // TODO add your handling code here:
+
         Date myDate = new Date();
 
         String fecha;
@@ -362,10 +383,20 @@ public class ModuloViajes extends javax.swing.JFrame {
 
         // Abrir la interfaz de pago para luego cerrar el modulo de viajes 
         InterfazPago pago = new InterfazPago(user, conductor, Double.parseDouble(txt_precio.getText()), arbol_viajes, arbol_facturas);
+
+        // setear la disponibilidad del conductor a false
+        conductor.setDisponibilidad(false);
+        
+        // setear la nueva ubicación del usuario
+        user.setLatitud(hash.buscarLugar(lugar_final).getLatitud());
+        user.setLongitud(hash.buscarLugar(lugar_final).getLongitud());
+        
         pago.setVisible(true);
+        dispose();
 
     }//GEN-LAST:event_validar_ViajeActionPerformed
-
+    
+    // medir la distancia entre latitudes y longitudes
     public static float obtenerDistancia(float lat1, float lat2, float lng1, float lng2) {
 
         float radioTierra = 6371;//en kilómetros  

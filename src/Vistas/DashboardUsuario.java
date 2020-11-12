@@ -291,7 +291,6 @@ public class DashboardUsuario extends javax.swing.JFrame {
 
         Lugares lugares = new Lugares(hash);
         lugares.setVisible(true);
-        //dispose();
 
     }//GEN-LAST:event_btn_lugaresSujeridosActionPerformed
 
@@ -300,7 +299,6 @@ public class DashboardUsuario extends javax.swing.JFrame {
 
         DatosUsuario d = new DatosUsuario(user, arbol);
         d.setVisible(true);
-        //dispose();
     }//GEN-LAST:event_btn_modificauserActionPerformed
 
     private void btn_logoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_logoutActionPerformed

@@ -23,9 +23,9 @@ public class EDD_Proyecto2_201800496 {
 
         //ME SERVIRÁ PARA HACER GRAFICA DEL ARBOL 
         //ArbolB arbol = new ArbolB(3);// no tocar
-        
-        
-        /****** INSTANCIAS DE ESTUCTURAS **********/
+        /**
+         * **** INSTANCIAS DE ESTUCTURAS *********
+         */
         ArbolB_Viajes arbol_viajes = new ArbolB_Viajes(3);
         ArbolB_Usuarios arbol_usuarios = new ArbolB_Usuarios(3);
         ArbolB_Facturas arbol_facturas = new ArbolB_Facturas(3);
@@ -34,7 +34,7 @@ public class EDD_Proyecto2_201800496 {
 
         IniciarSesion login = new IniciarSesion(arbol_usuarios, hash, grafo, arbol_viajes, arbol_facturas);
         login.setVisible(true);
-        
+
     }
 
 }

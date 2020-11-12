@@ -332,7 +332,7 @@ public class DatosUsuario extends javax.swing.JFrame {
             String username = txt_username.getText();
             String correo = txt_correo.getText();
             String pass = txt_pass.getText();
-            int tel = Integer.parseInt(txt_telefono.getText());
+            String tel = txt_telefono.getText();
             
             Usuario usr_mod = new Usuario(id,nombre,username,correo, pass,tel, "usuario");
             

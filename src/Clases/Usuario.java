@@ -12,12 +12,11 @@ package Clases;
 public class Usuario {
 
     int id;
-    String nombre_completo, username, contrasenia, correo, rol;
-    int telefono;
+    String nombre_completo, username, contrasenia, correo, rol, telefono;
     float latitud, longitud;
     boolean disponibilidad;
 
-    public Usuario(int id, String nombre_completo, String username, String correo, String contrasenia, int telefono, String rol) {
+    public Usuario(int id, String nombre_completo, String username, String correo, String contrasenia, String telefono, String rol) {
         this.id = id;
         this.nombre_completo = nombre_completo;
         this.username = username;
@@ -70,11 +69,11 @@ public class Usuario {
         this.correo = correo;
     }
 
-    public long getTelefono() {
+    public String getTelefono() {
         return telefono;
     }
 
-    public void setTelefono(int telefono) {
+    public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
 

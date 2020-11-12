@@ -91,7 +91,6 @@ public class InterfazPago extends javax.swing.JFrame {
         jSeparator4 = new javax.swing.JSeparator();
         txt_precio = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        btn_vermapa = new javax.swing.JButton();
         btn_pagar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -173,16 +172,6 @@ public class InterfazPago extends javax.swing.JFrame {
         jLabel7.setText("PRECIO");
         jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 400, -1, -1));
 
-        btn_vermapa.setBackground(new java.awt.Color(51, 153, 255));
-        btn_vermapa.setFont(new java.awt.Font("Segoe UI Symbol", 0, 18)); // NOI18N
-        btn_vermapa.setText("Ver mapa");
-        btn_vermapa.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_vermapaActionPerformed(evt);
-            }
-        });
-        jPanel1.add(btn_vermapa, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 520, 120, -1));
-
         btn_pagar.setBackground(new java.awt.Color(51, 153, 255));
         btn_pagar.setFont(new java.awt.Font("Segoe UI Symbol", 0, 18)); // NOI18N
         btn_pagar.setText("Realizar pago");
@@ -191,7 +180,7 @@ public class InterfazPago extends javax.swing.JFrame {
                 btn_pagarActionPerformed(evt);
             }
         });
-        jPanel1.add(btn_pagar, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 520, -1, -1));
+        jPanel1.add(btn_pagar, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 520, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -209,17 +198,12 @@ public class InterfazPago extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btn_vermapaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_vermapaActionPerformed
-
-    }//GEN-LAST:event_btn_vermapaActionPerformed
-
     private void btn_pagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_pagarActionPerformed
         
         //Insertar la factura
-        
-        arbol_facturas.agregarFactura(new Factura(arbol_facturas.getId_viaje(), id_usuario, id_conductor, id_viaje, fecha_, (int) precio_));
+        arbol_facturas.agregarFactura(new Factura(arbol_facturas.getId_viaje(), id_usuario, id_conductor, id_viaje, fecha_,  precio_));
         JOptionPane.showMessageDialog(null, "Factura pagada.");
-        
+        dispose();
     }//GEN-LAST:event_btn_pagarActionPerformed
 
 //    /**
@@ -259,7 +243,6 @@ public class InterfazPago extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_pagar;
-    private javax.swing.JButton btn_vermapa;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;

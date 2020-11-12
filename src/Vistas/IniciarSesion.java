@@ -160,7 +160,7 @@ public class IniciarSesion extends javax.swing.JFrame {
         });
         jPanel2.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 0, 30, 30));
 
-        rol.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "usuario", "conductor", "administrador" }));
+        rol.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "normal", "conductor", "administrador" }));
         rol.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rolActionPerformed(evt);
@@ -225,9 +225,8 @@ public class IniciarSesion extends javax.swing.JFrame {
                 dashboard.setVisible(true);
                 dispose();
             } else if (usuario.equals(user.getUsername()) && contrasenia.equals(user.getContrasenia()) && rol_seleccionado.equals(user.getRol())) {
-                //System.out.println(" >> login como " +user.getRol());
 
-                if (user.getRol().equals("usuario")) {
+                if (user.getRol().equals("normal")) {
                     // abrir el form de usuarios
                     DashboardUsuario dash = new DashboardUsuario(user, hash, arbol, grafo, arbol_viajes, arbol_facturas);
                     dash.setVisible(true);

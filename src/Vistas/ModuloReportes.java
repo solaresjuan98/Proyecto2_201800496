@@ -54,7 +54,6 @@ public class ModuloReportes extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
-        btn_reporteConductores = new javax.swing.JButton();
         btn_ReporteUsuarios = new javax.swing.JButton();
         btn_reporteViajes = new javax.swing.JButton();
         btn_reporteHash = new javax.swing.JButton();
@@ -71,16 +70,6 @@ public class ModuloReportes extends javax.swing.JFrame {
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Reportes");
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 20, 270, 53));
-
-        btn_reporteConductores.setBackground(new java.awt.Color(51, 153, 255));
-        btn_reporteConductores.setFont(new java.awt.Font("Segoe UI Symbol", 0, 18)); // NOI18N
-        btn_reporteConductores.setText("Reporte conductores");
-        btn_reporteConductores.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_reporteConductoresActionPerformed(evt);
-            }
-        });
-        jPanel1.add(btn_reporteConductores, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 160, 210, -1));
 
         btn_ReporteUsuarios.setBackground(new java.awt.Color(51, 153, 255));
         btn_ReporteUsuarios.setFont(new java.awt.Font("Segoe UI Symbol", 0, 18)); // NOI18N
@@ -100,7 +89,7 @@ public class ModuloReportes extends javax.swing.JFrame {
                 btn_reporteViajesActionPerformed(evt);
             }
         });
-        jPanel1.add(btn_reporteViajes, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 340, 210, -1));
+        jPanel1.add(btn_reporteViajes, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 280, 210, -1));
 
         btn_reporteHash.setBackground(new java.awt.Color(51, 153, 255));
         btn_reporteHash.setFont(new java.awt.Font("Segoe UI Symbol", 0, 18)); // NOI18N
@@ -110,7 +99,7 @@ public class ModuloReportes extends javax.swing.JFrame {
                 btn_reporteHashActionPerformed(evt);
             }
         });
-        jPanel1.add(btn_reporteHash, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 220, 210, -1));
+        jPanel1.add(btn_reporteHash, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 160, 210, -1));
 
         btn_reporteTransacciones.setBackground(new java.awt.Color(51, 153, 255));
         btn_reporteTransacciones.setFont(new java.awt.Font("Segoe UI Symbol", 0, 18)); // NOI18N
@@ -120,7 +109,7 @@ public class ModuloReportes extends javax.swing.JFrame {
                 btn_reporteTransaccionesActionPerformed(evt);
             }
         });
-        jPanel1.add(btn_reporteTransacciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 280, 210, -1));
+        jPanel1.add(btn_reporteTransacciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 220, 210, -1));
 
         btn_regresar.setBackground(new java.awt.Color(255, 51, 51));
         btn_regresar.setFont(new java.awt.Font("Segoe UI Symbol", 0, 18)); // NOI18N
@@ -130,7 +119,7 @@ public class ModuloReportes extends javax.swing.JFrame {
                 btn_regresarActionPerformed(evt);
             }
         });
-        jPanel1.add(btn_regresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(92, 400, 210, -1));
+        jPanel1.add(btn_regresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 340, 210, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -146,16 +135,10 @@ public class ModuloReportes extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btn_reporteConductoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_reporteConductoresActionPerformed
-
-
-    }//GEN-LAST:event_btn_reporteConductoresActionPerformed
-
     private void btn_ReporteUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ReporteUsuariosActionPerformed
 
         // graficando el arbolB de usuarios
         arbol.GraficarArbolUsuarios();
-        arbol.mostrarArbolB();
         JOptionPane.showMessageDialog(null, "Reporte de usuarios graficado con exito");
     }//GEN-LAST:event_btn_ReporteUsuariosActionPerformed
 
@@ -221,7 +204,6 @@ public class ModuloReportes extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_ReporteUsuarios;
     private javax.swing.JButton btn_regresar;
-    private javax.swing.JButton btn_reporteConductores;
     private javax.swing.JButton btn_reporteHash;
     private javax.swing.JButton btn_reporteTransacciones;
     private javax.swing.JButton btn_reporteViajes;

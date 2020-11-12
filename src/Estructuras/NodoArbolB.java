@@ -85,7 +85,7 @@ public class NodoArbolB {
 
                 if (u.getId() == clave[i]) {
                     System.out.println(u.getNombre_completo());
-         
+
                     cadena.append("|");
                     cadena.append(" Id usuario: ").append(clave[i]).append("\\n");
                     cadena.append(" Nombre: ").append(u.getNombre_completo()).append("\\n");
@@ -93,14 +93,12 @@ public class NodoArbolB {
                     cadena.append(" Correo: ").append(u.getCorreo()).append("\\n");
                     cadena.append(" Telefono: ").append(u.getTelefono()).append("\\n");
                     cadena.append(" Rol: ").append(u.getRol()).append("\\n");
-                    
-                    
+
                 }
 
             }
-            
+
             cadena.append("|<P").append(i + 1).append(">");
-            
 
         }
 
@@ -118,7 +116,7 @@ public class NodoArbolB {
     }
 
     // GRAFICA DATOS DE TRANSACCIÓN
-    public String GraficarNodoTransaccion(ArrayList<Factura> listaFactura){
+    public String GraficarNodoTransaccion(ArrayList<Factura> listaFactura) {
         StringBuilder cadena = new StringBuilder();
 
         cadena.append(obtenerCodigo());
@@ -128,23 +126,20 @@ public class NodoArbolB {
 
             for (Factura factura : listaFactura) {
 
-                if (factura.getId_pago()== clave[i]) {
-                 
-         
+                if (factura.getId_pago() == clave[i]) {
+
                     cadena.append("|");
                     cadena.append(" Id Factura: ").append(clave[i]).append("\\n");
                     cadena.append(" Id Usuario: ").append(factura.getId_usuario()).append("\\n");
                     cadena.append(" Id Conductor: ").append(factura.getId_conductor()).append("\\n");
                     cadena.append(" Fecha: ").append(factura.getFecha()).append("\\n");
                     cadena.append(" Monto: ").append(factura.getMonto()).append("\\n");
-                    
-                    
+
                 }
 
             }
-            
+
             cadena.append("|<P").append(i + 1).append(">");
-            
 
         }
 
@@ -160,10 +155,9 @@ public class NodoArbolB {
 
         return cadena.toString();
     }
-    
-    
+
     // GRAFICA DATOS DE VIAJE
-    public String GraficarNodoViaje(ArrayList<Viaje> listaViaje){
+    public String GraficarNodoViaje(ArrayList<Viaje> listaViaje) {
         StringBuilder cadena = new StringBuilder();
 
         cadena.append(obtenerCodigo());
@@ -173,22 +167,19 @@ public class NodoArbolB {
 
             for (Viaje viaje : listaViaje) {
 
-                if (viaje.getId_viaje()== clave[i]) {
-                 
-         
+                if (viaje.getId_viaje() == clave[i]) {
+
                     cadena.append("|");
                     cadena.append(" Id viaje: ").append(clave[i]).append("\\n");
-                    cadena.append(" Lugar inicio: ").append(viaje.getLugar_final()).append("\\n");
+                    cadena.append(" Lugar inicio: ").append(viaje.getLugar_inicio()).append("\\n");
                     cadena.append(" Lugar final: ").append(viaje.getLugar_final()).append("\\n");
                     cadena.append(" Fecha: ").append(viaje.getFecha()).append("\\n");
-                    
-                    
+
                 }
 
             }
-            
+
             cadena.append("|<P").append(i + 1).append(">");
-            
 
         }
 
@@ -204,7 +195,7 @@ public class NodoArbolB {
 
         return cadena.toString();
     }
-    
+
     public int find(int n) {
 
         return -1;
